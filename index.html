@@ -34,176 +34,205 @@
 
 <body>
   <section id="abstract">
+    <div class="issue" title="TODO: abstract"></div>
   </section>
 
-<section id="overview">
-  <h2>Overview</h2>
-  <p>PLASMA aims to provide a way to express the use-cases in terms of:</p>
-  <ul>
-    <li><em>What?</em> i.e. the data in question</li>
-    <li><em>Who?</em> i.e. who&#39;s data and who is requesting/using/providing it</li>
-    <li><em>Where?</em> i.e. where the data is coming from, where it will be stored, where is it going</li>
-    <li><em>Why?</em> i.e. for what purpose is this being done?</li>
-    <li><em>When?</em> i.e. over what temporal duration this is taking place</li>
-    <li><em>How?</em> i.e. how is this being done, by what means and technologies</li>
-  </ul>
-</section>
-
-<section id="vocab">
-  <h2>Vocabulary</h2>
-
-<section id="base">
-  <h3>Base concepts</h3>
-  <ul>
-    <li><code>App</code>: An application that stores, collects, uses, shares, erases, or performs other actions on data within a Pod. For example, a Contact Adress Book or a Chess Game.</li>
-    <li><code>Service</code>: A functionality that may or may not utilise or interact with data within a Pod. For example, Identity Verification service that checks validity of certificates, or a Query service that retrieves contacts matching the filter. A service is associated with an App or a Pod.</li>
-    <li><code>Pod</code>: A Personal Data Store or a &#39;Pod&#39; that conforms to the Solid specifications.</li>
-    <li><code>Agent</code>: An actual or virtual entity associated with carrying out actions within or related to a Pod or its data.</li>
-    <li><code>Policy</code>: A set of guidelines or decisions or recommendations governing the use of Pod or its data.</li>
-    <li><code>Entity</code>: A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services, Pods.</li>
-    <li><code>Data</code>: Data stored on a Pod or associated with <code>User</code>, <code>App</code>, <code>Service</code>, or <code>DataSubject</code> for a Pod.</li>
-  </ul>
-</section>
-
-<section id="policies">
-  <h3>Policies</h3>
-  <blockquote>
-    <p>Note that these definitions are not limited to the data on Pod - this is intentional. Otherwise the policy will only relate to what is happening on the pod, but not what happens after that. For example, to avoid cases such as to collect data for purpose X and then later decide to also perform purpose Y on it. This is to align the descriptions with legal requirements such as stating all purposes at the time of data collection, or going back and asking again for a new purpose.</p>
-  </blockquote>
-  <ul>
-    <li><code>AppRequest</code>: Request from an app to store, collect, use, share, erase, or perform other actions on data. </li>
-    <li><code>UserPreference</code>: Preference of a User regarding purposes, entities, and other actions on data. A preference is a soft rule that may not be satisfied e.g. user preferences do not match an app, but the user decides to still accept the stated purposes.</li>
-    <li><code>UserRequirement</code>: Requirements of a User regarding purposes, entities, and other on data. A requirement is a hard rule that should always be satisfied e.g. user requirement is to never share something - then even if the user accepts the stated request, this should not be allowed. One-time exceptions, or changing the rule, are solutions to get around this. But the intention is to create a barrier.</li>
-    <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code> </li>
-    <li><code>UserOffer</code>: An offer from the User of a Pod regarding purposes, entities, and actions on data. For example, the <code>User</code> expresses an <code>UserOffer</code> that some of their <code>Data</code> is available to be <code>Collect</code>ed and <code>Use</code>d for some <code>Purpose</code>.</li>
-  </ul>
-</section>
-
-<section id="entities">
-  <h3>Entities</h3>
-  <ul>
-    <li><code>InfrastructureProvider</code>: The provider of infrastructure - such as storage, computing, network, domain names. The term infrastructure has a very specific and restricted meaning and should not be confused with other terms such as services (e.g. analytics, querying) or applications (e.g. data use dashboards).</li>
-    <li><code>PodProvider</code>: The provider of a Pod. Here the term <em>provider</em> refers to an entity that provisions the Pod i.e. creates the necessary infrastructure, platform, and software so that the Pod can be used by the User.</li>
-    <li><code>PodDeveloper</code>: The developer of a Pod. The developer may not be the provider, in which case this term will differ from <code>PodProvider</code>. </li>
-    <li><code>SolidSpecification</code>: The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Solid Pods and its association with Services and Apps. </li>
-    <li><code>AppDeveloper</code>: The developer of an App. Developer here refers to the Entity that developed the app, rather than individual members or units within the entity. For example, Firefox has Mozilla as the developer.</li>
-    <li><ul>
-      <li><code>AppProvider</code>: The provider of an App. Here the term <em>provider</em> refers to the entity that enables that app to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>AppDeveloper</code>. Examples include directly using an App from the developer&#39;s website (developer is same as provider), or using an App through an App Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
+  <section id="introduction">
+    <h2>Introduction</h2>
+    <div class="issue" title="TODO: introduction"></div>
+    <p>PLASMA aims to provide a way to express the use-cases in terms of:</p>
+    <ul>
+      <li><em>What?</em> i.e. the data in question</li>
+      <li><em>Who?</em> i.e. who&#39;s data and who is requesting/using/providing it</li>
+      <li><em>Where?</em> i.e. where the data is coming from, where it will be stored, where is it going</li>
+      <li><em>Why?</em> i.e. for what purpose is this being done?</li>
+      <li><em>When?</em> i.e. over what temporal duration this is taking place</li>
+      <li><em>How?</em> i.e. how is this being done, by what means and technologies</li>
     </ul>
-  </li>
-  <li><code>ServiceDeveloper</code>: The developer of an Service. Developer here refers to the Entity that developed the service, rather than individual members or units within the entity. For example,  has Mozilla as the developer.</li>
-  <li><code>ServiceProvider</code>: The provider of an Service. Here the term <em>provider</em> refers to the entity that enables that Service to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>ServiceDeveloper</code>. Examples include directly using an Service from the developer&#39;s website (developer is same as provider), or using an Service through an Service Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
-  <li><code>IdentityProvider</code>: The provider of an identity service or credential. Here provider means the entity that provisions the identity mechanism. For example, the Pod Provider also provides an Identity credential for use with the Pod.</li>
-  <li><code>IdentityDeveloper</code>: The developer of an identity service or credential. The developer may be different from a provider, in which case this term will differ from <code>IdentityProvider</code>. For example, a Pod Provider uses an existing Certificate creation service to provide certificates, in which case the developer would be the entity that created the Certificate while the Pod Provider would be the provider for the identity.</li>
-  <li><code>PodUser</code>: User of a Pod. There may be multiple <code>User</code> for a single Pod.</li>
-  <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code> for a single Pod.</li>
-</ul>
-</section>
+  </section>
 
-<section id="agents">
-<h3>Agents</h3>
-<ul>
-  <li><code>UserAgent</code></li>
-  <li><code>AppAgent</code></li>
-  <li><code>ServiceAgent</code></li>
-</ul>
-</section>
+  <section id="vocab">
+    <h2>Vocabulary</h2>
+    <div class="issue" title="TODO: vocabulary overview"></div>
 
-<section id="agreements">
-<h3>Agreements</h3>
-<ul>
-  <li><code>UserConsent</code></li>
-  <li><code>AppAgreement</code></li>
-  <li><code>ServiceAgreement</code></li>
-  <li><code>PodAgreement</code></li>
-</ul>
-</section>
+    <section id="base">
+      <h3>Base concepts</h3>
+      <div class="issue" title="TODO: base concepts"></div>
+      <ul>
+        <li><code>App</code>: An application that stores, collects, uses, shares, erases, or performs other actions on data within a Pod. For example, a Contact Adress Book or a Chess Game.</li>
+        <li><code>Service</code>: A functionality that may or may not utilise or interact with data within a Pod. For example, Identity Verification service that checks validity of certificates, or a Query service that retrieves contacts matching the filter. A service is associated with an App or a Pod.</li>
+        <li><code>Pod</code>: A Personal Data Store or a &#39;Pod&#39; that conforms to the Solid specifications.</li>
+        <li><code>Agent</code>: An actual or virtual entity associated with carrying out actions within or related to a Pod or its data.</li>
+        <li><code>Policy</code>: A set of guidelines or decisions or recommendations governing the use of Pod or its data.</li>
+        <li><code>Entity</code>: A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services, Pods.</li>
+        <li><code>Data</code>: Data stored on a Pod or associated with <code>User</code>, <code>App</code>, <code>Service</code>, or <code>DataSubject</code> for a Pod.</li>
+      </ul>
+    </section>
 
-<section id="notices">
-<h3>Notices</h3>
-<ul>
-  <li><code>Notice</code>: An artefact providing information about something</li>
-  <li><code>ExAnteNotice</code>: A notice that is provided <em>before</em> something happens</li>
-  <li><code>ExPostNotice</code>: A notice that is provided <em>after</em> something happens</li>
-  <li><code>NoticeProvider</code>: Entity that provides the notice</li>
-  <li><code>NoticeRecipient</code>: Entity that receives the notice</li>
-  <li><code>NoticeContext</code>: Information about a notice, such as where/when/how/why it was provided</li>
-  <li><code>AppPrivacyNotice</code>: An app&#39;s privacy notice.</li>
-  <li><code>ServicePrivacyNotice</code>: A service&#39;s privacy notice.</li>
-  <li><code>PodPrivacyNotice</code>: A pod provider&#39;s or pod developer&#39;s privacy notice.</li>
-  <li><code>UserPrivacyNotice</code>: A pod user&#39;s privacy notice regarding their data.</li>
-</ul>
-</section>
+    <section id="policies">
+      <h3>Policies</h3>
+      <div class="issue" title="TODO: policies"></div>
+      <blockquote>
+        <p>Note that these definitions are not limited to the data on Pod - this is intentional. Otherwise the policy will only relate to what is happening on the pod, but not what happens after that. For example, to avoid cases such as to collect data for purpose X and then later decide to also perform purpose Y on it. This is to align the descriptions with legal requirements such as stating all purposes at the time of data collection, or going back and asking again for a new purpose.</p>
+      </blockquote>
+      <ul>
+        <li><code>AppRequest</code>: Request from an app to store, collect, use, share, erase, or perform other actions on data. </li>
+        <li><code>UserPreference</code>: Preference of a User regarding purposes, entities, and other actions on data. A preference is a soft rule that may not be satisfied e.g. user preferences do not match an app, but the user decides to still accept the stated purposes.</li>
+        <li><code>UserRequirement</code>: Requirements of a User regarding purposes, entities, and other on data. A requirement is a hard rule that should always be satisfied e.g. user requirement is to never share something - then even if the user accepts the stated request, this should not be allowed. One-time exceptions, or changing the rule, are solutions to get around this. But the intention is to create a barrier.</li>
+        <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code> </li>
+        <li><code>UserOffer</code>: An offer from the User of a Pod regarding purposes, entities, and actions on data. For example, the <code>User</code> expresses an <code>UserOffer</code> that some of their <code>Data</code> is available to be <code>Collect</code>ed and <code>Use</code>d for some <code>Purpose</code>.</li>
+      </ul>
+    </section>
 
-<section id="services">
-<h3>Services</h3>
-<ul>
-  <li><code>IdentityService</code></li>
-  <li><code>LoggingService</code></li>
-  <li><code>PolicyManagementService</code></li>
-  <li><code>IdentityManagementService</code></li>
-  <li><code>DataManagementService</code></li>
-  <li><code>NetworkManagementService</code></li>
-  <li><code>DataStorageService</code></li>
-  <li><code>ComputeService</code></li>
-  <li><code>DataQueryService</code></li>
-  <li><code>AppManagementService</code></li>
-  <li><code>ServiceManagement</code></li>
-</ul>
-</section>
+    <section id="entities">
+      <h3>Entities</h3>
+      <div class="issue" title="TODO: entities"></div>
+      <ul>
+        <li><code>InfrastructureProvider</code>: The provider of infrastructure - such as storage, computing, network, domain names. The term infrastructure has a very specific and restricted meaning and should not be confused with other terms such as services (e.g. analytics, querying) or applications (e.g. data use dashboards).</li>
+        <li><code>PodProvider</code>: The provider of a Pod. Here the term <em>provider</em> refers to an entity that provisions the Pod i.e. creates the necessary infrastructure, platform, and software so that the Pod can be used by the User.</li>
+        <li><code>PodDeveloper</code>: The developer of a Pod. The developer may not be the provider, in which case this term will differ from <code>PodProvider</code>. </li>
+        <li><code>SolidSpecification</code>: The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Solid Pods and its association with Services and Apps. </li>
+        <li><code>AppDeveloper</code>: The developer of an App. Developer here refers to the Entity that developed the app, rather than individual members or units within the entity. For example, Firefox has Mozilla as the developer.</li>
+        <li><code>AppProvider</code>: The provider of an App. Here the term <em>provider</em> refers to the entity that enables that app to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>AppDeveloper</code>. Examples include directly using an App from the developer&#39;s website (developer is same as provider), or using an App through an App Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
+        <li><code>ServiceDeveloper</code>: The developer of an Service. Developer here refers to the Entity that developed the service, rather than individual members or units within the entity. For example,  has Mozilla as the developer.</li>
+        <li><code>ServiceProvider</code>: The provider of an Service. Here the term <em>provider</em> refers to the entity that enables that Service to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>ServiceDeveloper</code>. Examples include directly using an Service from the developer&#39;s website (developer is same as provider), or using an Service through an Service Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
+        <li><code>IdentityProvider</code>: The provider of an identity service or credential. Here provider means the entity that provisions the identity mechanism. For example, the Pod Provider also provides an Identity credential for use with the Pod.</li>
+        <li><code>IdentityDeveloper</code>: The developer of an identity service or credential. The developer may be different from a provider, in which case this term will differ from <code>IdentityProvider</code>. For example, a Pod Provider uses an existing Certificate creation service to provide certificates, in which case the developer would be the entity that created the Certificate while the Pod Provider would be the provider for the identity.</li>
+        <li><code>PodUser</code>: User of a Pod. There may be multiple <code>User</code> for a single Pod.</li>
+        <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code>s for a single Pod.</li>
+      </ul>
+    </section>
 
-<section id="data">
-<h3>Data</h3>
-<ul>
-  <li><code>Log</code></li>
-  <li><code>DataLog</code></li>
-  <li><code>AccessControlLog</code></li>
-  <li><code>PolicyLog</code></li>
-  <li><code>IdentityLog</code></li>
-  <li><p><code>SecurityLog</code></p>
-  </li>
-  <li><p><code>UserData</code></p>
-  </li>
-  <li><p><code>AppData</code></p>
-  </li>
-  <li><code>AppMetadata</code></li>
-  <li><code>AppLog</code></li>
-  <li><code>AppPersistentData</code></li>
-  <li><p><code>AppTemporaryData</code></p>
-  </li>
-  <li><p><code>ServiceData</code></p>
-  </li>
-  <li><code>ServiceMetadata</code></li>
-  <li><code>ServiceLog</code></li>
-  <li><code>ServicePersistentData</code></li>
-  <li><p><code>ServiceTemporaryData</code></p>
-  </li>
-  <li><p><code>PodManagementData</code></p>
-  </li>
-  <li><p><code>Registry</code></p>
-  </li>
-  <li><code>AccessControlRegistry</code></li>
-  <li><code>DataRegistry</code></li>
-  <li><code>DataSchemaRegistry</code></li>
-  <li><code>PolicyRegistry</code></li>
-  <li><code>AppRegistry</code></li>
-  <li><code>ServiceRegistry</code></li>
-</ul>
-</section>
-</section>
+    <section id="agents">
+      <h3>Agents</h3>
+      <div class="issue" title="TODO: agents"></div>
+      <ul>
+        <li><code>UserAgent</code>: An agent acting on behalf of the user.</li>
+        <li><code>AppAgent</code>: An agent acting on behalf of an App.</li>
+        <li><code>ServiceAgent</code>: An agent acting on behalf of a Service.</li>
+      </ul>
+    </section>
 
-<section id="spec-conformance">
-  <h2>Conformance</h2>
-</section>
+    <section id="agreements">
+      <h3>Agreements</h3>
+      <div class="issue" title="TODO: agreements"></div>
+      <ul>
+        <li><code>UserConsent</code>: Agreement between a User and an Entity based on the User's consent.</li>
+        <li><code>AppAgreement</code>: Agreement between a User and an Entity based on a contract regarding an App.</li>
+        <li><code>ServiceAgreement</code>Agreement between a User and an Entity based on a contract regarding a Service.</li>
+        <li><code>PodAgreement</code>: Agreement between a User and an Entity based on a contract regarding the Pod.</li>
+      </ul>
+    </section>
 
-<section id="workflows">
-  <h2>Workflows</h2>
-</section>
+    <section id="notices">
+      <h3>Notices</h3>
+      <div class="issue" title="TODO: notices"></div>
+      <ul>
+        <li><code>Notice</code>: An artefact providing information about something</li>
+        <li><code>ExAnteNotice</code>: A notice that is provided <em>before</em> something happens</li>
+        <li><code>ExPostNotice</code>: A notice that is provided <em>after</em> something happens</li>
+        <li><code>NoticeProvider</code>: Entity that provides the notice</li>
+        <li><code>NoticeRecipient</code>: Entity that receives the notice</li>
+        <li><code>NoticeContext</code>: Information about a notice, such as where/when/how/why it was provided</li>
+        <li><code>AppPrivacyNotice</code>: An app&#39;s privacy notice.</li>
+        <li><code>ServicePrivacyNotice</code>: A service&#39;s privacy notice.</li>
+        <li><code>PodPrivacyNotice</code>: A pod provider&#39;s or pod developer&#39;s privacy notice.</li>
+        <li><code>UserPrivacyNotice</code>: A pod user&#39;s privacy notice regarding their data.</li>
+      </ul>
+    </section>
 
-<section id="legal-compliance">
-  <h2>Legal Compliance</h2>
-</section>
+    <section id="services">
+      <h3>Services</h3>
+      <div class="issue" title="TODO: services"></div>
+      <ul>
+        <li><code>IdentityService</code>: Service providing identity credentials and identifiers.</li>
+        <li><code>LoggingService</code>: Service providing logging mechanisms and functionalities.</li>
+        <li><code>PolicyManagementService</code>: Service providing policy management and resolution functionalities.</li>
+        <li><code>IdentityManagementService</code>: Service providing identity management functionalities.</li>
+        <li><code>DataManagementService</code>: Service providing data management and associated functionalities.</li>
+        <li><code>NetworkManagementService</code>: Service providing network management and associated functionalities.</li>
+        <li><code>DataStorageService</code>: Service providing data storage and associated functionalities.</li>
+        <li><code>ComputeService</code>: Service providing computing and associated functionalities.</li>
+        <li><code>DataQueryService</code>: Service providing data querying and associated functionalities.</li></li>
+        <li><code>AppManagementService</code>: Service providing app management and associated functionalities.</li></li>
+        <li><code>ServiceManagement</code>: Service providing service management and associated functionalities.</li></li>
+      </ul>
+    </section>
 
-</body>
+    <section id="data">
+      <h3>Data</h3>
+      <div class="issue" title="TODO: data"></div>
+      <ul>
+        <li><code>Log</code>: A provenance record associated with a process.
+          <ul>
+            <li><code>DataLog</code>: A log regarding actions on data. For example, when data was added / stored in the Pod, when it was erased, accessed, or queried.</li>
+            <li><code>AccessControlLog</code>: A log regarding access actions on data. For example, when data was permitted or denied to be accessed.</li>
+            <li><code>PolicyLog</code>: A log regarding policies governing the data. For example, a new user preference or requirement was added, or an app made a request, or a poilcy negotiation succefully took place and the user granted their consent.</li>
+            <li><code>IdentityLog</code>: A log regarding identity provision, verification, and its use. For example, an app's identity could not be verified.</li>
+            <li><code>SecurityLog</code>: A log regarding security concerns and incidents. For example, data integrity has failed a check, or there was an attempt to repeatedly access data without sufficient authorisation.
+            </li>
+          </ul></li>
 
-</html>
+          <li><code>UserData</code>: Data belonging or about the User.
+          </li>
+
+          <li><code>AppData</code>: Data required by an App to provide its functionalities, or recording relevant contextual information. <ul>
+            <li><code>AppMetadata</code>: Information about an App such as who was its provider, developer, what functionalities and services it offers, relevant policies and authorisations.</li>
+            <li><code>AppLog</code>: Logs related to an App's activities.</li>
+            <li><code>AppPersistentData</code>: Data required by the App that is persistently stored. For example, results of a frequent query.</li>
+            <li><code>AppTemporaryData</code>: Data required by the App that is temporarily stored. For example, results of a non-frequent query.</li>
+          </ul></li>
+
+          <li><code>ServiceData</code>: Data required by an Service to provide its functionalities, or recording relevant contextual information. <ul>
+            <li><code>ServiceMetadata</code>: Information about an Service such as who was its provider, developer, what functionalities and services it offers, relevant policies and authorisations.</li>
+            <li><code>ServiceLog</code>: Logs related to an Service's activities.</li>
+            <li><code>ServicePersistentData</code>: Data required by the Service that is persistently stored. For example, results of a frequent query.</li>
+            <li><code>ServiceTemporaryData</code>: Data required by the Service that is temporarily stored. For example, results of a non-frequent query.</li>
+          </ul></li>
+
+          <li><code>PodManagementData</code>: Data required by a Pod to provide its functionalities. For example, storing the Pod metadata regarding provider, developer, agreement, or credentials associated with Pod infrastructure.</li>
+
+          <li><code>Registry</code>: An indexed record for providing collective and convenient access to data within a Pod.
+            <ul>
+              <li><code>AccessControlRegistry</code>: A registry listing access control decisions and authorisations.</li>
+              <li><code>DataRegistry</code>: A registry listing data categories, resources, availability, and other relevant information.</li>
+              <li><code>DataSchemaRegistry</code>: A registry listing recognised or supported schemas for data, apps, or services.</li>
+              <li><code>PolicyRegistry</code>: A registry listing policies relevant to data, apps, services, and Pod. For example, user preferences, consent decisions, pending requests.</li>
+              <li><code>AppRegistry</code>: A registry listing Apps associated with the Pod. For example, a contact book app along with its relevant metadata such as provider, developer, policies.</li>
+              <li><code>ServiceRegistry</code>: A registry listing Services associated with the Pod. For example, a query service that can retrieve data along with its relevant metadata such as provider, developer, policies.</li>
+            </ul></li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="policies">
+        <h2>Policies</h2>
+        <div class="issue" title="TODO: policies">
+          <p>Listing out how different policies can be expressed using ODRL and DPV</p>
+        </div>
+      </section>
+
+      <section id="spec-conformance">
+        <h2>Conformance</h2>
+        <div class="issue" title="TODO: conformance conditions">
+          <p>Listing out what is mandatory to be provided, what is optional, and how conformity should be assessed and ensured.</p>
+        </div>
+      </section>
+
+      <section id="workflows">
+        <h2>Workflows</h2>
+        <div class="issue" title="TODO: workflows">
+          <p>Explaining the different workflows possible (e.g. app sends a request, what happens next?) and how the terms used here can be used.</p>
+        </div>
+      </section>
+
+      <section id="legal-compliance">
+        <h2>Legal Compliance</h2>
+        <div class="issue" title="TODO: legal compliance">
+          <p>Listing out how these terms relate to GDPR (and GDPR-like laws), what is missing, what needs to be done additionally.</p>
+        </div>
+      </section>
+
+    </body>
+
+    </html>
