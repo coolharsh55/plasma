@@ -16,18 +16,30 @@
       maxToclevel: 3,
       github: "coolharsh55/plasma",
       includePermalinks: false,
-      editors: [{
-        name: "Harshvardhan J. Pandit",
-        url: "https://harshp.com/",
-        company: "Trinity College Dublin",
-        companyURL: "https://tcd.ie/"
-      }],
-      authors: [{
-        name: "Harshvardhan J. Pandit",
-        url: "https://harshp.com/",
-        company: "Trinity College Dublin",
-        companyURL: "https://tcd.ie/"
-      }],
+      editors: [
+        {
+          name: "Harshvardhan J. Pandit",
+          url: "https://harshp.com/",
+          company: "ADAPT Centre, Trinity College Dublin",
+          companyURL: "https://tcd.ie/"
+        }, {
+          name: "Beatriz Esteves",
+          url: "https://besteves4.github.io/",
+          company: "OEG, Universidad Politécnica de Madrid",
+          companyURL: "https://oeg.fi.upm.es/"
+        }],
+      authors: [
+        {
+          name: "Harshvardhan J. Pandit",
+          url: "https://harshp.com/",
+          company: "ADAPT Centre, Trinity College Dublin",
+          companyURL: "https://tcd.ie/"
+        }, {
+          name: "Beatriz Esteves",
+          url: "https://besteves4.github.io/",
+          company: "OEG, Universidad Politécnica de Madrid",
+          companyURL: "https://oeg.fi.upm.es/"
+        }],
     };
   </script>
 </head>
@@ -66,6 +78,10 @@
         <li><code>Policy</code>: A set of guidelines or decisions or recommendations governing the use of Pod or its data.</li>
         <li><code>Entity</code>: A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services, Pods.</li>
         <li><code>Data</code>: Data stored on a Pod or associated with <code>User</code>, <code>App</code>, <code>Service</code>, or <code>DataSubject</code> for a Pod.</li>
+        <li><code>Provider</code>: An entity that <i>provides</i> some <i>thing</i> such as a Pod, SolidPlatform, App, Service, or Data.</li>
+        <li><code>Developer</code>: An entity that <i>develops</i> some <i>thing</i> such as a Pod, SolidPlatform, App, or Service.</li>
+        <li><code>SolidPlatform</code>: The specific implementation of Solid that is installed or used within a Pod.</li>
+        <li><code>SolidSpecification</code>: The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Solid Pods and its association with Services and Apps.</li>
       </ul>
     </section>
 
@@ -87,20 +103,49 @@
     <section id="entities">
       <h3>Entities</h3>
       <div class="issue" title="TODO: entities"></div>
+      <p><strong>Infrastructure</strong></p>
       <ul>
         <li><code>InfrastructureProvider</code>: The provider of infrastructure - such as storage, computing, network, domain names. The term infrastructure has a very specific and restricted meaning and should not be confused with other terms such as services (e.g. analytics, querying) or applications (e.g. data use dashboards).</li>
         <li><code>PodProvider</code>: The provider of a Pod. Here the term <em>provider</em> refers to an entity that provisions the Pod i.e. creates the necessary infrastructure, platform, and software so that the Pod can be used by the User.</li>
         <li><code>PodDeveloper</code>: The developer of a Pod. The developer may not be the provider, in which case this term will differ from <code>PodProvider</code>. </li>
-        <li><code>SolidSpecification</code>: The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Solid Pods and its association with Services and Apps. </li>
+        <li><code>SolidPlatformProvider</code>: The provider of a SolidPlatform. Here the term <em>provider</em> refers to an entity that provisions the SolidPlatform i.e. creates the necessary infrastructure, platform, and software so that the SolidPlatform can be used by the User.</li>
+        <li><code>SolidPlatformDeveloper</code>: The developer of a SolidPlatform. The developer may not be the provider, in which case this term will differ from <code>SolidPlatformProvider</code>. </li>
+      </ul>
+
+      <p><strong>Applications</strong></p>
+      <ul>
         <li><code>AppDeveloper</code>: The developer of an App. Developer here refers to the Entity that developed the app, rather than individual members or units within the entity. For example, Firefox has Mozilla as the developer.</li>
         <li><code>AppProvider</code>: The provider of an App. Here the term <em>provider</em> refers to the entity that enables that app to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>AppDeveloper</code>. Examples include directly using an App from the developer&#39;s website (developer is same as provider), or using an App through an App Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
+      </ul>
+
+      <p><strong>Services</strong></p>
+      <ul>
         <li><code>ServiceDeveloper</code>: The developer of an Service. Developer here refers to the Entity that developed the service, rather than individual members or units within the entity. For example,  has Mozilla as the developer.</li>
         <li><code>ServiceProvider</code>: The provider of an Service. Here the term <em>provider</em> refers to the entity that enables that Service to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>ServiceDeveloper</code>. Examples include directly using an Service from the developer&#39;s website (developer is same as provider), or using an Service through an Service Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
+      </ul>
+
+      <p><strong>Identity</strong></p>
+      <ul>
         <li><code>IdentityProvider</code>: The provider of an identity service or credential. Here provider means the entity that provisions the identity mechanism. For example, the Pod Provider also provides an Identity credential for use with the Pod.</li>
         <li><code>IdentityDeveloper</code>: The developer of an identity service or credential. The developer may be different from a provider, in which case this term will differ from <code>IdentityProvider</code>. For example, a Pod Provider uses an existing Certificate creation service to provide certificates, in which case the developer would be the entity that created the Certificate while the Pod Provider would be the provider for the identity.</li>
-        <li><code>PodUser</code>: User of a Pod. There may be multiple <code>User</code> for a single Pod.</li>
-        <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code>s for a single Pod.</li>
       </ul>
+
+      <p><strong>Users</strong></p>
+      <ul>
+        <li><code>User</code>: User of a Pod that can read, write, edit, erase data on a Pod. There may be multiple <code>User</code> for a single Pod.</li>
+        <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code>s for a single Pod.</li>
+        <li><code>PodAdmin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about the Pod.</li>
+        <li><code>Admin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about Data on a Pod.</li>
+        <li><code>Viewer</code>: User of a Pod that can only read data i.e. access without modification or deletion.</li>
+        <li><code>Writer</code>: User of a Pod that can only write data i.e. write or modify but not access or deletion.</li>        
+      </ul>
+
+      <p><strong>Agents</strong></p>
+      <p>Distinction between Entities, Apps, and Agents. Agents are always associated with another Entity directly (e.g. User Agent) or indirectly (e.g. App Agent).</p>
+      <ul>
+        <li><code>UserAgent</code>: An Agent authorised by an User to act on their behalf</li>
+        <li><code>AppAgent</code>: An Agent authorised by an App to act on their behalf</li>
+        <li><code>ServiceAgent</code>: An Agent authorised by a Service to act on their behalf</li>
     </section>
 
     <section id="agents">
@@ -162,37 +207,37 @@
     <section id="data">
       <h3>Data</h3>
       <div class="issue" title="TODO: data"></div>
-      <ul>
-        <li><code>Log</code>: A provenance record associated with a process.
+        <p><code>Log</code>: A provenance record associated with a process.</p>
           <ul>
             <li><code>DataLog</code>: A log regarding actions on data. For example, when data was added / stored in the Pod, when it was erased, accessed, or queried.</li>
             <li><code>AccessControlLog</code>: A log regarding access actions on data. For example, when data was permitted or denied to be accessed.</li>
             <li><code>PolicyLog</code>: A log regarding policies governing the data. For example, a new user preference or requirement was added, or an app made a request, or a poilcy negotiation succefully took place and the user granted their consent.</li>
-            <li><code>IdentityLog</code>: A log regarding identity provision, verification, and its use. For example, an app's identity could not be verified.</li>
+            <li><code>IdentityLog</code>: A log regarding identity provision, verification, and its use. For example, an app's identity could not be verified. Or a User succeffully logged in.</li>
             <li><code>SecurityLog</code>: A log regarding security concerns and incidents. For example, data integrity has failed a check, or there was an attempt to repeatedly access data without sufficient authorisation.
             </li>
-          </ul></li>
+          </ul>
 
-          <li><code>UserData</code>: Data belonging or about the User.
-          </li>
+          <p><code>UserData</code>: Data belonging or about the User.</p>
 
-          <li><code>AppData</code>: Data required by an App to provide its functionalities, or recording relevant contextual information. <ul>
+          <p><code>AppData</code>: Data required by an App to provide its functionalities, or recording relevant contextual information. </p>
+            <ul>
             <li><code>AppMetadata</code>: Information about an App such as who was its provider, developer, what functionalities and services it offers, relevant policies and authorisations.</li>
             <li><code>AppLog</code>: Logs related to an App's activities.</li>
             <li><code>AppPersistentData</code>: Data required by the App that is persistently stored. For example, results of a frequent query.</li>
             <li><code>AppTemporaryData</code>: Data required by the App that is temporarily stored. For example, results of a non-frequent query.</li>
           </ul></li>
 
-          <li><code>ServiceData</code>: Data required by an Service to provide its functionalities, or recording relevant contextual information. <ul>
+          <p><code>ServiceData</code>: Data required by an Service to provide its functionalities, or recording relevant contextual information. </p>
+            <ul>
             <li><code>ServiceMetadata</code>: Information about an Service such as who was its provider, developer, what functionalities and services it offers, relevant policies and authorisations.</li>
             <li><code>ServiceLog</code>: Logs related to an Service's activities.</li>
             <li><code>ServicePersistentData</code>: Data required by the Service that is persistently stored. For example, results of a frequent query.</li>
             <li><code>ServiceTemporaryData</code>: Data required by the Service that is temporarily stored. For example, results of a non-frequent query.</li>
           </ul></li>
 
-          <li><code>PodManagementData</code>: Data required by a Pod to provide its functionalities. For example, storing the Pod metadata regarding provider, developer, agreement, or credentials associated with Pod infrastructure.</li>
+          <p><code>PodManagementData</code>: Data required by a Pod to provide its functionalities. For example, storing the Pod metadata regarding provider, developer, agreement, or credentials associated with Pod infrastructure.</p>
 
-          <li><code>Registry</code>: An indexed record for providing collective and convenient access to data within a Pod.
+          <p><code>Registry</code>: An indexed record for providing collective and convenient access to data within a Pod.</p>
             <ul>
               <li><code>AccessControlRegistry</code>: A registry listing access control decisions and authorisations.</li>
               <li><code>DataRegistry</code>: A registry listing data categories, resources, availability, and other relevant information.</li>
@@ -200,16 +245,9 @@
               <li><code>PolicyRegistry</code>: A registry listing policies relevant to data, apps, services, and Pod. For example, user preferences, consent decisions, pending requests.</li>
               <li><code>AppRegistry</code>: A registry listing Apps associated with the Pod. For example, a contact book app along with its relevant metadata such as provider, developer, policies.</li>
               <li><code>ServiceRegistry</code>: A registry listing Services associated with the Pod. For example, a query service that can retrieve data along with its relevant metadata such as provider, developer, policies.</li>
-            </ul></li>
-          </ul>
+              <li><code>UserRegistry</code>: A registry listing Users associated with the Pod and their relevant policies, agents, and other relevant information.</li>
+            </ul>
         </section>
-      </section>
-
-      <section id="policies">
-        <h2>Policies</h2>
-        <div class="issue" title="TODO: policies">
-          <p>Listing out how different policies can be expressed using ODRL and DPV</p>
-        </div>
       </section>
 
       <section id="spec-conformance">
@@ -217,6 +255,52 @@
         <div class="issue" title="TODO: conformance conditions">
           <p>Listing out what is mandatory to be provided, what is optional, and how conformity should be assessed and ensured.</p>
         </div>
+
+        <section id="conformance-pod">
+          <h3>Pod Conformance</h3>
+        </section>
+
+        <section id="conformance-pod">
+          <h3>App Conformance</h3>
+          <p>note: <code>AppManifest</code> vs <code>AppPolicy</code></p>
+        </section>
+
+        <section id="conformance-pod">
+          <h3>Service Conformance</h3>
+        </section>
+
+      </section>
+
+      <section id="using-policies">
+        <h2>Using Policies</h2>
+        <div class="issue" title="TODO: policies">
+          <p>Listing out how different policies can be expressed using ODRL and DPV</p>
+        </div>
+
+        <section id="policies-user-preference">
+          <h3>User Preferences</h3>
+        </section>
+
+        <section id="policies-user-requirements">
+          <h3>User Requirements</h3>
+        </section>
+
+        <section id="policies-user-offer">
+          <h3>User Offer</h3>
+        </section>
+
+        <section id="policies-app-request">
+          <h3>App Request</h3>
+        </section>
+
+        <section id="policies-consent">
+          <h3>Consent Agreement</h3>
+        </section>
+
+        <section id="policies-contract">
+          <h3>Contract Agreement</h3>
+        </section>
+
       </section>
 
       <section id="workflows">

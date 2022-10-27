@@ -1,7 +1,9 @@
 # PLASMA
 ## Policy Language for Solid's Metadata-based Access Control
 
-PLASMA is an attempt at proposing a "policy language" that wraps Solid's existing access control mechanisms and enables data and legal governance within the Solid ecosystem. 
+PLASMA is an attempt at proposing a "policy language" that wraps Solid's existing access control mechanisms and enables data and legal governance within the Solid ecosystem.
+
+> **NOTE:** This is work-in-progress, and is incomplete.
 
 ## Goals
 
