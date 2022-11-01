@@ -120,6 +120,20 @@
       <ul>
         <li><code>AppDeveloper</code>: The developer of an App. Developer here refers to the Entity that developed the app, rather than individual members or units within the entity. For example, Firefox has Mozilla as the developer.</li>
         <li><code>AppProvider</code>: The provider of an App. Here the term <em>provider</em> refers to the entity that enables that app to be accessed and used. The provider may not be the developer, in which case this term will differ from <code>AppDeveloper</code>. Examples include directly using an App from the developer&#39;s website (developer is same as provider), or using an App through an App Store or a common marketplace (developer is different from provider). For example, Firefox can be directly downloaded from its website, or via package management, or come pre-installed on a system.</li>
+        <div class="note">
+          The Solid Application Interoperability specification defines that an application should have an <a href="https://solid.github.io/data-interoperability-panel/specification/#application-profile-document" target="_blank">application profile document</a> which is defined as a "linked data document obtained by dereferencing the URI for a given application identity". This document should be publicly readable (example below retrieved from the specification). In addition, this specification makes a distinction between <a href="https://solid.github.io/data-interoperability-panel/specification/#security-appauthz" target="_blank">strongly and weakly identifiable applications</a>.
+          <pre>
+            PREFIX interop: &lt;http://www.w3.org/ns/solid/interop#>
+
+            &lt;https://projectron.example/#id> a interop:Application ;
+              interop:applicationName "Projectron" ;
+              interop:applicationDescription "Manage projects with ease" ;
+              interop:applicationAuthor &lt;https://acme.example/#id> ;
+              interop:applicationThumbnail &lt;https://acme.example/thumb.svg> ;
+              interop:hasAccessNeedGroup &lt;https://projectron.example/needs#need-group-pm> .
+            </pre>
+        </div>
+        <div class="issue">Related issue on changing access needs from data to purpose-based needs: <a href="https://github.com/solid/data-interoperability-panel/issues/281" target="_blank">solid/data-interoperability-panel/issues/281</a></div>
       </ul>
 
       <p><strong>Services</strong></p>
