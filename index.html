@@ -97,6 +97,8 @@
       </blockquote>
       <ul>
         <li><code>AppRequest</code>: Request from an app to store, collect, use, share, erase, or perform other actions on data. </li>
+        <li><code>AppManifest</code>: Manifest from an app including information regarding startup parameters, identity and <code>AppRequest</code>s. </li>
+        <div class="note">W3C currently has a <a href="https://www.w3.org/TR/appmanifest/" target="_blank">Web Application Manifest</a> specification on the standardisation track.</div>
         <li><code>UserPreference</code>: Preference of a User regarding purposes, entities, and other actions on data. A preference is a soft rule that may not be satisfied e.g. user preferences do not match an app, but the user decides to still accept the stated purposes.</li>
         <li><code>UserRequirement</code>: Requirements of a User regarding purposes, entities, and other on data. A requirement is a hard rule that should always be satisfied e.g. user requirement is to never share something - then even if the user accepts the stated request, this should not be allowed. One-time exceptions, or changing the rule, are solutions to get around this. But the intention is to create a barrier.</li>
         <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code> </li>
