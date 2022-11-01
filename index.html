@@ -141,8 +141,11 @@
         <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code>s for a single Pod.</li>
         <li><code>PodAdmin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about the Pod.</li>
         <li><code>Admin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about Data on a Pod.</li>
-        <li><code>Viewer</code>: User of a Pod that can only read data i.e. access without modification or deletion.</li>
-        <li><code>Writer</code>: User of a Pod that can only write data i.e. write or modify but not access or deletion.</li>        
+        <li><code>ReadUser</code>: User of a Pod that can only read data i.e. access without modification or deletion.</li>
+        <li><code>WriteUser</code>: User of a Pod that can only write data i.e. create, modify and delete data.</li>
+        <li><code>AppendUser</code>: User of a Pod that can only append data i.e. can add but not modify or delete existing data.</li>
+        <div class="note">Currently, Solid vocabularies do not make a distinction between different types of users. The term <code>owner</code> is used in several Solid specifications but not always with the same meaning. The <a href="http://www.w3.org/ns/solid/terms#" target="_blank">Solid terms vocabulary</a> is currently debating adding the concept <code>owner</code> to refer to the entity that has <code>acl:control</code> access to an entire storage. The <a href="https://solidproject.org/TR/protocol" target="_blank">Solid Protocol</a> provides an informal extension of this definition by adding that an owner is "a person or a social entity that is considered to have the rights and responsibilities of a data storage" and is "set at storage provisioning time and can be changed".</div>       
+        <div class="issue">Related issue on adding new access modes: <a href="https://github.com/solid/web-access-control-spec/issues/85" target="_blank">solid/web-access-control-spec/issues/85</a></div>
       </ul>
 
       <p><strong>Agents</strong></p>
