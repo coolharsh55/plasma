@@ -290,11 +290,37 @@
           <h3>Pod Conformance</h3>
         </section>
 
-        <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p>
+        <ul>
+          <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li>
+          <li>All registries should have a corresponding shape.</li>
+        </ul>
+        <!-- <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p> -->
 
         <section id="conformance-pod">
           <h3>App Conformance</h3>
-          <p>note: <code>AppManifest</code> vs <code>AppPolicy</code></p>
+          
+          <ul>
+            <li>All apps should have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a></li>
+            <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
+            <li>App manifests of relevant apps can be stored in the <code>AppRegistry</code>.</li>
+            <li><code>AppManifest</code> should state the <code>AppRequest</code> for data either through internal triples or external links.</li>
+          </ul>
+
+          <div class="example">
+            <pre>
+ex:app a :App ;
+  :hasManifest ex:app-manifest .
+
+ex:app-manifest a :AppManifest ;
+  dc:language “en” ;
+  interop:applicationName "Super Racer 3000" ;
+  dc:description “A readable Hacker News app.” ;
+  interop:applicationDescription “A readable Hacker News app.” ;
+        …
+  dpv:hasPolicy ex:appRequest .
+            </pre>
+          </div>
+
         </section>
 
         <section id="conformance-pod">
@@ -308,6 +334,8 @@
         <div class="issue" title="TODO: policies">
           <p>Listing out how different policies can be expressed using ODRL and DPV</p>
         </div>
+
+        <div class="note"> <a href="https://besteves4.github.io/odrl-access-control-profile/oac.html" target="_blank">https://besteves4.github.io/odrl-access-control-profile/oac.html</a> </div>
 
         <section id="policies-user-preference">
           <h3>User Preferences</h3>
