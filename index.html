@@ -71,7 +71,7 @@
       <h3>Base concepts</h3>
       <div class="issue" title="TODO: base concepts"></div>
       <ul>
-        <li><code>App</code>: An application that stores, collects, uses, shares, erases, or performs other actions on data within a Pod. For example, a Contact Adress Book or a Chess Game.</li>
+        <li><code>App</code>: An application that stores, collects, uses, shares, erases, or performs other actions on data with the aim of providing specific purposes, services, or functionalities. For example, a Contact Adress Book or a Chess Game.</li>
         <div class="note">In the <a href="https://solid.github.io/data-interoperability-panel/specification/" target="_blank">Solid Application Interoperability</a> specification, an <a href="http://www.w3.org/ns/solid/interop#Application" target="_blank">application</a> is defined as "a software-based Agent that a Social Agent uses to access, manipulate, and manage the data in their control, as well as the data they've been granted access to". This definition is compatible with the one provided for the same concept in the <a href="https://solidproject.org/TR/protocol#solid-app" target="_blank">Solid Protocol</a> specification.</div>
         <li><code>Service</code>: A functionality that may or may not utilise or interact with data within a Pod. For example, Identity Verification service that checks validity of certificates, or a Query service that retrieves contacts matching the filter. A service is associated with an App or a Pod.</li>
         <li><code>Pod</code>: A Personal Data Store or a &#39;Pod&#39; that conforms to the Solid specifications.</li>
@@ -155,35 +155,22 @@
 
       <p><strong>Users</strong></p>
       <ul>
-        <li><code>User</code>: User of a Pod that can read, write, edit, erase data on a Pod. There may be multiple <code>User</code> for a single Pod.</li>
+        <li><code>User</code>: User of a Pod that can read, write, edit, erase data on a Pod. There may be multiple <code>User</code> for a single Pod. Users can have limited permissions or abilities to interact with data, for example - <code>ReadUser</code> that can only read or view data, or <code>WriteUser</code> that can only write or edit existing data.</li>
         <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code>s for a single Pod.</li>
         <li><code>PodAdmin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about the Pod.</li>
         <li><code>Admin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about Data on a Pod.</li>
-        <li><code>ReadUser</code>: User of a Pod that can only read data i.e. access without modification or deletion.</li>
-        <li><code>WriteUser</code>: User of a Pod that can only write data i.e. create, modify and delete data.</li>
-        <li><code>AppendUser</code>: User of a Pod that can only append data i.e. can add but not modify or delete existing data.</li>
         <div class="note">Currently, Solid vocabularies do not make a distinction between different types of users. The term <code>owner</code> is used in several Solid specifications but not always with the same meaning. The <a href="http://www.w3.org/ns/solid/terms#" target="_blank">Solid terms vocabulary</a> is currently debating adding the concept <code>owner</code> to refer to the entity that has <code>acl:control</code> access to an entire storage. The <a href="https://solidproject.org/TR/protocol" target="_blank">Solid Protocol</a> provides an informal extension of this definition by adding that an owner is "a person or a social entity that is considered to have the rights and responsibilities of a data storage" and "is set at storage provisioning time and can be changed".</div>       
         <div class="issue">Related issue on adding new access modes: <a href="https://github.com/solid/web-access-control-spec/issues/85" target="_blank">solid/web-access-control-spec/issues/85</a></div>
       </ul>
 
       <p><strong>Agents</strong></p>
       <div class="issue" title="TODO: duplicate of Section 2.4 ?"></div>
-      <p>Distinction between Entities, Apps, and Agents. Agents are always associated with another Entity directly (e.g. User Agent) or indirectly (e.g. App Agent).</p>
-      <ul>
-        <li><code>UserAgent</code>: An Agent authorised by an User to act on their behalf</li>
-        <li><code>AppAgent</code>: An Agent authorised by an App to act on their behalf</li>
-        <li><code>ServiceAgent</code>: An Agent authorised by a Service to act on their behalf</li>
-        <div class="issue">Related issue on the usage of the <a href="https://solid.github.io/data-interoperability-panel/specification/#social-agent" target="_blank">Social Agent</a> term: <a href="https://github.com/solid/data-interoperability-panel/issues/282" target="_blank">solid/data-interoperability-panel/issues/282</a></div>
-    </section>
-
-    <section id="agents">
-      <h3>Agents</h3>
-      <div class="issue" title="TODO: agents"></div>
+      <p>Agents are entities that act on behalf or behest of other entities. They can be real (e.g. parents on behalf of children) or virtual (e.g. software agent). For Solid, we use <i>Agent</i> here to refer to the virtual agents so as to distinguish them from <i>Entity</i> which represents real or legal entities (i.e. those that can be held accountable).</p>
       <ul>
         <li><code>UserAgent</code>: An agent acting on behalf of the user.</li>
         <li><code>AppAgent</code>: An agent acting on behalf of an App.</li>
         <li><code>ServiceAgent</code>: An agent acting on behalf of a Service.</li>
-      </ul>
+        <div class="issue">Related issue on the usage of the <a href="https://solid.github.io/data-interoperability-panel/specification/#social-agent" target="_blank">Social Agent</a> term: <a href="https://github.com/solid/data-interoperability-panel/issues/282" target="_blank">solid/data-interoperability-panel/issues/282</a></div>
       <div class="note">The Solid Application Interoperability specification defines a specific type of application - an <a href="https://solid.github.io/data-interoperability-panel/specification/#authorization-agent" target="_blank">authorisation agent</a> - appointed by a "Social Agent to be responsible for managing the access to data under their control" via registries. This definition is too narrow as a user might want to manage their pod data using other types of services or entities. Further details on the identity of this agent are currently missing.</div>
     </section>
 
