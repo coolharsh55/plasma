@@ -347,34 +347,25 @@ ex:app-manifest a :AppManifest ;
         <div class="example">
           <pre>
 &lt;https://example.com/agreement1> a odrl:Agreement ;
-  dct:description "Agreement to read behavioral data for research and development purposes based on consent" ;
+  odrl:profile oac: ;
+  dct:description "Agreement to read age data for academic research based on consent." ;
   dct:creator ex:userA ;
   dct:issued "2022-11-08T18:13:37"^^xsd:dateTime ;
   odrl:uid ex:agreement1 ;
   dct:references ex:offer1, ex:request1 ;
-  odrl:profile oac: ;
+  dpv:hasDataSubject ex:userA ;
+  dpv:hasDataController ex:userB ;
+  dpv:hasLegalBasis dpv:Consent ;
   odrl:permission [
     odrl:assigner ex:userA ;
     odrl:assignee ex:userB ;
     odrl:action oac:Read ;
-    odrl:target oac:Behavioral ;
+    odrl:target oac:Age ;
     odrl:constraint [
+      dct:title "Purpose for access is to conduct research in the academic project X, conducted in University Y." ;
       odrl:leftOperand oac:Purpose ;
-      odrl:operator odrl:isA ;
-      odrl:rightOperand dpv:ResearchAndDevelopment ] ] ;
-    odrl:constraint [
-      odrl:leftOperand oac:LegalBasis ;
-      odrl:operator odrl:isA ;
-      odrl:rightOperand dpv:Consent ] ] .
-
-&lt;https://example.com/consent1> a dpv:Consent ;
-  dct:hasVersion "v1" ;
-  dpv:hasIdentifier ex:consent1 ;
-  odrl:hasPolicy ex:agreement1 ;
-  dpv:hasDataSubject ex:userA ;
-  ...
-  dpv:hasProvisionTime "2022-11-09T13:22:34" ;
-  dpv:hasPersonalDataHandling [ ... ] .
+      odrl:operator odrl:eq ;
+      odrl:rightOperand ex:AcademicResearchProjectX ] ] .
           </pre>
         </div>
 
@@ -385,34 +376,25 @@ ex:app-manifest a :AppManifest ;
         <div class="example">
           <pre>
 &lt;https://example.com/agreement2> a odrl:Agreement ;
-  dct:description "Agreement to read behavioral data for research and development purposes based on a contract" ;
+  odrl:profile oac: ;
+  dct:description "Agreement to read age data for academic research based on a contract." ;
   dct:creator ex:userA ;
-  dct:issued "2022-11-08T18:13:37"^^xsd:dateTime ;
+  dct:issued "2022-11-14T01:11:29"^^xsd:dateTime ;
   odrl:uid ex:agreement2 ;
   dct:references ex:offer2, ex:request2 ;
-  odrl:profile oac: ;
+  dpv:hasDataSubject ex:userA ;
+  dpv:hasDataController ex:userB ;
+  dpv:hasLegalBasis dpv:Consent ;
   odrl:permission [
     odrl:assigner ex:userA ;
     odrl:assignee ex:userB ;
     odrl:action oac:Read ;
-    odrl:target oac:Behavioral ;
+    odrl:target oac:Age ;
     odrl:constraint [
+      dct:title "Purpose for access is to conduct research in the academic project X, conducted in University Y." ;
       odrl:leftOperand oac:Purpose ;
-      odrl:operator odrl:isA ;
-      odrl:rightOperand dpv:ResearchAndDevelopment ] ] ;
-    odrl:constraint [
-      odrl:leftOperand oac:LegalBasis ;
-      odrl:operator odrl:isA ;
-      odrl:rightOperand dpv:Contract ] ] .
-
-&lt;https://example.com/contract1> a dpv:Contract ;
-  dct:hasVersion "v1" ;
-  dpv:hasIdentifier ex:contract1 ;
-  odrl:hasPolicy ex:agreement2 ;
-  dpv:hasDataSubject ex:userA ;
-  ...
-  dpv:hasProvisionTime "2022-11-09T13:25:26" ;
-  dpv:hasPersonalDataHandling [ ... ] .
+      odrl:operator odrl:eq ;
+      odrl:rightOperand ex:AcademicResearchProjectX ] ] .
           </pre>
         </div>
 
