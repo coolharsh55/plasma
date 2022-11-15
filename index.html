@@ -96,13 +96,15 @@
         <p>Note that these definitions are not limited to the data on Pod - this is intentional. Otherwise the policy will only relate to what is happening on the pod, but not what happens after that. For example, to avoid cases such as to collect data for purpose X and then later decide to also perform purpose Y on it. This is to align the descriptions with legal requirements such as stating all purposes at the time of data collection, or going back and asking again for a new purpose.</p>
       </blockquote>
       <ul>
-        <li><code>AppRequest</code>: Request from an app to store, collect, use, share, erase, or perform other actions on data. </li>
-        <li><code>AppManifest</code>: Manifest from an app including information regarding startup parameters, identity and <code>AppRequest</code>s. </li>
+        <!-- <li><code>AppRequest</code>: Request from an app to store, collect, use, share, erase, or perform other actions on data. </li> -->
+        <li><code>DataUseRequest</code>: Request from an app, service, agent or user to store, collect, use, share, erase, or perform other actions on data. </li>
+        <li><code>AppManifest</code>: Manifest from an app including information regarding startup parameters, identity, privacy policies and <code>DataUseRequests</code>. </li>
         <div class="note">W3C currently has a <a href="https://www.w3.org/TR/appmanifest/" target="_blank">Web Application Manifest</a> specification on the standardisation track.</div>
+        <li><code>ServiceManifest</code>: Manifest from an service including metadata, apps using the service and information regarding <code>DataUseRequests</code>. </li>
         <li><code>UserPreference</code>: Preference of a User regarding purposes, entities, and other actions on data. A preference is a soft rule that may not be satisfied e.g. user preferences do not match an app, but the user decides to still accept the stated purposes.</li>
         <li><code>UserRequirement</code>: Requirements of a User regarding purposes, entities, and other on data. A requirement is a hard rule that should always be satisfied e.g. user requirement is to never share something - then even if the user accepts the stated request, this should not be allowed. One-time exceptions, or changing the rule, are solutions to get around this. But the intention is to create a barrier.</li>
-        <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code> </li>
         <li><code>UserOffer</code>: An offer from the User of a Pod regarding purposes, entities, and actions on data. For example, the <code>User</code> expresses an <code>UserOffer</code> that some of their <code>Data</code> is available to be <code>Collect</code>ed and <code>Use</code>d for some <code>Purpose</code>.</li>
+        <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code> </li>
       </ul>
     </section>
 
@@ -166,9 +168,9 @@
       <p><strong>Agents</strong></p>
       <p>Agents are entities that act on behalf or behest of other entities. They can be real (e.g. parents on behalf of children) or virtual (e.g. software agent). For Solid, we use <i>Agent</i> here to refer to the virtual agents so as to distinguish them from <i>Entity</i> which represents real or legal entities (i.e. those that can be held accountable).</p>
       <ul>
-        <li><code>UserAgent</code>: An agent acting on behalf of the user.</li>
-        <li><code>AppAgent</code>: An agent acting on behalf of an App.</li>
-        <li><code>ServiceAgent</code>: An agent acting on behalf of a Service.</li>
+        <li><code>UserAgent</code>: An agent acting on behalf of the user. For example, a browser is a user agent that facilitates the user's interaction with Web content.</li>
+        <li><code>AppAgent</code>: An agent acting on behalf of an App. For example, an agent that organizes an inbox application by email priority. </li>
+        <li><code>ServiceAgent</code>: An agent acting on behalf of a Service. For example, an agent that syncs data stored in a Pod with another Pod.</li>
       </ul>
       <div class="note">The Solid Application Interoperability specification defines a specific type of application - an <a href="https://solid.github.io/data-interoperability-panel/specification/#authorization-agent" target="_blank">authorisation agent</a> - appointed by a "Social Agent to be responsible for managing the access to data under their control" via registries. This definition is too narrow as a user might want to manage their pod data using other types of services or entities. Further details on the identity of this agent are currently missing.</div>
       <div class="issue">Related issue on the usage of the <a href="https://solid.github.io/data-interoperability-panel/specification/#social-agent" target="_blank">Social Agent</a> term: <a href="https://github.com/solid/data-interoperability-panel/issues/282" target="_blank">solid/data-interoperability-panel/issues/282</a></div>
@@ -281,19 +283,22 @@
         </section>
 
         <ul>
+          <li>Record <code>PodManagementData</code> including the <code>SolidPlatform</code> and <code>SolidSpecification</code> used in the Pod and infrastructure information such as the <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers.</li>
+          <li>Pod discovery methods should be available.</li>
+          <li>All registries, e.g., <code>AccessControlRegistry</code>, <code>DataRegistry</code>, <code>UserRegistry</code>, should have a corresponding shape.</li>
           <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li>
-          <li>All registries should have a corresponding shape.</li>
         </ul>
         <!-- <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p> -->
 
-        <section id="conformance-pod">
+        <section id="conformance-app">
           <h3>App Conformance</h3>
           
           <ul>
             <li>All apps should have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a></li>
             <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
             <li>App manifests of relevant apps can be stored in the <code>AppRegistry</code>.</li>
-            <li><code>AppManifest</code> should state the <code>AppRequest</code> for data either through internal triples or external links.</li>
+            <li><code>AppManifest</code> should state the <code>DataUseRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
+            <li><code>AppManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
           </ul>
 
           <div class="example">
@@ -302,19 +307,29 @@ ex:app a :App ;
   :hasManifest ex:app-manifest .
 
 ex:app-manifest a :AppManifest ;
-  dc:language “en” ;
+  dc:language "en" ;
   interop:applicationName "Super Racer 3000" ;
-  dc:description “A readable Hacker News app.” ;
-  interop:applicationDescription “A readable Hacker News app.” ;
+  dc:description "A readable Hacker News app." ;
+  interop:applicationDescription "A readable Hacker News app." ;
         …
-  dpv:hasPolicy ex:appRequest .
+  odrl:hasPolicy ex:dataUseRequest ;
+  dpv:hasPolicy ex:appPrivacyPolicy .
             </pre>
           </div>
 
         </section>
 
-        <section id="conformance-pod">
+        <section id="conformance-service">
           <h3>Service Conformance</h3>
+        </section>
+
+        <section id="conformance-user">
+          <h3>User Conformance</h3>
+
+          <ul>
+            <li>how can users make data use requests without using an app or service</li>
+          </ul>
+
         </section>
 
       </section>
@@ -331,17 +346,158 @@ ex:app-manifest a :AppManifest ;
           <h3>User Preferences</h3>
         </section>
 
+        <div class="example">
+          <pre>
+&lt;https://example.com/preference1> a oac:PreferencePolicy ;
+  odrl:profile oac: ;
+  dct:description "Preference to read age data for academic research based on consent." ;
+  dct:creator ex:userA ;
+  dct:issued "2022-11-08T18:00:47"^^xsd:dateTime ;
+  odrl:uid ex:preference1 ;
+  odrl:permission [
+    odrl:assigner ex:userA ;
+    odrl:action oac:Read ;
+    odrl:target oac:Age ;
+    odrl:constraint [
+      odrl:and 
+        [
+          dct:title "Purpose for access is to conduct academic research." ;
+          odrl:leftOperand oac:Purpose ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:AcademicResearch
+        ] ,
+        [
+          dct:title "Legal basis for access is consent." ;
+          odrl:leftOperand oac:LegalBasis ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:Consent
+        ]
+    ]
+  ] .
+          </pre>
+        </div>
+
         <section id="policies-user-requirements">
           <h3>User Requirements</h3>
         </section>
+
+        <div class="example">
+          <pre>
+&lt;https://example.com/requirement1> a oac:RequirementPolicy ;
+  odrl:profile oac: ;
+  dct:description "Requirement to read identifier data for identity verification based on consent." ;
+  dct:creator ex:userA ;
+  dct:issued "2022-11-08T18:05:09"^^xsd:dateTime ;
+  odrl:uid ex:requirement1 ;
+  odrl:permission [
+    odrl:assigner ex:userA ;
+    odrl:action oac:Read ;
+    odrl:target oac:Identifier ;
+    odrl:constraint [
+      odrl:and 
+        [
+          dct:title "Purpose for access is to verify the identity of the assigner." ;
+          odrl:leftOperand oac:Purpose ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:IdentityVerification
+        ] ,
+        [
+          dct:title "Legal basis for access is consent." ;
+          odrl:leftOperand oac:LegalBasis ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:Consent
+        ]
+    ]
+  ] .
+          </pre>
+        </div>
 
         <section id="policies-user-offer">
           <h3>User Offer</h3>
         </section>
 
+        <div class="example">
+          <pre>
+&lt;https://example.com/offer1> a odrl:Offer ;
+  odrl:profile oac: ;
+  dct:description "Offer to read identifier data for identity verification and age data for academic research based on consent." ;
+  dct:creator ex:userA ;
+  dct:source ex:preference1, ex:requirement1 ;
+  dct:issued "2022-11-08T18:07:34"^^xsd:dateTime ;
+  odrl:uid ex:offer1 ;
+  odrl:permission [
+    dpv:hasContext dpv:Required ;
+    odrl:assigner ex:userA ;
+    odrl:action oac:Read ;
+    odrl:target oac:Identifier ;
+    odrl:constraint [
+      odrl:and 
+        [
+          dct:title "Purpose for access is to verify the identity of the assigner." ;
+          odrl:leftOperand oac:Purpose ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:IdentityVerification
+        ] ,
+        [
+          dct:title "Legal basis for access is consent." ;
+          odrl:leftOperand oac:LegalBasis ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:Consent
+        ]
+    ]
+  ] ;
+  odrl:permission [
+    dpv:hasContext dpv:Optional ;
+    odrl:assigner ex:userA ;
+    odrl:action oac:Read ;
+    odrl:target oac:Age ;
+    odrl:constraint [
+      odrl:and 
+        [
+          dct:title "Purpose for access is to conduct academic research." ;
+          odrl:leftOperand oac:Purpose ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:AcademicResearch
+        ] ,
+        [
+          dct:title "Legal basis for access is consent." ;
+          odrl:leftOperand oac:LegalBasis ;
+          odrl:operator odrl:isA ;
+          odrl:rightOperand dpv:Consent
+        ]
+    ]
+  ] .
+          </pre>
+        </div>
+
         <section id="policies-app-request">
           <h3>App Request</h3>
         </section>
+
+        <div class="example">
+          <pre>
+&lt;https://example.com/request1> a odrl:Request;
+  odrl:profile oac: ;
+  dct:description "Request to read age data for academic research." ;
+  dct:creator ex:userB ;
+  dct:issued "2022-11-08T18:15:56"^^xsd:dateTime ;
+  odrl:uid ex:request1 ;
+  odrl:permission [
+    odrl:assignee ex:userB ;
+    odrl:action oac:Read ;
+    odrl:target oac:Age ;
+    odrl:constraint [
+      dct:title "Purpose for access is to conduct research in the academic project X, conducted in University Y." ;
+      odrl:leftOperand oac:Purpose ;
+      odrl:operator odrl:eq ;
+      odrl:rightOperand ex:AcademicResearchProjectX
+    ]
+  ] .
+
+ex:AcademicResearchProjectX a dpv:AcademicResearch ;
+  rdfs:label "Conduct research in the academic project X, conducted in University Y." .
+          </pre>
+        </div>
 
         <section id="policies-consent">
           <h3>Consent Agreement</h3>
