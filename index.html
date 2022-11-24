@@ -283,10 +283,10 @@
         </section>
 
         <ul>
-          <li>Record <code>PodManagementData</code> including the <code>SolidPlatform</code> and <code>SolidSpecification</code> used in the Pod and infrastructure information such as the <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers.</li>
+          <li>Record <code>PodManagementData</code> including the <code>SolidPlatform</code> and <code>SolidSpecification</code> used in the <code>Pod</code> and infrastructure information such as the <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers.</li>
           <li>Pod discovery methods should be available.</li>
           <li>All registries, e.g., <code>AccessControlRegistry</code>, <code>DataRegistry</code>, <code>UserRegistry</code>, should have a corresponding shape.</li>
-          <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li>
+          <!-- <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li> -->
         </ul>
         <!-- <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p> -->
 
@@ -294,11 +294,14 @@
           <h3>App Conformance</h3>
           
           <ul>
-            <li>All apps should have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a></li>
+            <li>All <code>Apps</code> should have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a></li>
             <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
             <li>App manifests of relevant apps can be stored in the <code>AppRegistry</code>.</li>
+            <li>App manifests should include infomation regerding the <code>AppDeveloper</code> and/or <code>AppProvider</code>.</li>
             <li><code>AppManifest</code> should state the <code>DataUseRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
+            <li><code>DataUseRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
             <li><code>AppManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
+            <li><code>Apps</code> can have multiple <code>AppAgents</code>.</li>
           </ul>
 
           <div class="example">
@@ -308,9 +311,10 @@ ex:app a :App ;
 
 ex:app-manifest a :AppManifest ;
   dc:language "en" ;
+  dc:title "Super Racer 3000" ;
   interop:applicationName "Super Racer 3000" ;
-  dc:description "A readable Hacker News app." ;
-  interop:applicationDescription "A readable Hacker News app." ;
+  dc:description "A racer game app." ;
+  interop:applicationDescription "A racer game app." ;
         …
   odrl:hasPolicy ex:dataUseRequest ;
   dpv:hasPolicy ex:appPrivacyPolicy .
@@ -323,11 +327,36 @@ ex:app-manifest a :AppManifest ;
           <h3>Service Conformance</h3>
         </section>
 
+        <ul>
+          <li>All <code>Services</code> should have a <code>ServiceManifest</code>.</li>
+          <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
+          <li>Service manifests of relevant services can be stored in the <code>ServiceRegistry</code>.</li>
+          <li>Service manifests should include infomation regerding the <code>ServiceDeveloper</code> and/or <code>ServiceProvider</code>.</li>
+          <li><code>ServiceManifest</code> should state the <code>DataUseRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
+          <li><code>DataUseRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
+          <li><code>ServiceManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
+          <li><code>Services</code> can have multiple <code>ServiceAgents</code>.</li>
+        </ul>
+
         <section id="conformance-user">
           <h3>User Conformance</h3>
 
           <ul>
-            <li>how can users make data use requests without using an app or service</li>
+            <li>All interactions of a <code>User</code> with a <code>Pod</code> must be recorded.</li>
+            <li>A <code>UserRegistry</code> must contain information regarding the <code>DataSubjects</code> storing data within a Pod, the <code>PodAdmin</code> and all other users, e.g., <code>ReadUser</code>, <code>WriteUser</code> or <code>AdminUser</code>, that might have access to the <code>Data</code>.</li>
+            <li><code>Users</code> can be directly associated with a <code>DataUseRequest</code> so that they can make requests for data without using an application or service.</li>
+            <li><code>Users</code> can have multiple <code>UserAgents</code>.</li>
+            <!-- <li>how can users make data use requests without using an app or service</li> -->
+          </ul>
+
+        </section>
+
+        <section id="conformance-agent">
+          <h3>Agent Conformance</h3>
+
+          <ul>
+            <li><code>Agents</code> activity must be in accordance with the manifest of the entity for which they are acting on behalf of.</li>
+            <li>A record of the usage of an <code>AppAgent</code>, <code>ServiceAgent</code> or <code>UserAgent</code> must be kept in the <code>AppRegistry</code>, <code>ServiceRegistry</code> or <code>UserRegistry</code>, respectively.</li>
           </ul>
 
         </section>
@@ -346,6 +375,7 @@ ex:app-manifest a :AppManifest ;
           <h3>User Preferences</h3>
         </section>
 
+        <blockquote>In this example, User A issued a preference policy <code>https://example.com/preference1</code> that permits <code>oac:Read</code> access operations over its <code>oac:Age</code> data for the purpose of <code>dpv:AcademicResearch</code> if the legal basis is <code>dpv:Consent</code>.</blockquote>
         <div class="example">
           <pre>
 &lt;https://example.com/preference1> a oac:PreferencePolicy ;
@@ -381,6 +411,7 @@ ex:app-manifest a :AppManifest ;
           <h3>User Requirements</h3>
         </section>
 
+        <blockquote>In this example, User A issued a requirement policy <code>https://example.com/requirement1</code> that permits <code>oac:Read</code> access operations over its <code>oac:Identifier</code> data for the purpose of <code>dpv:IdentityVerification</code> if the legal basis is <code>dpv:Consent</code>.</blockquote>
         <div class="example">
           <pre>
 &lt;https://example.com/requirement1> a oac:RequirementPolicy ;
@@ -416,6 +447,7 @@ ex:app-manifest a :AppManifest ;
           <h3>User Offer</h3>
         </section>
 
+        <blockquote>In this example, User A issued an <code>odrl:Offer</code> with the identifier <code>https://example.com/offer1</code>, based on the requirement <code>https://example.com/requirement1</code> and preference <code>https://example.com/preference1</code> policies, as is indicated by the <code>dct:source</code> property. The permission associated with the requirement policy contains the property <code>dps:hasContext</code> associated with the term <code>dpv:Required</code> to indicate that said permission is a requirement, while the term <code>dpv:Optional</code> is used to identify the rules related with a preference policy.</blockquote>
         <div class="example">
           <pre>
 &lt;https://example.com/offer1> a odrl:Offer ;
@@ -470,10 +502,11 @@ ex:app-manifest a :AppManifest ;
           </pre>
         </div>
 
-        <section id="policies-app-request">
-          <h3>App Request</h3>
+        <section id="data-usage-request">
+          <h3>Data Usage Request</h3>
         </section>
 
+        <blockquote>In this example, User B issued an <code>odrl:Request</code> with the identifier <code>https://example.com/request1</code> to <code>oac:Use</code> <code>oac:Age</code> data for the purpose of conducting an academic research project X.</blockquote>
         <div class="example">
           <pre>
 &lt;https://example.com/request1> a odrl:Request;
@@ -484,7 +517,7 @@ ex:app-manifest a :AppManifest ;
   odrl:uid ex:request1 ;
   odrl:permission [
     odrl:assignee ex:userB ;
-    odrl:action oac:Read ;
+    odrl:action oac:Use ;
     odrl:target oac:Age ;
     odrl:constraint [
       dct:title "Purpose for access is to conduct research in the academic project X, conducted in University Y." ;
@@ -503,6 +536,7 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
           <h3>Consent Agreement</h3>
         </section>
 
+        <blockquote>In this example, User A and B reach an agreement to allow <code>oac:Read</code> access operations over User A's <code>Age</code> data for the purpose of academic research project X. This <code>odrl:Agreement</code> is the result of the matching of <code>https://example.com/offer1</code> and <code>https://example.com/request1</code>, as indicated by the <code>dct:references</code> property. The legal basis of the agreement is consent, as is specified in the policy with the <code>dpv:hasLegalBasis dpv:Consent</code> terms, and User A and User B are registered as the data subject and data controller in question, respectively, using the <code>dpv:hasDataSubject</code> and <code>dpv:hasDataController</code> terms.</blockquote>
         <div class="example">
           <pre>
 &lt;https://example.com/agreement1> a odrl:Agreement ;
@@ -532,6 +566,7 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
           <h3>Contract Agreement</h3>
         </section>
 
+        <blockquote>In this example, User A and B reach an agreement to allow <code>oac:Read</code> access operations over User A's <code>Contact</code> data for the purpose of academic research project X. This <code>odrl:Agreement</code> is the result of the matching of <code>https://example.com/offer2</code> and <code>https://example.com/request2</code>, as indicated by the <code>dct:references</code> property. The legal basis of the agreement is a contract, as is specified in the policy with the <code>dpv:hasLegalBasis dpv:Contract</code> terms, and User A and User B are registered as the data subject and data controller in question, respectively, using the <code>dpv:hasDataSubject</code> and <code>dpv:hasDataController</code> terms.</blockquote>
         <div class="example">
           <pre>
 &lt;https://example.com/agreement2> a odrl:Agreement ;
@@ -548,7 +583,7 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
     odrl:assigner ex:userA ;
     odrl:assignee ex:userB ;
     odrl:action oac:Read ;
-    odrl:target oac:Age ;
+    odrl:target oac:Contact ;
     odrl:constraint [
       dct:title "Purpose for access is to conduct research in the academic project X, conducted in University Y." ;
       odrl:leftOperand oac:Purpose ;
@@ -584,8 +619,8 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
       <p><code>App</code> request to a <code>User</code> <code>Pod</code></p>
       <ul>
         <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
-        <li>Get the <code>AppRequest</code> from the <code>AppManifest</code></li>
-        <li>Match the <code>AppRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
+        <li>Get the <code>DataUseRequest</code> from the <code>AppManifest</code></li>
+        <li>Match the <code>DataUseRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
         <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
       </ul>
 
