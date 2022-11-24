@@ -33,4 +33,6 @@ PLASMA will also provide a comprehensive overview and recommendations on specifi
 
 ## Funding
 
-This work has been made possible by funding from the Short Term Scientific Mission (STSM) grants from [COST ACTION CA19134 Distributed Knowledge Graphs (DKG)](https://cost-dkg.eu/) - funded by the Horizon 2020 Framework Programme of the European Union. The author (Harshvardhan J. Pandit) has received funding from the ADAPT SFI Centre for Digital Media Technology is funded by Science Foundation Ireland through the SFI Research Centres Programme and is co-funded under the European Regional Development Fund (ERDF) through Grant #13/RC/2106_P2.
+Beatriz Esteves has received funding from the European Union’s Horizon 2020 research and innovation programme under the Marie Skłodowska-Curie grant agreement No 813497 (PROTECT). 
+
+Harshvardhan J. Pandit has received funding from the ADAPT SFI Centre for Digital Media Technology is funded by Science Foundation Ireland through the SFI Research Centres Programme and is co-funded under the European Regional Development Fund (ERDF) through Grant #13/RC/2106_P2, and by the Short Term Scientific Mission (STSM) grants from [COST ACTION CA19134 Distributed Knowledge Graphs (DKG)](https://cost-dkg.eu/) - funded by the Horizon 2020 Framework Programme of the European Union.  
