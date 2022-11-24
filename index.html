@@ -18,28 +18,17 @@
       includePermalinks: false,
       editors: [
         {
-          name: "Harshvardhan J. Pandit",
-          url: "https://harshp.com/",
-          company: "ADAPT Centre, Trinity College Dublin",
-          companyURL: "https://tcd.ie/"
-        }, {
           name: "Beatriz Esteves",
           url: "https://besteves4.github.io/",
           company: "OEG, Universidad Politécnica de Madrid",
           companyURL: "https://oeg.fi.upm.es/"
-        }],
-      authors: [
+        },
         {
           name: "Harshvardhan J. Pandit",
           url: "https://harshp.com/",
           company: "ADAPT Centre, Trinity College Dublin",
           companyURL: "https://tcd.ie/"
-        }, {
-          name: "Beatriz Esteves",
-          url: "https://besteves4.github.io/",
-          company: "OEG, Universidad Politécnica de Madrid",
-          companyURL: "https://oeg.fi.upm.es/"
-        }],
+        }]
     };
   </script>
 </head>
@@ -73,7 +62,9 @@
       <ul>
         <li><code>App</code>: An application that stores, collects, uses, shares, erases, or performs other actions on <code>Data</code> with the aim of providing specific purposes, services, or functionalities, e.g., a Contact Address Book or a Chess Game. An application can use several <code>Services</code> and requires human intervention.</li>
         <div class="note">In the <a href="https://solid.github.io/data-interoperability-panel/specification/" target="_blank">Solid Application Interoperability</a> specification, an <a href="http://www.w3.org/ns/solid/interop#Application" target="_blank">application</a> is defined as "a software-based Agent that a Social Agent uses to access, manipulate, and manage the data in their control, as well as the data they've been granted access to". This definition is compatible with the one provided for the same concept in the <a href="https://solidproject.org/TR/protocol#solid-app" target="_blank">Solid Protocol</a> specification.</div>
-        <li><code>Service</code>: A functionality that may or may not utilise or interact with <code>Data</code> within a <code>Pod</code>. For example, an Identity Verification service that checks the validity of certificates, or a Query service that retrieves contacts matching the filter. A service is associated with an <code>App</code> or a <code>Pod</code> and does not require human intervention.</li>
+        <li><code>Service</code>: A functionality that may or may not utilise or interact with <code>Data</code> within a <code>Pod</code>. For example, an Identity Verification service that checks the validity of certificates, or a Query service that retrieves contacts matching the filter. A service can be associated with an <code>App</code> or a <code>Pod</code> and may not require human intervention, e.g. executing in the background. Services represent an abstraction of functionality that does not necessarily have to be <i>packaged</i> as an app. For example, Users can choose services to run on their Pods, with the services having their own developers and providers.
+          <div class="note" title="exploratory concept">We envision service as being something that does not require the full metadata and agent-based identification and authorisation as an App. The exact mechanism for this as well as workflows for how it should be initiated and used have not been explored yet. We specify this concept to denote the possibility of having services separate from apps.</div>
+        </li>
         <li><code>Pod</code>: A Personal Data Store or a &#39;Pod&#39; that conforms to the Solid specifications.</li>
         <div class="note">In the <a href="https://solidproject.org/TR/protocol" target="_blank">Solid Protocol</a> specification, a <a href="https://solidproject.org/TR/protocol#data-pod" target="_blank">Pod</a> is defined as "a place for storing documents, with mechanisms for controlling who can access what". This definition is compatible with the one provided for the same concept in the <a href="https://solid.github.io/data-interoperability-panel/specification/" target="_blank">Solid Application Interoperability</a> specification, however, none of the Solid vocabularies provides this term.</div>
         <li><code>Agent</code>: An actual or virtual entity associated with carrying out actions within or related to a <code>Pod</code> or its <code>Data</code>.</li>
@@ -96,15 +87,14 @@
         <p>Note that these definitions are not limited to the data on Pod - this is intentional. Otherwise the policy will only relate to what is happening on the pod, but not what happens after that. For example, to avoid cases such as to collect data for purpose X and then later decide to also perform purpose Y on it. This is to align the descriptions with legal requirements such as stating all purposes at the time of data collection, or going back and asking again for a new purpose.</p>
       </blockquote>
       <ul>
-        <!-- <li><code>AppRequest</code>: Request from an app to store, collect, use, share, erase, or perform other actions on data. </li> -->
-        <li><code>DataUseRequest</code>: Request from an app, service, agent or user to store, collect, use, share, erase, or perform other actions on data. </li>
-        <li><code>AppManifest</code>: Manifest from an app including information regarding startup parameters, identity, privacy policies and <code>DataUseRequests</code>. </li>
-        <div class="note">W3C currently has a <a href="https://www.w3.org/TR/appmanifest/" target="_blank">Web Application Manifest</a> specification on the standardisation track.</div>
-        <li><code>ServiceManifest</code>: Manifest from an service including metadata, apps using the service and information regarding <code>DataUseRequests</code>. </li>
+        <li><code>DataRequest</code>: Request from an app, service, agent or user to store, collect, use, share, erase, or perform other actions on data. </li>
+        <li><code>AppManifest</code>: Manifest from an app including information regarding startup parameters, identity, privacy policies and <code>DataRequest</code>. </li>
+        <div class="note">While the W3C currently has a <a href="https://www.w3.org/TR/appmanifest/" target="_blank">Web Application Manifest</a> specification on the standardisation track, by itself it should not be considered sufficient for an App's Manifest in the context of Solid Pods. We envision the necessity to include metadata in the Manifest to denote information such as: entities, policies, identifiers, etc. -- related to accountability and legal compliance.</div>
+        <li><code>ServiceManifest</code>: Manifest from an service including metadata, apps using the service and information regarding <code>DataRequest</code>. </li>
         <li><code>UserPreference</code>: Preference of a User regarding purposes, entities, and other actions on data. A preference is a soft rule that may not be satisfied e.g. user preferences do not match an app, but the user decides to still accept the stated purposes.</li>
         <li><code>UserRequirement</code>: Requirements of a User regarding purposes, entities, and other on data. A requirement is a hard rule that should always be satisfied e.g. user requirement is to never share something - then even if the user accepts the stated request, this should not be allowed. One-time exceptions, or changing the rule, are solutions to get around this. But the intention is to create a barrier.</li>
-        <li><code>UserOffer</code>: An offer from the User of a Pod regarding purposes, entities, and actions on data. For example, the <code>User</code> expresses an <code>UserOffer</code> that some of their <code>Data</code> is available to be <code>Collect</code>ed and <code>Use</code>d for some <code>Purpose</code>.</li>
-        <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code> </li>
+        <li><code>UserOffer</code>: An offer from the User of a Pod regarding purposes, entities, and actions on data. For example, the <code>User</code> expresses an <code>UserOffer</code> that their <code>ServiceUsageStatistics</code> as a category of <code>Data</code> is available for <code>Research</code> as a <code>Purpose</code> but only by <code>NonProfitEntity</code> (e.g. Universities), and with the requirement that it follow a specific <code>Law</code> (e.g. GDPR).</li>
+        <li><code>DataAgreement</code>: An agreement regarding purposes, entities, and actions on data. For example, stating that the <code>User</code> has given <code>Consent</code> to an <code>App</code> to <code>Collect</code>, <code>Store</code>, and <code>Use</code> some <code>Data</code> for a <code>Purpose</code>. Or, stating that the <code>User</code> has accepted that their <code>Data</code> will be <code>Collect</code>ed and <code>Use</code>d for a providing a <code>Service</code>.</li>
       </ul>
     </section>
 
@@ -159,16 +149,16 @@
       <ul>
         <li><code>User</code>: User of a Pod that can read, write, edit, erase data on a Pod. There may be multiple <code>User</code> for a single Pod. Users can have limited permissions or abilities to interact with data, for example - <code>ReadUser</code> that can only read or view data, or <code>WriteUser</code> that can only write or edit existing data.</li>
         <li><code>DataSubject</code>: The subject of data within a Pod. The <code>User</code> may not always be the <code>Subject</code>. There may be multiple <code>Subject</code>s for a single Pod.</li>
-        <li><code>PodAdmin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about the Pod.</li>
-        <li><code>Admin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about Data on a Pod.</li>
+        <li><code>PodAdmin</code>: User of a Pod that has <i>administrative</i> capability to make decisions about the Pod (as in separate from Data in a Pod), such as deleting the Pod, changing identity or other resource providers, or other controls and decisions related to the use and maintainence of Pods.</li>
+        <li><code>AdminUser</code>: User of a Pod that has <i>administrative</i> capability to make decisions about Data on a Pod. The administration can scoped, such as being limited to specific data paths/categories, or can be global, i.e. applicable to all data in the Pod.</li>
         <div class="note">Currently, Solid vocabularies do not make a distinction between different types of users. The term <code>owner</code> is used in several Solid specifications but not always with the same meaning. The <a href="http://www.w3.org/ns/solid/terms#" target="_blank">Solid terms vocabulary</a> is currently debating adding the concept <code>owner</code> to refer to the entity that has <code>acl:control</code> access to an entire storage. The <a href="https://solidproject.org/TR/protocol" target="_blank">Solid Protocol</a> provides an informal extension of this definition by adding that an owner is "a person or a social entity that is considered to have the rights and responsibilities of a data storage" and "is set at storage provisioning time and can be changed".</div>       
         <div class="issue">Related issue on adding new access modes: <a href="https://github.com/solid/web-access-control-spec/issues/85" target="_blank">solid/web-access-control-spec/issues/85</a></div>
       </ul>
 
       <p><strong>Agents</strong></p>
-      <p>Agents are entities that act on behalf or behest of other entities. They can be real (e.g. parents on behalf of children) or virtual (e.g. software agent). For Solid, we use <i>Agent</i> here to refer to the virtual agents so as to distinguish them from <i>Entity</i> which represents real or legal entities (i.e. those that can be held accountable).</p>
+      <p>Agents are entities that can act, whether by themselves (e.g. users), or on behalf or behest of other entities. They can be real (e.g. people, parents on behalf of children) or virtual (e.g. software agent). For Solid, we use <i>Agent</i> here to refer to the virtual agents so as to distinguish them from <i>Entity</i> which represents real or legal entities (i.e. those that can be held accountable).</p>
       <ul>
-        <li><code>UserAgent</code>: An agent acting on behalf of the user. For example, a browser is a user agent that facilitates the user's interaction with Web content.</li>
+        <li><code>UserAgent</code>: An agent acting on behalf of the user. For example, a <code>Service</code> running or managed by the Pod that checks the matching of <code>AppRequest</code> with <code>UserPreference</code> and <code>UserRequirement</code> to assist the user towards handling a <code>DataRequest</code>.</li>
         <li><code>AppAgent</code>: An agent acting on behalf of an App. For example, an agent that organizes an inbox application by email priority. </li>
         <li><code>ServiceAgent</code>: An agent acting on behalf of a Service. For example, an agent that syncs data stored in a Pod with another Pod.</li>
       </ul>
@@ -178,12 +168,13 @@
 
     <section id="agreements">
       <h3>Agreements</h3>
+      <p>An Agreement is a ...</p>
       <div class="issue" title="TODO: agreements"></div>
       <ul>
-        <li><code>UserConsent</code>: Agreement between a User and an Entity based on the User's consent.</li>
-        <li><code>AppAgreement</code>: Agreement between a User and an Entity based on a contract regarding an App.</li>
-        <li><code>ServiceAgreement</code>Agreement between a User and an Entity based on a contract regarding a Service.</li>
-        <li><code>PodAgreement</code>: Agreement between a User and an Entity based on a contract regarding the Pod.</li>
+        <li><code>UserConsent</code>: Agreement between a User and an Entity  regarding the processing of data in a Pod and based on the User's consent.</li>
+        <li><code>AppAgreement</code>: Agreement between a User and an Entity  regarding the processing of data in a Pod and based on a contract between the User and the Entity having responsibility for the App.</li>
+        <li><code>ServiceAgreement</code>Agreement between a User and an Entity  regarding the processing of data in a Pod and based on a contract between the User and the Entity having responsibility for the Service.</li>
+        <li><code>PodAgreement</code>: Agreement between a User and an Entity  regarding the processing of data in a Pod and based on a contract between the User and the Entity having responsibility for the Pod.</li>
       </ul>
     </section>
 
@@ -272,101 +263,10 @@
         </section>
       </section>
 
-      <section id="spec-conformance">
-        <h2>Conformance</h2>
-        <div class="issue" title="TODO: conformance conditions">
-          <p>Listing out what is mandatory to be provided, what is optional, and how conformity should be assessed and ensured.</p>
-        </div>
-
-        <section id="conformance-pod">
-          <h3>Pod Conformance</h3>
-        </section>
-
-        <ul>
-          <li>Record <code>PodManagementData</code> including the <code>SolidPlatform</code> and <code>SolidSpecification</code> used in the <code>Pod</code> and infrastructure information such as the <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers.</li>
-          <li>Pod discovery methods should be available.</li>
-          <li>All registries, e.g., <code>AccessControlRegistry</code>, <code>DataRegistry</code>, <code>UserRegistry</code>, should have a corresponding shape.</li>
-          <!-- <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li> -->
-        </ul>
-        <!-- <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p> -->
-
-        <section id="conformance-app">
-          <h3>App Conformance</h3>
-          
-          <ul>
-            <li>All <code>Apps</code> should have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a></li>
-            <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
-            <li>App manifests of relevant apps can be stored in the <code>AppRegistry</code>.</li>
-            <li>App manifests should include infomation regerding the <code>AppDeveloper</code> and/or <code>AppProvider</code>.</li>
-            <li><code>AppManifest</code> should state the <code>DataUseRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
-            <li><code>DataUseRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
-            <li><code>AppManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
-            <li><code>Apps</code> can have multiple <code>AppAgents</code>.</li>
-          </ul>
-
-          <div class="example">
-            <pre>
-ex:app a :App ;
-  :hasManifest ex:app-manifest .
-
-ex:app-manifest a :AppManifest ;
-  dc:language "en" ;
-  dc:title "Super Racer 3000" ;
-  interop:applicationName "Super Racer 3000" ;
-  dc:description "A racer game app." ;
-  interop:applicationDescription "A racer game app." ;
-        …
-  odrl:hasPolicy ex:dataUseRequest ;
-  dpv:hasPolicy ex:appPrivacyPolicy .
-            </pre>
-          </div>
-
-        </section>
-
-        <section id="conformance-service">
-          <h3>Service Conformance</h3>
-        </section>
-
-        <ul>
-          <li>All <code>Services</code> should have a <code>ServiceManifest</code>.</li>
-          <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
-          <li>Service manifests of relevant services can be stored in the <code>ServiceRegistry</code>.</li>
-          <li>Service manifests should include infomation regerding the <code>ServiceDeveloper</code> and/or <code>ServiceProvider</code>.</li>
-          <li><code>ServiceManifest</code> should state the <code>DataUseRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
-          <li><code>DataUseRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
-          <li><code>ServiceManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
-          <li><code>Services</code> can have multiple <code>ServiceAgents</code>.</li>
-        </ul>
-
-        <section id="conformance-user">
-          <h3>User Conformance</h3>
-
-          <ul>
-            <li>All interactions of a <code>User</code> with a <code>Pod</code> must be recorded.</li>
-            <li>A <code>UserRegistry</code> must contain information regarding the <code>DataSubjects</code> storing data within a Pod, the <code>PodAdmin</code> and all other users, e.g., <code>ReadUser</code>, <code>WriteUser</code> or <code>AdminUser</code>, that might have access to the <code>Data</code>.</li>
-            <li><code>Users</code> can be directly associated with a <code>DataUseRequest</code> so that they can make requests for data without using an application or service.</li>
-            <li><code>Users</code> can have multiple <code>UserAgents</code>.</li>
-            <!-- <li>how can users make data use requests without using an app or service</li> -->
-          </ul>
-
-        </section>
-
-        <section id="conformance-agent">
-          <h3>Agent Conformance</h3>
-
-          <ul>
-            <li><code>Agents</code> activity must be in accordance with the manifest of the entity for which they are acting on behalf of.</li>
-            <li>A record of the usage of an <code>AppAgent</code>, <code>ServiceAgent</code> or <code>UserAgent</code> must be kept in the <code>AppRegistry</code>, <code>ServiceRegistry</code> or <code>UserRegistry</code>, respectively.</li>
-          </ul>
-
-        </section>
-
-      </section>
-
       <section id="using-policies">
         <h2>Using Policies</h2>
         <div class="issue" title="TODO: policies">
-          <p>Listing out how different policies can be expressed using ODRL and DPV</p>
+          <p>Listing out how different policies can be expressed using ODRL and DPV. Specify necessity for ODRL, and then state in conformance that a policy must be valid ODRL, etc.</p>
         </div>
 
         <div class="note"> <a href="https://besteves4.github.io/odrl-access-control-profile/oac.html" target="_blank">https://besteves4.github.io/odrl-access-control-profile/oac.html</a> </div>
@@ -594,19 +494,122 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
 
       </section>
 
+      <section id="conformance">
+        <div class="issue" title="TODO: conformance conditions">
+          <p>Listing out what is mandatory to be provided, what is optional, and how conformity should be assessed and ensured.</p>
+        </div>
+
+        <section id="conformance-pod">
+          <h3>Pod Conformance</h3>
+          <p>For a Pod to be conformant with this specification, the following conditions should be satisfied:</p>
+          <div class="issue" title="Shapes for Pod metadata need to be developed">
+            <p>The requirements for Pod conformance necessitate shapes or forms to be developed for specifying information in a well-defined / commonly-agreed manner. This includes: ...</p>
+          </div>
+        <ul>
+          <li>A Pod MUST provide or declare <code>PodManagementData</code> which includes metadata about the Pod, such as <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers, as well as the specific <code>SolidPlatform</code> and <code>SolidSpecification</code> implemented by the <code>Pod</code>.</li>
+          <li>Pod discovery methods should be available.</li>
+          <li>A Pod MUST implement or provide equivalent functionality to support the different registries and records/logs specified in this document, such as <code>AccessControlRegistry</code>, <code>DataRegistry</code>, <code>UserRegistry</code></li>
+          <li>A Pod MUST utilised well-defined shapes for data stored in authorisation and record-keeping related registries, such as <code>AccessControlRegistry</code>.</li>
+          <!-- <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li> -->
+        </ul>
+        <!-- <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p> -->
+        </section>
+
+        <section id="conformance-app">
+          <h3>App Conformance</h3>
+          
+          <ul>
+            <li>All <code>Apps</code> should have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a>
+              <div class="issue" data-number="1">
+                <p>The W3C App Manifest specification is not sufficient to provide the necessary information as required for legal accountability. Missing items include the app's providers and developer's legal identities, links to privacy notices and policies, etc.</p>
+              </div>
+            </li>
+            <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
+            <li>App manifests of relevant apps can be stored in the <code>AppRegistry</code>.</li>
+            <li>App manifests should include infomation regerding the <code>AppDeveloper</code> and/or <code>AppProvider</code>.</li>
+            <li><code>AppManifest</code> should state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
+            <li><code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
+            <li><code>AppManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
+            <li><code>Apps</code> can have multiple <code>AppAgents</code>.</li>
+          </ul>
+
+          <div class="example">
+            <pre>
+ex:app a :App ;
+  :hasManifest ex:app-manifest .
+
+ex:app-manifest a :AppManifest ;
+  dc:language "en" ;
+  dc:title "Super Racer 3000" ;
+  interop:applicationName "Super Racer 3000" ;
+  dc:description "A racer game app." ;
+  interop:applicationDescription "A racer game app." ;
+        …
+  odrl:hasPolicy ex:DataRequest ;
+  dpv:hasPolicy ex:appPrivacyPolicy .
+            </pre>
+          </div>
+
+        </section>
+
+        <section id="conformance-service">
+          <h3>Service Conformance</h3>
+        </section>
+
+        <ul>
+          <li>All <code>Services</code> should have a <code>ServiceManifest</code>.</li>
+          <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
+          <li>Service manifests of relevant services can be stored in the <code>ServiceRegistry</code>.</li>
+          <li>Service manifests should include infomation regerding the <code>ServiceDeveloper</code> and/or <code>ServiceProvider</code>.</li>
+          <li><code>ServiceManifest</code> should state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
+          <li><code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
+          <li><code>ServiceManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
+          <li><code>Services</code> can have multiple <code>ServiceAgents</code>.</li>
+        </ul>
+
+        <section id="conformance-user">
+          <h3>User Conformance</h3>
+
+          <ul>
+            <li>Impactful interactions of a <code>User</code> such as logins and change of identity providers or changing data permissions or creating/editing policies within a <code>Pod</code> must be recorded --> How??? using ...</li>
+            <li>A <code>UserRegistry</code> must contain information regarding the <code>DataSubjects</code> storing data within a Pod, the <code>PodAdmin</code> and all other users, e.g., <code>ReadUser</code>, <code>WriteUser</code> or <code>AdminUser</code>, that might have access to the <code>Data</code>.</li>
+            <li><code>Users</code> can be directly associated with a <code>DataRequest</code> so that they can make requests for data without using an application or service.</li>
+            <li><code>Users</code> can have multiple <code>UserAgents</code>.</li>
+            <!-- <li>how can users make data use requests without using an app or service</li> -->
+          </ul>
+
+        </section>
+
+        <section id="conformance-agent">
+          <h3>Agent Conformance</h3>
+
+          <ul>
+            <li><code>Agents</code> activity must be in accordance with the manifest of the entity for which they are acting on behalf of.</li>
+            <li>A record of the usage of an <code>AppAgent</code>, <code>ServiceAgent</code> or <code>UserAgent</code> must be kept in the <code>AppRegistry</code>, <code>ServiceRegistry</code> or <code>UserRegistry</code>, respectively.</li>
+          </ul>
+
+        </section>
+
+      </section>
+
       <section id="workflows">
         <h2>Workflows</h2>
         <div class="issue" title="TODO: workflows">
-          <p>Explaining the different workflows possible (e.g. app sends a request, what happens next?) and how the terms used here can be used.</p>
+          <p>Explaining the different workflows possible (e.g. app sends a request, what happens next?) and how the terms used here can be used. Assuming everything is conformance.</p>
         </div>
-      </section>
 
+      <section id="workflow-pod">
+        <h3>Provisioning a Pod</h3>
       <p>Get a <code>Pod</code></p>
       <ul>
         <li><code>User</code> needs to get an identity document through a <code>IdentityProvider</code> and keep a <code>IdentityLog</code> regarding the identity provision</li>
         <li><code>User</code> needs to get a <code>Pod</code> through a <code>PodProvider</code></li>
         <li>Granting authorisation to a <code>UserAgent</code> to act on their behalf</li>
       </ul>
+    </section>
+
+    <section id="workflow-data">
+        <h3>Adding Data to a Pod</h3>
 
       <p>Add resources to the <code>Pod</code></p>
       <ul>
@@ -615,14 +618,27 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
         <li>Add policies such as <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code> to the Pod</li>
         <li>Keep a <code>PolicyLog</code> when a policy is added to the Pod</li>
       </ul>
+    </section>
 
+    <section id="workflow-policies">
+        <h3>Creating User Policies</h3>
+      </section>
+
+    <section id="workflow-apps">
+        <h3>Apps Requesting Data</h3>
       <p><code>App</code> request to a <code>User</code> <code>Pod</code></p>
       <ul>
         <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
-        <li>Get the <code>DataUseRequest</code> from the <code>AppManifest</code></li>
-        <li>Match the <code>DataUseRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
+        <li>Get the <code>DataRequest</code> from the <code>AppManifest</code></li>
+        <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
         <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
       </ul>
+    </section>
+
+    <section id="workflow-audit">
+        <h3>Auditing Pods, Data, and Apps</h3>
+      </section>
+    </section>
 
       <section id="legal-compliance">
         <h2>Legal Compliance</h2>
@@ -630,6 +646,8 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
           <p>Listing out how these terms relate to GDPR (and GDPR-like laws), what is missing, what needs to be done additionally.</p>
         </div>
       </section>
+
+      <section class="appendix" id="issue-summary"></section>
 
     </body>
 
