@@ -169,7 +169,8 @@
 
     <section id="agreements">
       <h3>Agreements</h3>
-      <p>An Agreement is a ...</p>
+      <p>An Agreement is a document that describes an arrangement between entities. In the context of Solid, an <code>AppAgreement</code>, <code>ServiceAgreement</code> or <code>PodAgreement</code> can be governed by a contract between the <code>User</code> and the entity responsible for the <code>App</code>, <code>Service</code> or <code>Pod</code>, or can be based on the <code>UserConsent</code>.</p>
+      <div class="note">Currently, the Solid specifications do not include any information on such agreements - only resources related to authorised accesses are established between Users and Apps in the form of <i> ACL authorisations</i> or <i>ACP access grants</i>.</div>
       <div class="issue" title="TODO: agreements"></div>
       <ul>
         <li><code>UserConsent</code>: Agreement between a User and an Entity  regarding the processing of data in a Pod and based on the User's consent.</li>
@@ -216,6 +217,7 @@
 
     <section id="data">
       <h3>Data</h3>
+      <p>While Solid's overall purpose is to provide individuals with a data storage service for their data, it should also contain (meta)data related with users, providers, applications, services, logs or registries.</p>
       <div class="issue" title="TODO: data"></div>
         <p><code>Log</code>: A provenance record associated with a process.</p>
           <ul>
