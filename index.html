@@ -603,47 +603,47 @@ ex:app-manifest a :AppManifest ;
           <p>Explaining the different workflows possible (e.g. app sends a request, what happens next?) and how the terms used here can be used. Assuming everything is conformance.</p>
         </div>
 
-      <section id="workflow-pod">
-        <h3>Provisioning a Pod</h3>
-      <p>Get a <code>Pod</code></p>
-      <ul>
-        <li><code>User</code> needs to get an identity document through a <code>IdentityProvider</code> and keep a <code>IdentityLog</code> regarding the identity provision</li>
-        <li><code>User</code> needs to get a <code>Pod</code> through a <code>PodProvider</code></li>
-        <li>Granting authorisation to a <code>UserAgent</code> to act on their behalf</li>
-      </ul>
-    </section>
+        <section id="workflow-pod">
+          <h3>Provisioning a Pod</h3>
+          <p>Get a <code>Pod</code></p>
+          <ul>
+            <li><code>User</code> needs to get an identity document through a <code>IdentityProvider</code> and keep a <code>IdentityLog</code> regarding the identity provision</li>
+            <li><code>User</code> needs to get a <code>Pod</code> through a <code>PodProvider</code></li>
+            <li>Granting authorisation to a <code>UserAgent</code> to act on their behalf</li>
+          </ul>
+        </section>
 
-    <section id="workflow-data">
-        <h3>Adding Data to a Pod</h3>
+        <section id="workflow-data">
+          <h3>Adding Data to a Pod</h3>
+          <p>Add resources to the <code>Pod</code></p>
+          <ul>
+            <li>Keep a <code>DataLog</code> when <code>Data</code> is added to the Pod</li>
+            <li>Update resource's metadata, e.g., resource A contains health data <code>:resourceA dpv:hasPersonalData dpv-pd:Health</code></li>
+            <li>Add policies such as <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code> to the Pod</li>
+            <li>Keep a <code>PolicyLog</code> when a policy is added to the Pod</li>
+          </ul>
+        </section>
 
-      <p>Add resources to the <code>Pod</code></p>
-      <ul>
-        <li>Keep a <code>DataLog</code> when <code>Data</code> is added to the Pod</li>
-        <li>Update resource's metadata, e.g., resource A contains health data <code>:resourceA dpv:hasPersonalData dpv-pd:Health</code></li>
-        <li>Add policies such as <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code> to the Pod</li>
-        <li>Keep a <code>PolicyLog</code> when a policy is added to the Pod</li>
-      </ul>
-    </section>
+        <section id="workflow-policies">
+          <h3>Creating User Policies</h3>
+        </section>
 
-    <section id="workflow-policies">
-        <h3>Creating User Policies</h3>
+        <section id="workflow-apps">
+          <h3>Apps Requesting Data</h3>
+          <p><code>App</code> request to a <code>User</code> <code>Pod</code></p>
+          <ul>
+            <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
+            <li>Get the <code>DataRequest</code> from the <code>AppManifest</code></li>
+            <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
+            <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
+          </ul>
+        </section>
+
+        <section id="workflow-audit">
+          <h3>Auditing Pods, Data, and Apps</h3>
+        </section>
+      
       </section>
-
-    <section id="workflow-apps">
-        <h3>Apps Requesting Data</h3>
-      <p><code>App</code> request to a <code>User</code> <code>Pod</code></p>
-      <ul>
-        <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
-        <li>Get the <code>DataRequest</code> from the <code>AppManifest</code></li>
-        <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
-        <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
-      </ul>
-    </section>
-
-    <section id="workflow-audit">
-        <h3>Auditing Pods, Data, and Apps</h3>
-      </section>
-    </section>
 
       <section id="legal-compliance">
         <h2>Legal Compliance</h2>
