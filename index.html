@@ -630,10 +630,21 @@ ex:app-manifest a :AppManifest ;
 
         <section id="workflow-apps">
           <h3>Apps Requesting Data</h3>
-          <p><code>App</code> request to a <code>User</code> <code>Pod</code></p>
+          <p><code>App</code> request to use <code>Pod</code> <code>Data</code></p>
           <ul>
             <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
             <li>Get the <code>DataRequest</code> from the <code>AppManifest</code></li>
+            <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
+            <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
+          </ul>
+        </section>
+
+        <section id="workflow-services">
+          <h3>Services Requesting Data</h3>
+          <p><code>Service</code> request to use <code>Pod</code> <code>Data</code></p>
+          <ul>
+            <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
+            <li>Get the <code>DataRequest</code> from the <code>ServiceManifest</code></li>
             <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
             <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
           </ul>
