@@ -605,7 +605,7 @@ ex:app-manifest a :AppManifest ;
 
         <section id="workflow-pod">
           <h3>Provisioning a Pod</h3>
-          <p>Get a <code>Pod</code></p>
+          <p>The provision of a <code>Pod</code>, and related infrastructure used to implement it, may have different setups depending on the actors that develop and provide the <code>Pod</code>s, e.g., in a completely self-managed scenario, the <code>User</code> is the <code>Entity</code> responsible for the provision of the infrastructure, platform and software deployed for the usage of <code>Pod</code>s, while in an opposite scenario, the <code>User</code> relies on <code>Provider</code>s and/or <code>Developer</code>s to implement and deploy all the infrastructure needed to use a <code>Pod</code>.</p>
           <ul>
             <li><code>User</code> needs to get an identity document through a <code>IdentityProvider</code> and keep a <code>IdentityLog</code> regarding the identity provision</li>
             <li><code>User</code> needs to get a <code>Pod</code> through a <code>PodProvider</code></li>
@@ -637,6 +637,10 @@ ex:app-manifest a :AppManifest ;
             <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
             <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
           </ul>
+        </section>
+
+        <section id="workflow-results">
+          <h3>Returning Results Derived from Processing Operations</h3>
         </section>
 
         <section id="workflow-audit">
