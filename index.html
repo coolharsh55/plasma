@@ -512,14 +512,13 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
           <div class="issue" title="Shapes for Pod metadata need to be developed">
             <p>The requirements for Pod conformance necessitate shapes or forms to be developed for specifying information in a well-defined / commonly-agreed manner. This includes: ...</p>
           </div>
-        <ul>
-          <li>A Pod MUST provide or declare <code>PodManagementData</code> which includes metadata about the Pod, such as <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers, as well as the specific <code>SolidPlatform</code> and <code>SolidSpecification</code> implemented by the <code>Pod</code>.</li>
-          <li>Pod discovery methods should be available.</li>
-          <li>A Pod MUST implement or provide equivalent functionality to support the different registries and records/logs specified in this document, such as <code>AccessControlRegistry</code>, <code>DataRegistry</code>, <code>UserRegistry</code></li>
-          <li>A Pod MUST utilised well-defined shapes for data stored in authorisation and record-keeping related registries, such as <code>AccessControlRegistry</code>.</li>
-          <!-- <li>Pending access requests should be stored in the <code>PolicyRegistry</code> with a <code>Pending</code> status.</li> -->
-        </ul>
-        <!-- <p>note: inbox, e.g. interop spec makes a distinction between having an inbox and an access inbox just for access-related messages to be posted</p> -->
+          <ul>
+            <li>A Pod MUST provide or declare <code>PodManagementData</code> which includes metadata about the Pod, such as <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers, as well as the specific <code>SolidPlatform</code> and <code>SolidSpecification</code> implemented by the <code>Pod</code>.</li>
+            <li>Pod discovery methods should be available.</li>
+            <li>A Pod MUST implement or provide equivalent functionality to support the different registries and records/logs specified in this document, such as <code>AccessControlRegistry</code>, <code>DataRegistry</code>, <code>UserRegistry</code></li>
+            <li>A Pod MUST utilised well-defined shapes for data stored in authorisation and record-keeping related registries, such as <code>AccessControlRegistry</code>.</li>
+            <li>A Pod MAY have multiple users with varying degrees of control (shared Pods can be used to group data from private groups such as families or friends or within organisational environments such as departments or teams in a company).</li>
+          </ul>
         </section>
 
         <section id="conformance-app">
