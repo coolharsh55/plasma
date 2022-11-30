@@ -36,7 +36,7 @@
 <body>
   <section id="abstract">
     <div class="issue" title="TODO: abstract"></div>
-    <p>Currently, the Solid protocol and its specifications lack the terms to express metadata related to the entities, roles, processes or infrastructure necessary to provide transparency to its data handling practices. In particular, these specifications do not have the terms to deal with the obligations and requirements brought by regulations related to (personal) data protection and privacy. The establishment of a metadata language such as PLASMA enables this by provinding consistent taxonomies to describe the entities (e.g., providers, developers), the infrastructure, legal roles, policies, notices, notices, registries and logs necessary to understand and establish responsibilities and accountability within the Solid ecosystem.</p>
+    <p>Currently, the Solid protocol and its specifications lack the terms to express metadata related to the entities, roles, processes or infrastructure necessary to provide transparency to its data handling practices. In particular, these specifications do not have the terms to deal with the obligations and requirements brought by regulations related to (personal) data protection and privacy. The establishment of a metadata language such as PLASMA enables this by provinding consistent taxonomies to describe the entities (e.g., providers, developers), the infrastructure, legal roles, policies, notices, registries and logs necessary to understand and establish responsibilities and accountability within the Solid ecosystem.</p>
   </section>
 
   <section id="introduction">
@@ -273,12 +273,15 @@
 
       <section id="using-policies">
         <h2>Using Policies</h2>
-        <div class="issue" title="TODO: policies">
-          <p>Listing out how different policies can be expressed using ODRL and DPV. Specify necessity for ODRL, and then state in conformance that a policy must be valid ODRL, etc.</p>
-        </div>
-
-        <div class="note"> <a href="https://besteves4.github.io/odrl-access-control-profile/oac.html" target="_blank">https://besteves4.github.io/odrl-access-control-profile/oac.html</a> </div>
-
+        <p>Currently, Solid has two specifications to determine access authorisations to resources in Solid Pods.</p>
+        <ul>
+          <li><b>Web Access Control (WAC)</b> specification: IRIs are used to represent resources and agents, and authorisation statements are stored within Access Control Lists (ACLs) defined per resource or inherited from the parent resource.</li>
+          <li><b>Access Control Policy (ACP)</b> specification: access grants are provided to certain resources and agents based on an <code>acp:Context</code> that describes the agent's request for data and the access control resources (ACRs) that describe who is allowed or denied access to Pod resources using <code>acp:Matcher</code>s. </li>
+        </ul>
+        <p>Given that Solid provides a way for personal data to be stored and managed by individuals, it is important to consider the impact and application of data protection and privacy laws such as the GDPR that define specific concepts and obligations for how personal data can be collected, stored, used, and shared. In particular, GDPR's Articles 13 and 14 require that entities processing personal data provide transparent information on identity, purpose for processing, personal data categories, legal basis, recipients and so on, when they use personal data directly or indirectly obtained from individuals.</p>
+        <p>Neither WAC nor ACP provide the terms to deal with these requirements. To overcome this issue, PLASMA promotes the usage of the Open Digital Rights Language (ODRL), which is a W3C standard for policy expression and provides a convenient extension mechanism, through ODRL profiles, that can be integrated into the Solid architecture. Since ODRL is a general policy language, to invoke data protection-specific terms, the Data Privacy Vocabulary (DPV) can be used. DPV provides a rich set of taxonomies that can be used to specify purposes, personal data types, technical and organisational measures, rights, risks or entities. The ODRL profile for Access Control (OAC) [] already integrates these two resources to manage access control to Solid Pods' resources and uses ACLs access modes, i.e., <code>acl:Read</code>, <code>acl:Write</code> and <code>acl:Append</code>, when possible to express the level of access to be permitted or prohibited, as well as DPV's taxonomies to express policies over particular types of data, to express constraints over purposes, recipients or legal basis and so on.</p>
+        <p>The following sub-sections contain a set of examples that use OAC to specify <code>UserPreference</code>s, <code>UserRequirement</code>s, <code>UserOffer</code>s, <code>DataRequest</code>s and <code>DataAgreement</code>s as ODRL policies.</p>
+        
         <section id="policies-user-preference">
           <h3>User Preferences</h3>
         </section>
@@ -534,8 +537,8 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
             <li>Shapes can be used to check conformance with mandatory manifest requirements.</li>
             <li>App manifests of relevant apps can be stored in the <code>AppRegistry</code>.</li>
             <li>App manifests should include infomation regerding the <code>AppDeveloper</code> and/or <code>AppProvider</code>.</li>
-            <li><code>AppManifest</code> should state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
-            <li><code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
+            <li><code>AppManifest</code> should state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links. </li>
+            <li><code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
             <li><code>AppManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
             <li><code>Apps</code> can have multiple <code>AppAgents</code>.</li>
           </ul>
@@ -569,7 +572,7 @@ ex:app-manifest a :AppManifest ;
           <li>Service manifests of relevant services can be stored in the <code>ServiceRegistry</code>.</li>
           <li>Service manifests should include infomation regerding the <code>ServiceDeveloper</code> and/or <code>ServiceProvider</code>.</li>
           <li><code>ServiceManifest</code> should state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links.</li>
-          <li><code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data use request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
+          <li><code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
           <li><code>ServiceManifest</code> should link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
           <li><code>Services</code> can have multiple <code>ServiceAgents</code>.</li>
         </ul>
@@ -580,7 +583,7 @@ ex:app-manifest a :AppManifest ;
           <ul>
             <li>Impactful interactions of a <code>User</code> such as logins and change of identity providers or changing data permissions or creating/editing policies within a <code>Pod</code> must be recorded --> How??? using ...</li>
             <li>A <code>UserRegistry</code> must contain information regarding the <code>DataSubjects</code> storing data within a Pod, the <code>PodAdmin</code> and all other users, e.g., <code>ReadUser</code>, <code>WriteUser</code> or <code>AdminUser</code>, that might have access to the <code>Data</code>.</li>
-            <li><code>Users</code> can be directly associated with a <code>DataRequest</code> so that they can make requests for data without using an application or service.</li>
+            <li><code>Users</code> can be directly associated with a <code>DataRequest</code> so that they can make requests for data without using an application or service. These <code>DataRequest</code>s should be checked for compliance to conformance with the ODRL profile for access control, e.g. example on a data request policy available in <a href="#data-usage-request">Section 4.4</a>.</li>
             <li><code>Users</code> can have multiple <code>UserAgents</code>.</li>
             <!-- <li>how can users make data use requests without using an app or service</li> -->
           </ul>
