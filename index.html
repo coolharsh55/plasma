@@ -182,6 +182,7 @@
 
     <section id="notices">
       <h3>Notices</h3>
+      <p>A notice is a document to provide information about the entities, operations, data, location, etc. involved in a particular process. In the context of Solid, notices can be provided to declare the providers/developer of applications, services, infrastructure, to describe data processing practices, etc.</p>
       <div class="issue" title="TODO: notices"></div>
       <ul>
         <li><code>Notice</code>: An artefact providing information about something</li>
@@ -643,7 +644,6 @@ ex:app-manifest a :AppManifest ;
           <h3>Services Requesting Data</h3>
           <p><code>Service</code> request to use <code>Pod</code> <code>Data</code></p>
           <ul>
-            <li><code>User</code> needs to be authenticated and an <code>IdentityLog</code> regarding the identity verification should be kept</li>
             <li>Get the <code>DataRequest</code> from the <code>ServiceManifest</code></li>
             <li>Match the <code>DataRequest</code> with the <code>UserPreferences</code>, <code>UserRequirements</code> and <code>UserOffers</code></li>
             <li>Keep a <code>AccessControlLog</code> of the <code>DataAgreement</code></li>
