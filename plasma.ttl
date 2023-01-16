@@ -1,0 +1,616 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX vann: <http://purl.org/vocab/vann/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX interop: <http://www.w3.org/ns/solid/interop#>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dpv-tech: <https://w3id.org/dpv/dpv-tech#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX acp: <http://www.w3.org/ns/solid/acp#>
+
+PREFIX plasma: <https://w3id.org/plasma#>
+
+# ------------ Ontology Metadata ------------------ #
+
+plasma: a owl:Ontology ;
+	dct:title "Policy Language for Solid’s Metadata-based Access Control"@en ;
+	vann:preferredNamespacePrefix "plasma" ;
+    vann:preferredNamespaceUri "https://w3id.org/plasma#" ;
+	rdfs:label "Policy Language for Solid’s Metadata-based Access Control"@en ;
+	owl:versionInfo "0.1"^^xsd:decimal ;
+	dct:created ""^^xsd:date ;
+	dct:creator "Beatriz Esteves", "Harshvardhan J. Pandit" ;
+	dct:description ""@en ;
+	rdfs:comment "This is the Turtle vocabulary for PLASMA."@en ;
+	dct:license <https://dalicc.net/licenselibrary/CC-BY_v4> .
+
+# ------------ Base Concepts ------------------ #
+
+plasma:App a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Application"@en ;
+    skos:related interop:Application, dpv-tech:Application ;
+    skos:definition "An application that stores, collects, uses, shares, erases, or performs other actions on Data with the aim of providing specific purposes, services, or functionalities. An application can use several Services and requires human intervention."@en ;
+    skos:example "A Contact Address Book application or a Chess Game application"@en .
+
+plasma:Service a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service"@en ;
+    skos:definition "A functionality that may or may not utilise or interact with Data within a Pod. Services represent an abstraction of functionality that does not necessarily have to be packaged as an App."@en ;
+    skos:note "We envision service as being something that does not require the full metadata and agent-based identification and authorisation as an App. The exact mechanism for this as well as workflows for how it should be initiated and used have not been explored yet. We specify this concept to denote the possibility of having services separate from apps."@en ;
+    skos:example "An Identity Verification service that checks the validity of certificates, or a Query service that retrieves contacts matching the filter"@en .
+
+plasma:Pod a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod"@en ;
+    skos:altLabel "Personal Data Store"@en ;
+    skos:definition "A Personal Data Store or a 'Pod' that conforms to the Solid specifications."@en .
+
+plasma:Agent a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Agent"@en ;
+    skos:related foaf:Agent, interop:Agent ;
+    skos:definition "An actual or virtual entity associated with carrying out actions within or related to a Pod or its Data."@en .
+
+plasma:Policy a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Policy"@en ;
+    skos:related odrl:Policy, acp:Policy ;
+    skos:definition "A set of guidelines or decisions or recommendations governing the use of Pod or its Data."@en .
+
+plasma:Data a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data"@en ;
+    skos:related dpv:Data ;
+    skos:definition "Data stored on a Pod or associated with User, App, Service, or DataSubject of a Pod."@en .
+
+plasma:Entity a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Entity"@en ;
+    skos:related dpv:Entity ;
+    skos:definition "A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services, Pods."@en .
+
+plasma:Provider a rdfs:Class ;
+    rdfs:subClassOf plasma:Entity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Provider"@en ;
+    skos:definition "An Entity that provides some thing such as a Pod, SolidPlatform, App, Service, or Data."@en .
+
+plasma:Developer a rdfs:Class ;
+    rdfs:subClassOf plasma:Entity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Developer"@en ;
+    skos:definition "An Entity that develops some thing such as a Pod, SolidPlatform, App, or Service."@en .
+
+plasma:Customer a rdfs:Class ;
+    rdfs:subClassOf plasma:Entity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Customer"@en ;
+    skos:definition "An Entity that has a business relationship with others entities to use Pods or related resources, with or without monetary transactions."@en ;
+    skos:example "Entities who purchase, lease, subscribe, or establish any form of contract or agreement for the use of Solid Pods or its related resources."@en .
+
+plasma:SolidPlatform a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Solid Platform"@en ;
+    skos:definition "The specific implementation of Solid that is installed or used within a Pod."@en .
+
+plasma:SolidSpecification a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Solid Specification"@en ;
+    skos:definition "The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Pods and its association with Services and Apps."@en .
+
+# ------------ Policy Concepts ------------------ #
+
+plasma:DataRequest a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Request"@en ;
+    skos:related odrl:Request ;
+    skos:definition "Request from an App, Service, Agent or User to store, collect, use, share, erase, or perform other actions on Data."@en .
+
+plasma:AppManifest a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Manifest"@en ;
+    skos:definition "Manifest from an App including information regarding startup parameters, identity, privacy policies and DataRequests."@en .
+
+plasma:ServiceManifest a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Manifest"@en ;
+    skos:definition "Manifest from an Service including metadata, Apps using the service and information regarding DataRequests."@en .
+
+plasma:UserPreference a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Preference"@en ;
+    skos:related oac:PreferencePolicy ;
+    skos:definition "Preference of a User regarding purposes, entities, and other actions on Data. A preference is a soft rule that may not be satisfied."@en ;
+    skos:example "When the user's preferences do not match the app's, the user can still decide to accept the stated purposes."@en .
+
+plasma:UserRequirement a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Requirement"@en ;
+    skos:related oac:RequirementPolicy ;
+    skos:definition "Requirements of a User regarding purposes, entities, and other actions on Data. A requirement is a hard rule that should always be satisfied."@en ;
+    skos:example "The user requirement is to never share something - then even if the user accepts the stated request, this should not be allowed."@en .
+
+plasma:UserOffer a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Offer"@en ;
+    skos:related odrl:Offer ;
+    skos:definition "An offer from the User of a Pod regarding purposes, entities, and actions on Data."@en ;
+    skos:example "The User expresses an UserOffer that their ServiceUsageStatistics as a category of Data is available for Research as a Purpose but only by NonProfitEntity (e.g. Universities), and with the requirement that it follows a specific Law (e.g. GDPR)."@en .
+
+plasma:DataAgreement a rdfs:Class ;
+    rdfs:subClassOf plasma:Policy ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Agreement"@en ;
+    skos:related odrl:Agreement ;
+    skos:definition "An agreement regarding purposes, entities, and actions on Data."@en ;
+    skos:example "Stating that the User has given Consent to an App to Collect, Store, and Use some Data for a Purpose. Or, stating that the User has accepted that their Data will be Collected and Used for a providing a Service."@en .
+
+# ------------ Agreement Concepts ------------------ #
+
+plasma:UserConsent a rdfs:Class ;
+    rdfs:subClassOf plasma:DataAgreement ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Consent"@en ;
+    skos:definition "Agreement between a User and an Entity regarding the processing of Data in a Pod and based on the User's consent."@en .
+
+plasma:AppAgreement a rdfs:Class ;
+    rdfs:subClassOf plasma:DataAgreement ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Agreement"@en ;
+    skos:definition "Agreement between a User and an Entity regarding the processing of Data in a Pod and based on a contract between the User and the Entity having responsibility for the App."@en .
+
+plasma:ServiceAgreement a rdfs:Class ;
+    rdfs:subClassOf plasma:DataAgreement ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Agreement"@en ;
+    skos:definition "Agreement between a User and an Entity regarding the processing of Data in a Pod and based on a contract between the User and the Entity having responsibility for the Service."@en .
+
+plasma:PodAgreement a rdfs:Class ;
+    rdfs:subClassOf plasma:DataAgreement ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod Agreement"@en ;
+    skos:definition "Agreement between a User and an Entity regarding the processing of Data in a Pod and based on a contract between the User and the Entity having responsibility for the Pod."@en .
+
+# ------------ Entity Concepts ------------------ #
+
+plasma:InfrastructureProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Infrastructure Provider"@en ;
+    skos:definition "The Provider of infrastructure - such as storage, computing, network, domain names. The term infrastructure has a very specific and restricted meaning and should not be confused with other terms such as Services (e.g. analytics, querying) or Apps (e.g. data use dashboards)."@en .
+
+plasma:PodProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod Provider"@en ;
+    skos:definition "The Provider of a Pod. Here the term provider refers to an entity that provisions the Pod i.e. creates the necessary infrastructure, platform, and software so that the Pod can be used by the User."@en .
+
+plasma:PodDeveloper a rdfs:Class ;
+    rdfs:subClassOf plasma:Developer ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod Developer"@en ;
+    skos:definition "The Developer of a Pod. The developer may not be the provider, in which case this term will differ from PodProvider."@en .
+
+plasma:SolidPlatformProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Solid Platform Provider"@en ;
+    skos:definition "The Provider of a SolidPlatform. Here the term provider refers to an entity that provisions the SolidPlatform, i.e. creates the necessary infrastructure, platform, and software so that the SolidPlatform can be used by the User."@en .
+
+plasma:SolidPlatformDeveloper a rdfs:Class ;
+    rdfs:subClassOf plasma:Developer ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Solid Platform Developer"@en ;
+    skos:definition "The Developer of a SolidPlatform. The developer may not be the provider, in which case this term will differ from SolidPlatformProvider."@en .
+
+plasma:AppDeveloper a rdfs:Class ;
+    rdfs:subClassOf plasma:Developer ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Developer"@en ;
+    skos:definition "The developer of an App. Developer here refers to the Entity that developed the app, rather than individual members or units within the entity."@en ;
+    skos:example "Firefox has Mozilla as app developer."@en .
+
+plasma:AppProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Provider"@en ;
+    skos:definition "The Provider of an App. Here the term provider refers to the entity that enables that App to be accessed and used. The provider may not be the developer, in which case this term will differ from AppDeveloper. Examples include directly using an App from the developer's website (developer is same as provider), or using an App through an App Store or a common marketplace (developer is different from provider)."@en ;
+    skos:example "Firefox has several providers as it can be directly downloaded from its website, or via package management, or come pre-installed on a system."@en .
+
+plasma:ServiceDeveloper a rdfs:Class ;
+    rdfs:subClassOf plasma:Developer ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Developer"@en ;
+    skos:definition "The Developer of a Service. Developer here refers to the entity that developed the Service, rather than individual members or units within the entity."@en .
+
+plasma:ServiceProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Provider"@en ;
+    skos:definition "The Provider of a Service. Here the term provider refers to the entity that enables that Service to be accessed and used. The provider may not be the developer, in which case this term will differ from ServiceDeveloper. Examples include directly using a Service from the developer's website (developer is same as provider), or using a Service through a Service Store or a common marketplace (developer is different from provider)."@en .
+
+plasma:IdentityProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Identity Provider"@en ;
+    skos:definition "The Provider of an identity service or credential. Here provider means the entity that provisions the identity mechanism. For example, the PodProvider also provides an identity credential for use with the Pod."@en .
+
+plasma:IdentityDeveloper a rdfs:Class ;
+    rdfs:subClassOf plasma:Developer ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Identity Developer"@en ;
+    skos:definition "The Developer of an identity service or credential. The developer may be different from a provider, in which case this term will differ from IdentityProvider. For example, a PodProvider uses an existing certificate creation service to provide certificates, in which case the developer would be the entity that created the certificate, while the PodProvider would be the provider for the identity."@en .
+
+plasma:User a rdfs:Class ;
+    rdfs:subClassOf plasma:Entity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User"@en ;
+    skos:definition "User of a Pod that can read, write, edit, erase data on a Pod. There may be multiple Users for a single Pod. Users can have limited permissions or abilities to interact with Data."@en .
+
+plasma:ReadUser a rdfs:Class ;
+    rdfs:subClassOf plasma:User ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Read User"@en ;
+    skos:definition "User that can only read or view data."@en .
+
+plasma:WriteUser a rdfs:Class ;
+    rdfs:subClassOf plasma:User ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Write User"@en ;
+    skos:definition "User that can only write or edit existing data."@en .
+
+plasma:DataSubject a rdfs:Class ;
+    rdfs:subClassOf plasma:Entity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Subject"@en ;
+    skos:related dpv:DataSubject ;
+    skos:definition "The subject of Data within a Pod. The User may not always be the DataSubject. There may be multiple Subjects for a single Pod."@en .
+
+plasma:PodAdmin a rdfs:Class ;
+    rdfs:subClassOf plasma:User ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod Admin"@en ;
+    skos:definition "User of a Pod that has administrative capability to make decisions about the Pod (separate from Data in a Pod), such as deleting the Pod, changing identity or other resource providers, or other controls and decisions related to the use and maintainence of Pods."@en .
+
+plasma:AdminUser a rdfs:Class ;
+    rdfs:subClassOf plasma:User ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Admin User"@en ;
+    skos:definition "User of a Pod that has administrative capability to make decisions about Data on a Pod. The administration can scoped, such as being limited to specific data paths/categories, or can be global, i.e. applicable to all Data in the Pod."@en .
+
+plasma:UserAgent a rdfs:Class ;
+    rdfs:subClassOf plasma:Agent ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Agent"@en ;
+    skos:definition "An Agent acting on behalf of the User."@en ;
+    skos:example "A Service running or managed by the Pod that assists the User by matching the DataRequest with UserPreferences and UserRequirements."@en .
+
+plasma:AppAgent a rdfs:Class ;
+    rdfs:subClassOf plasma:Agent ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Agent"@en ;
+    skos:definition "An Agent acting on behalf of an App."@en ;
+    skos:example "An Agent that organizes an inbox application by email priority. "@en .
+
+plasma:ServiceAgent a rdfs:Class ;
+    rdfs:subClassOf plasma:Agent ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Agent"@en ;
+    skos:definition "An Agent acting on behalf of a Service."@en ;
+    skos:example "An Agent that syncs data stored in a Pod with another Pod."@en .
+
+# ------------ Notice Concepts ------------------ #
+
+plasma:Notice a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Notice"@en ;
+    skos:definition "An artefact providing information about something."@en .
+
+plasma:ExAnteNotice a rdfs:Class ;
+    rdfs:subClassOf plasma:Notice ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Ex-Ante Notice"@en ;
+    skos:definition "A Notice that is provided before something happens."@en .
+
+plasma:ExPostNotice a rdfs:Class ;
+    rdfs:subClassOf plasma:Notice ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Ex-Post Notice"@en ;
+    skos:definition "A Notice that is provided after something happens."@en .
+
+plasma:NoticeProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Notice Provider"@en ;
+    skos:definition "Entity that provides the Notice."@en .
+
+plasma:NoticeRecipient a rdfs:Class ;
+    rdfs:subClassOf plasma:Entity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Notice Recipient"@en ;
+    skos:definition "Entity that receives the Notice."@en .
+
+plasma:NoticeContext a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Notice Context"@en ;
+    skos:definition "Information about a Notice, such as where/when/how/why it was provided."@en .
+
+plasma:AppPrivacyNotice a rdfs:Class ;
+    rdfs:subClassOf plasma:Notice ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Privacy Notice"@en ;
+    skos:definition "An App's privacy Notice."@en .
+
+plasma:ServicePrivacyNotice a rdfs:Class ;
+    rdfs:subClassOf plasma:Notice ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Privacy Notice"@en ;
+    skos:definition "A Service's privacy Notice."@en .
+
+plasma:PodPrivacyNotice a rdfs:Class ;
+    rdfs:subClassOf plasma:Notice ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod Privacy Notice"@en ;
+    skos:definition "A PodProvider's or PodDeveloper's privacy Notice."@en .
+
+plasma:UserPrivacyNotice a rdfs:Class ;
+    rdfs:subClassOf plasma:Notice ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Privacy Notice"@en ;
+    skos:definition "A Pod User's privacy Notice regarding their Data."@en .
+
+# ------------ Service Concepts ------------------ #
+
+plasma:IdentityService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Identity Service"@en ;
+    skos:definition "A Service providing identity credentials and identifiers."@en .
+
+plasma:LoggingService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Logging Service"@en ;
+    skos:definition "A Service providing logging mechanisms and functionalities."@en .
+
+plasma:PolicyManagementService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Policy Management Service"@en ;
+    skos:definition "A Service providing policy management and resolution functionalities."@en .
+
+plasma:IdentityManagementService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Identity Management Service"@en ;
+    skos:definition "A Service providing identity management functionalities."@en .
+
+plasma:DataManagementService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Management Service"@en ;
+    skos:definition "A Service providing data management and associated functionalities."@en .
+
+plasma:NetworkManagementService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Network Management Service"@en ;
+    skos:definition "A Service providing network management and associated functionalities."@en .
+
+plasma:DataStorageService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Storage Service"@en ;
+    skos:definition "A Service providing data storage and associated functionalities."@en .
+
+plasma:ComputeService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Compute Service"@en ;
+    skos:definition "A Service providing computing and associated functionalities."@en .
+
+plasma:DataQueryService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Query Service"@en ;
+    skos:definition "A Service providing data querying and associated functionalities."@en .
+
+plasma:AppManagementService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Management Service"@en ;
+    skos:definition "A Service providing app management and associated functionalities."@en .
+
+plasma:ServiceManagement a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Management"@en ;
+    skos:definition "A Service providing service management and associated functionalities."@en .
+
+# ------------ Data Concepts ------------------ #
+
+plasma:Log a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Log"@en ;
+    skos:definition "A provenance record associated with a process."@en .
+
+plasma:DataLog a rdfs:Class ;
+    rdfs:subClassOf plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Log"@en ;
+    skos:definition "A Log regarding actions on Data."@en ;
+    skos:example "When data was added / stored in the Pod, when it was erased, accessed, or queried."@en .
+
+plasma:AccessControlLog a rdfs:Class ;
+    rdfs:subClassOf plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Access Control Log"@en ;
+    skos:definition "A Log regarding access actions on Data."@en ;
+    skos:example "When data was permitted or denied to be accessed."@en .
+
+plasma:PolicyLog a rdfs:Class ;
+    rdfs:subClassOf plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Policy Log"@en ;
+    skos:definition "A Log regarding Policies governing the Data."@en ;
+    skos:example "A new user preference or requirement was added, or an app made a request, or a policy negotiation succefully took place and the user granted their consent."@en .
+
+plasma:IdentityLog a rdfs:Class ;
+    rdfs:subClassOf plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Identity Log"@en ;
+    skos:definition "A Log regarding identity provision, verification, and its use."@en ;
+    skos:example "An app's identity could not be verified, or a user succeffully logged in."@en .
+
+plasma:SecurityLog a rdfs:Class ;
+    rdfs:subClassOf plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Security Log"@en ;
+    skos:definition "A Log regarding security concerns and incidents."@en ;
+    skos:example "Data integrity has failed a check, or there was an attempt to repeatedly access data without sufficient authorisation. "@en .
+
+plasma:UserData a rdfs:Class ;
+    rdfs:subClassOf plasma:Data ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Data"@en ;
+    skos:definition "Data belonging or about the User."@en .
+
+plasma:DataProvider a rdfs:Class ;
+    rdfs:subClassOf plasma:Provider ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Provider"@en ;
+    skos:related dpv:DataSource ;
+    skos:definition "The provider or source of data. It can be made available by the User or a data provider or can be generated by an App, Service or Agent."@en .
+
+plasma:AppData a rdfs:Class ;
+    rdfs:subClassOf plasma:Data ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Data"@en ;
+    skos:definition "Data required by an App to provide its functionalities, or recording relevant contextual information."@en .
+
+plasma:AppMetadata a rdfs:Class ;
+    rdfs:subClassOf plasma:AppData ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Metadata"@en ;
+    skos:definition "Information about an App such as who was its Provider, Developer, what functionalities and services it offers, relevant policies and authorisations."@en .
+
+plasma:AppLog a rdfs:Class ;
+    rdfs:subClassOf plasma:AppData, plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Log"@en ;
+    skos:definition "Logs related to an App's activities."@en .
+
+plasma:AppPersistentData a rdfs:Class ;
+    rdfs:subClassOf plasma:AppData ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Persistent Data"@en ;
+    skos:definition "Data required by the App that is persistently stored. For example, results of a frequent query."@en .
+
+plasma:AppTemporaryData a rdfs:Class ;
+    rdfs:subClassOf plasma:AppData ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Temporary Data"@en ;
+    skos:definition "Data required by the App that is temporarily stored. For example, results of a non-frequent query."@en .
+
+plasma:ServiceData a rdfs:Class ;
+    rdfs:subClassOf plasma:Data ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Data"@en ;
+    skos:definition "Data required by a Service to provide its functionalities, or recording relevant contextual information. "@en .
+
+plasma:ServiceMetadata a rdfs:Class ;
+    rdfs:subClassOf plasma:ServiceData ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Metadata"@en ;
+    skos:definition "Information about a Service such as who was its Provider, Developer, what functionalities and services it offers, relevant policies and authorisations."@en .
+
+plasma:ServiceLog a rdfs:Class ;
+    rdfs:subClassOf plasma:ServiceData, plasma:Log ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Log"@en ;
+    skos:definition "Logs related to a Service's activities."@en .
+
+plasma:ServicePersistentData a rdfs:Class ;
+    rdfs:subClassOf plasma:ServiceData ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Persistent Data"@en ;
+    skos:definition "Data required by the Service that is persistently stored. For example, results of a frequent query."@en .
+
+plasma:ServiceTemporaryData a rdfs:Class ;
+    rdfs:subClassOf plasma:ServiceData ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Temporary Data"@en ;
+    skos:definition "Data required by the Service that is temporarily stored. For example, results of a non-frequent query."@en .
+
+plasma:PodManagementData a rdfs:Class ;
+    rdfs:subClassOf plasma:Data ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Pod Management Data"@en ;
+    skos:definition "Data required by a Pod to provide its functionalities. For example, storing the Pod metadata regarding Provider, Developer, PodAgreement, or credentials associated with Pod infrastructure."@en .
+
+plasma:SchemaData a rdfs:Class ;
+    rdfs:subClassOf plasma:Data ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Schema Data"@en ;
+    skos:definition "Schemas, formats or shapes for the Data recognised or supported by Apps, Services or Pods."@en .
+
+plasma:Registry a rdfs:Class ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Registry"@en ;
+    skos:related interop:Registry ;
+    skos:definition "An indexed record for providing collective and convenient access to Data within a Pod."@en .
+
+plasma:AccessControlRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Access Control Registry"@en ;
+    skos:related interop::AuthorizationRegistry ;
+    skos:definition "A Registry listing access control decisions and authorisations."@en .
+
+plasma:DataRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Registry"@en ;
+    skos:related interop:DataRegistry ;
+    skos:definition "A Registry listing data categories, resources, availability, and other relevant information."@en .
+
+plasma:DataSchemaRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Data Schema Registry"@en ;
+    skos:definition "A Registry listing recognised or supported schemas for Data, Apps, or Services."@en .
+
+plasma:PolicyRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Policy Registry"@en ;
+    skos:definition "A Registry listing policies relevant to Data, Apps, Services, and Pod. For example, user preferences, consent decisions, pending requests."@en .
+
+plasma:AppRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "App Registry"@en ;
+    skos:definition "A Registry listing Apps associated with the Pod. For example, a contact book app along with its relevant metadata such as Provider, Developer, Policies."@en .
+
+plasma:ServiceRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Service Registry"@en ;
+    skos:definition "A Registry listing Services associated with the Pod. For example, a query service that can retrieve data along with its relevant metadata such as Provider, Developer, Policies."@en .
+
+plasma:UserRegistry a rdfs:Class ;
+    rdfs:subClassOf plasma:Registry ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "User Registry"@en ;
+    skos:definition "A Registry listing Users associated with the Pod and their relevant Policies, Agents, and other relevant information."@en .
