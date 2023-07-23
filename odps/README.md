@@ -73,7 +73,7 @@ The pattern is used in the example below to represent a data request policy crea
 
 ### ODP for data logs
 
-The pattern for a data request policy aims to answer the following competency questions:
+The pattern for a data log aims to answer the following competency questions:
 
 **(CQ1)** What type of action, e.g., create, update, erase, is being performed to the data?
 
@@ -105,4 +105,36 @@ The pattern is used in the example below to represent a data log created by Beat
 
 ### ODP for data registries
 
+The pattern for a data registry aims to answer the following competency questions:
+
+**(CQ1)** Who is the maintaining the registry?
+
+**(CQ2)** When was the registry created/updated?
+
+**(CQ3)** What types of data are available?
+
+**(CQ4)** Where is a specific type of data being stored?
+
+**(CQ5)** What policy is associated with the data?
+
+A visualisation of the pattern is presented in the figure below:
+
 ![ODP for a data registry](./img/registry-odp.png)
+
+The pattern is used in the example below to record a dataset with `Contact` data, stored at `https://solidweb.me/besteves4/personalContacts/contactList.ttl` which has a policy associated with it.
+
+```turtle
+:dataregistry a dcat:Catalog ;
+  dct:created "2023-07-01T13:21:18"^^xsd:dateTime ;
+  dct:publisher :DRappProvider ;
+  dcat:dataset :dataset1 .
+
+:DRappProvider a plasma:AppProvider .
+
+:dataset1 a dcat:Dataset ;
+  dpv:hasPersonalData dpv-pd:Contact ;
+  foaf:page <https://solidweb.me/besteves4/personalContacts/contactList.ttl> ;
+  odrl:hasPolicy :policy2 .
+
+:policy2 a odrl:Policy .
+```
