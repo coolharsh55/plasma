@@ -19,14 +19,21 @@
 
 The pattern for a data request policy aims to answer the following competency questions:
 
-    **(CQ1.)** What is the unique identifier of the policy?
-    **(CQ2.)** Who is the creator of the policy?
-    **(CQ3.)** When was the policy issued?
-    **(CQ4.)** Who is the assignee of the policy?
-    **(CQ5.)** What application/service is being used to access the data?
-    **(CQ6.)** What access mode is being requested?
-    **(CQ7.)** What personal data is being accessed?
-    **(CQ8.)** What is the purpose for accessing the data?
+**(CQ1)** What is the unique identifier of the policy?
+
+**(CQ2)** Who is the creator of the policy?
+
+**(CQ3)** When was the policy issued?
+
+**(CQ4)** Who is the assignee of the policy?
+
+**(CQ5)** What application/service is being used to access the data?
+
+**(CQ6)** What access mode is being requested?
+
+**(CQ7)** What personal data is being accessed?
+
+**(CQ8)** What is the purpose for accessing the data?
 
 A visualisation of the pattern is presented in the figure below:
 
@@ -50,7 +57,7 @@ The pattern is used in the example below to represent a data request policy crea
       dct:title "Purpose for access is to conduct research in the academic project X." ;
       odrl:leftOperand oac:Purpose ;
       odrl:operator odrl:eq ;
-      odrl:rightOperand ex:AcademicResearchProjectX ] ] .
+      odrl:rightOperand :AcademicResearchProjectX ] ] .
 
 :userA a plasma:User .
 
@@ -66,8 +73,34 @@ The pattern is used in the example below to represent a data request policy crea
 
 ### ODP for data logs
 
+The pattern for a data request policy aims to answer the following competency questions:
+
+**(CQ1)** What type of action, e.g., create, update, erase, is being performed to the data?
+
+**(CQ2)** Who is the entity interacting with the data?
+
+**(CQ3)** Who is the entity publishing the log?
+
+**(CQ4)** When was the log issued?
+
+**(CQ5)** Where is the data being stored?
+
+**(CQ6)** What application/service is being used to generate the data, if any?
+
+A visualisation of the pattern is presented in the figure below:
+
 ![ODP for a data log](./img/log-odp.png)
 
+The pattern is used in the example below to represent a data log created by Beatriz when a new resource was created and stored at `https://solidweb.me/besteves4/energyConsumption/july-2023.ttl`.
+
+```turtle
+:datalog1 a as:Create ;
+  dct:issued "2023-07-02T23:01:15"^^xsd:dateTime ;
+  as:summary "Beatriz added new resource to the Pod" ;
+  as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
+  as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+  dct:publisher <https://solidweb.me/besteves4/profile/card#me> .
+```
 ## ODPs for registries
 
 ### ODP for data registries
