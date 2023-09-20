@@ -13,6 +13,8 @@
 
 ## Namespaces
 
+
+
 ## ODPs for policies
 
 ### ODP for data requests
@@ -91,16 +93,27 @@ A visualisation of the pattern is presented in the figure below:
 
 ![ODP for a data log](./img/log-odp.png)
 
-The pattern is used in the example below to represent a data log created by Beatriz when a new resource was created and stored at `https://solidweb.me/besteves4/energyConsumption/july-2023.ttl`.
+The pattern is used in the example below to represent a data log generated and 
+published by `:AppA` and `:AppAProvider`, respectively, related to the `as:Create`
+activity of the `https://solidweb.me/besteves4/energyConsumption/july-2023.ttl` 
+resource, created by Beatriz (`https://solidweb.me/besteves4/profile/card#me`). 
 
 ```turtle
-:datalog1 a as:Create ;
+:datalog1 a plasma:DataLog, as:Create ;
   dct:issued "2023-07-02T23:01:15"^^xsd:dateTime ;
-  as:summary "Beatriz added new resource to the Pod" ;
+  as:summary "Beatriz added a new resource to the Pod" ;
   as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
   as:actor <https://solidweb.me/besteves4/profile/card#me> ;
-  dct:publisher <https://solidweb.me/besteves4/profile/card#me> .
+  as:generator :AppA ;
+  dct:publisher :AppAProvider .
+
+:AppA a plasma:App .
+
+:AppAProvider a plasma:AppProvider .
 ```
+
+Example available at [data-log.ttl](./data-log.ttl)
+
 ## ODPs for registries
 
 ### ODP for data registries

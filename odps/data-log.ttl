@@ -1,0 +1,17 @@
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <https://example.com/>
+
+:datalog1 a plasma:DataLog, as:Create ;
+  dct:issued "2023-07-02T23:01:15"^^xsd:dateTime ;
+  as:summary "Beatriz added a new resource to the Pod" ;
+  as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
+  as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+  as:generator :AppA ;
+  dct:publisher :AppAProvider .
+
+:AppA a plasma:App .
+
+:AppAProvider a plasma:AppProvider .
