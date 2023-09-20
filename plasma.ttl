@@ -1,7 +1,7 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX vann: <http://purl.org/vocab/vann/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -17,16 +17,16 @@ PREFIX plasma: <https://w3id.org/plasma#>
 # ------------ Ontology Metadata ------------------ #
 
 plasma: a owl:Ontology ;
-	dct:title "Policy Language for Solid’s Metadata-based Access Control"@en ;
+	dcterms:title "Policy Language for Solid’s Metadata-based Access Control"@en ;
 	vann:preferredNamespacePrefix "plasma" ;
     vann:preferredNamespaceUri "https://w3id.org/plasma#" ;
 	rdfs:label "Policy Language for Solid’s Metadata-based Access Control"@en ;
 	owl:versionInfo "0.1"^^xsd:decimal ;
-	dct:created ""^^xsd:date ;
-	dct:creator "Beatriz Esteves", "Harshvardhan J. Pandit" ;
-	dct:description ""@en ;
-	rdfs:comment "This is the Turtle vocabulary for PLASMA."@en ;
-	dct:license <https://dalicc.net/licenselibrary/CC-BY_v4> .
+	dcterms:created "2022-11-01"^^xsd:date ;
+	dcterms:creator "Beatriz Esteves", "Harshvardhan J. Pandit" ;
+	dcterms:description "Currently, the Solid protocol and its specifications lack the terms to express metadata related to the entities, roles, processes or infrastructure necessary to provide transparency to its data handling practices. In particular, these specifications do not have the terms to deal with the obligations and requirements brought by regulations related to (personal) data protection and privacy. The establishment of a metadata language such as PLASMA enables this by providing consistent taxonomies to describe the entities (e.g., providers, developers), the infrastructure, legal roles, policies, notices, registries and logs necessary to understand and establish responsibilities and accountability within the Solid ecosystem."@en ;
+	rdfs:comment "This is the Turtle serialisation for PLASMA."@en ;
+	dcterms:license <https://dalicc.net/licenselibrary/CC-BY_v4> .
 
 # ------------ Base Concepts ------------------ #
 

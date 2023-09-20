@@ -13,13 +13,28 @@
 
 ## Namespaces
 
-
+| Prefix | Namespace                                 |
+|--------|-------------------------------------------|
+|as      |https://www.w3.org/ns/activitystreams#     |
+|dcat    |http://www.w3.org/ns/dcat#                 |
+|dcterms |http://purl.org/dc/terms/                  |
+|dpv     |https://w3id.org/dpv#                      |
+|dpv-pd  |https://w3id.org/dpv/dpv-pd#               |
+|foaf    |http://xmlns.com/foaf/0.1/                 |
+|oac     |https://w3id.org/oac#                      |
+|odrl    |http://www.w3.org/ns/odrl/2/               |
+|plasma  |https://w3id.org/plasma#                   |
+|rdf     |http://www.w3.org/1999/02/22-rdf-syntax-ns#|
+|rdfs    |http://www.w3.org/2000/01/rdf-schema#      |
+|xsd     |http://www.w3.org/2001/XMLSchema#          |
+|        |https://example.com/                       |
 
 ## ODPs for policies
 
 ### ODP for data requests
 
-The pattern for a data request policy aims to answer the following competency questions:
+The pattern for a data request policy aims to answer the following competency 
+questions:
 
 **(CQ1)** What is the unique identifier of the policy?
 
@@ -41,34 +56,33 @@ A visualisation of the pattern is presented in the figure below:
 
 ![ODP for a data request](./img/policy-odp.png)
 
-The pattern is used in the example below to represent a data request policy created by `userA` with `applicationA` to `Read` `Age` data from `userB` to conduct research in the academic project X.
+The pattern is used in the example below to represent a data request policy 
+created by `UserA` with `ApplicationA` to `Read` `Age` data from `UserB` to 
+conduct research for an academic project.
 
 ```turtle
-:request1 a odrl:Request, plasma:DataRequest;
-  odrl:uid :request1 ;
+:Request1 a odrl:Request, plasma:DataRequest;
+  odrl:uid :Request1 ;
   odrl:profile oac: ;
-  dct:description "Request to use age data for academic research." ;
-  dct:creator :userA ;
-  dct:issued "2023-05-08T18:15:56"^^xsd:dateTime ;
+  dcterms:description "Request to use age data for academic research." ;
+  dcterms:creator :UserA ;
+  dcterms:issued "2023-05-08T18:15:56"^^xsd:dateTime ;
   odrl:permission [
-    odrl:assignee :userB ;
-    oac:application :applicationA ;
+    odrl:assignee :UserB ;
+    oac:application :ApplicationA ;
     odrl:action oac:Read ;
     odrl:target oac:Age ;
     odrl:constraint [
-      dct:title "Purpose for access is to conduct research in the academic project X." ;
+      dcterms:title "Purpose for access is to conduct research in an academic project." ;
       odrl:leftOperand oac:Purpose ;
       odrl:operator odrl:eq ;
-      odrl:rightOperand :AcademicResearchProjectX ] ] .
+      odrl:rightOperand dpv:AcademicResearch ] ] .
 
-:userA a plasma:User .
+:UserA a plasma:User .
 
-:userB a plasma:DataSubject .
+:UserB a plasma:DataSubject .
 
-:applicationA a plasma:App .
-
-:AcademicResearchProjectX a dpv:AcademicResearch ;
-  rdfs:label "Conduct research in the academic project X." .
+:ApplicationA a plasma:App .
 ```
 
 ## ODPs for logs
@@ -99,13 +113,13 @@ activity of the `https://solidweb.me/besteves4/energyConsumption/july-2023.ttl`
 resource, created by Beatriz (`https://solidweb.me/besteves4/profile/card#me`). 
 
 ```turtle
-:datalog1 a plasma:DataLog, as:Create ;
-  dct:issued "2023-07-02T23:01:15"^^xsd:dateTime ;
-  as:summary "Beatriz added a new resource to the Pod" ;
+:DataLog1 a plasma:DataLog, as:Create ;
+  dcterms:issued "2023-07-02T23:01:15"^^xsd:dateTime ;
+  as:summary "Beatriz created a new resource that was added to her Pod" ;
   as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
   as:actor <https://solidweb.me/besteves4/profile/card#me> ;
   as:generator :AppA ;
-  dct:publisher :AppAProvider .
+  dcterms:publisher :AppAProvider .
 
 :AppA a plasma:App .
 
@@ -118,7 +132,8 @@ Example available at [data-log.ttl](./data-log.ttl)
 
 ### ODP for data registries
 
-The pattern for a data registry aims to answer the following competency questions:
+The pattern for a data registry aims to answer the following competency 
+questions:
 
 **(CQ1)** Who is the maintaining the registry?
 
@@ -134,20 +149,22 @@ A visualisation of the pattern is presented in the figure below:
 
 ![ODP for a data registry](./img/registry-odp.png)
 
-The pattern is used in the example below to record a dataset with `Contact` data, stored at `https://solidweb.me/besteves4/personalContacts/contactList.ttl` which has a policy associated with it.
+The pattern is used in the example below to record a dataset with `Contact` 
+data, stored at `https://solidweb.me/besteves4/personalContacts/contactList.ttl` 
+which has a policy associated with it.
 
 ```turtle
-:dataregistry a dcat:Catalog ;
-  dct:created "2023-07-01T13:21:18"^^xsd:dateTime ;
-  dct:publisher :DRappProvider ;
-  dcat:dataset :dataset1 .
+:DataRegistry a dcat:Catalog ;
+  dcterms:created "2023-07-01T13:21:18"^^xsd:dateTime ;
+  dcterms:publisher :DataRegistryServiceProvider ;
+  dcat:dataset :Dataset_0001 .
 
-:DRappProvider a plasma:AppProvider .
+:DataRegistryServiceProvider a plasma:ServiceProvider .
 
-:dataset1 a dcat:Dataset ;
+:Dataset_0001 a dcat:Dataset ;
   dpv:hasPersonalData dpv-pd:Contact ;
   foaf:page <https://solidweb.me/besteves4/personalContacts/contactList.ttl> ;
-  odrl:hasPolicy :policy2 .
+  odrl:hasPolicy :Policy2 .
 
-:policy2 a odrl:Policy .
+:Policy2 a odrl:Policy .
 ```
