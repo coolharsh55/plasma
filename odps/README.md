@@ -54,7 +54,7 @@ questions:
 
 A visualisation of the pattern is presented in the figure below:
 
-![ODP for a data request](./img/policy-odp.png)
+![ODP for a data request](./img/data-request-odp.png)
 
 The pattern is used in the example below to represent a data request policy 
 created by `UserA` with `ApplicationA` to `Read` `Age` data from `UserB` to 
@@ -107,7 +107,7 @@ The pattern for a data log aims to answer the following competency questions:
 
 A visualisation of the pattern is presented in the figure below:
 
-![ODP for a data log](./img/log-odp.png)
+![ODP for a data log](./img/data-log-odp.png)
 
 The pattern is used in the example below to represent a data log generated and 
 published by `:AppA` and `:AppAProvider`, respectively, related to the `as:Create`
@@ -149,7 +149,7 @@ questions:
 
 A visualisation of the pattern is presented in the figure below:
 
-![ODP for a data registry](./img/registry-odp.png)
+![ODP for a data registry](./img/data-registry-odp.png)
 
 The pattern is used in the example below to record a dataset with `Contact` 
 data, stored at `https://solidweb.me/besteves4/personalContacts/contactList.ttl` 
