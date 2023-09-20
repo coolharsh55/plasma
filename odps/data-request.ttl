@@ -1,0 +1,30 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <https://example.com/>
+
+:Request1 a odrl:Request, plasma:DataRequest;
+  odrl:uid :Request1 ;
+  odrl:profile oac: ;
+  dcterms:description "Request to use age data for academic research." ;
+  dcterms:creator :UserA ;
+  dcterms:issued "2023-05-08T18:15:56"^^xsd:dateTime ;
+  odrl:permission [
+    odrl:assignee :UserB ;
+    oac:application :ApplicationA ;
+    odrl:action oac:Read ;
+    odrl:target oac:Age ;
+    odrl:constraint [
+      dcterms:title "Purpose for access is to conduct research in an academic project." ;
+      odrl:leftOperand oac:Purpose ;
+      odrl:operator odrl:eq ;
+      odrl:rightOperand dpv:AcademicResearch ] ] .
+
+:UserA a plasma:User .
+
+:UserB a plasma:DataSubject .
+
+:ApplicationA a plasma:App .

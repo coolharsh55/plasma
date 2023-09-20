@@ -1,0 +1,23 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dpv-pd: <https://w3id.org/dpv/dpv-pd#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <https://example.com/>
+
+:DataRegistry a dcat:Catalog ;
+  dcterms:created "2023-07-01T13:21:18"^^xsd:dateTime ;
+  dcterms:publisher :DataRegistryServiceProvider ;
+  dcat:dataset :Dataset_0001 .
+
+:DataRegistryServiceProvider a plasma:ServiceProvider .
+
+:Dataset_0001 a dcat:Dataset ;
+  dpv:hasPersonalData dpv-pd:Contact ;
+  foaf:page <https://solidweb.me/besteves4/personalContacts/contactList.ttl> ;
+  odrl:hasPolicy :Policy2 .
+
+:Policy2 a odrl:Policy .

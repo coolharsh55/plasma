@@ -85,6 +85,8 @@ conduct research for an academic project.
 :ApplicationA a plasma:App .
 ```
 
+Example available at [data-request.ttl](./data-request.ttl).
+
 ## ODPs for logs
 
 ### ODP for data logs
@@ -126,7 +128,7 @@ resource, created by Beatriz (`https://solidweb.me/besteves4/profile/card#me`).
 :AppAProvider a plasma:AppProvider .
 ```
 
-Example available at [data-log.ttl](./data-log.ttl)
+Example available at [data-log.ttl](./data-log.ttl).
 
 ## ODPs for registries
 
@@ -168,3 +170,5 @@ which has a policy associated with it.
 
 :Policy2 a odrl:Policy .
 ```
+
+Example available at [data-registry.ttl](./data-registry.ttl).
