@@ -1,18 +1,19 @@
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX vann: <http://purl.org/vocab/vann/>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX interop: <http://www.w3.org/ns/solid/interop#>
-PREFIX dpv: <https://w3id.org/dpv#>
-PREFIX dpv-tech: <https://w3id.org/dpv/dpv-tech#>
-PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
-PREFIX oac: <https://w3id.org/oac#>
-PREFIX acp: <http://www.w3.org/ns/solid/acp#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix vann: <http://purl.org/vocab/vann/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix interop: <http://www.w3.org/ns/solid/interop#>
+prefix dpv: <https://w3id.org/dpv#>
+prefix dpv-tech: <https://w3id.org/dpv/dpv-tech#>
+prefix odrl: <http://www.w3.org/ns/odrl/2/>
+prefix oac: <https://w3id.org/oac#>
+prefix acp: <http://www.w3.org/ns/solid/acp#>
 
-PREFIX plasma: <https://w3id.org/plasma#>
+prefix plasma: <https://w3id.org/plasma#>
 
 # ------------ Ontology Metadata ------------------ #
 
