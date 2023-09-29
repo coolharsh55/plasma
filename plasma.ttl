@@ -6,7 +6,6 @@ prefix vann: <http://purl.org/vocab/vann/>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix skos: <http://www.w3.org/2004/02/skos/core#>
 prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix interop: <http://www.w3.org/ns/solid/interop#>
 prefix dpv: <https://w3id.org/dpv#>
 prefix dpv-tech: <https://w3id.org/dpv/dpv-tech#>
 prefix odrl: <http://www.w3.org/ns/odrl/2/>
@@ -18,12 +17,13 @@ prefix plasma: <https://w3id.org/plasma#>
 # ------------ Ontology Metadata ------------------ #
 
 plasma: a owl:Ontology ;
-	dcterms:title "Policy Language for Solid’s Metadata-based Access Control"@en ;
+	dcterms:title "Policy Language for Solid's Metadata-based Access Control"@en ;
 	vann:preferredNamespacePrefix "plasma" ;
     vann:preferredNamespaceUri "https://w3id.org/plasma#" ;
-	rdfs:label "Policy Language for Solid’s Metadata-based Access Control"@en ;
+	rdfs:label "Policy Language for Solid's Metadata-based Access Control"@en ;
 	owl:versionInfo "0.1"^^xsd:decimal ;
 	dcterms:created "2022-11-01"^^xsd:date ;
+    dcterms:modified "2023-09-29"^^xsd:date ;
 	dcterms:creator "Beatriz Esteves", "Harshvardhan J. Pandit" ;
 	dcterms:description "Currently, the Solid protocol and its specifications lack the terms to express metadata related to the entities, roles, processes or infrastructure necessary to provide transparency to its data handling practices. In particular, these specifications do not have the terms to deal with the obligations and requirements brought by regulations related to (personal) data protection and privacy. The establishment of a metadata language such as PLASMA enables this by providing consistent taxonomies to describe the entities (e.g., providers, developers), the infrastructure, legal roles, policies, notices, registries and logs necessary to understand and establish responsibilities and accountability within the Solid ecosystem."@en ;
 	rdfs:comment "This is the Turtle serialisation for PLASMA."@en ;
@@ -34,7 +34,7 @@ plasma: a owl:Ontology ;
 plasma:App a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Application"@en ;
-    skos:related interop:Application, dpv-tech:Application ;
+    rdfs:subClassOf dpv-tech:Application ;
     skos:definition "An application that stores, collects, uses, shares, erases, or performs other actions on Data with the aim of providing specific purposes, services, or functionalities. An application can use several Services and requires human intervention."@en ;
     skos:example "A Contact Address Book application or a Chess Game application"@en .
 
@@ -54,25 +54,26 @@ plasma:Pod a rdfs:Class ;
 plasma:Agent a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Agent"@en ;
-    skos:related foaf:Agent, interop:Agent ;
+    rdfs:subClassOf foaf:Agent ;
     skos:definition "An actual or virtual entity associated with carrying out actions within or related to a Pod or its Data."@en .
 
 plasma:Policy a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Policy"@en ;
-    skos:related odrl:Policy, acp:Policy ;
+    rdfs:subClassOf odrl:Policy ;
+    skos:related acp:Policy ;
     skos:definition "A set of guidelines or decisions or recommendations governing the use of Pod or its Data."@en .
 
 plasma:Data a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Data"@en ;
-    skos:related dpv:Data ;
+    rdfs:subClassOf dpv:Data ;
     skos:definition "Data stored on a Pod or associated with User, App, Service, or DataSubject of a Pod."@en .
 
 plasma:Entity a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Entity"@en ;
-    skos:related dpv:Entity ;
+    rdfs:subClassOf dpv:Entity ;
     skos:definition "A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services, Pods."@en .
 
 plasma:Provider a rdfs:Class ;
@@ -272,10 +273,9 @@ plasma:WriteUser a rdfs:Class ;
     skos:definition "User that can only write or edit existing data."@en .
 
 plasma:DataSubject a rdfs:Class ;
-    rdfs:subClassOf plasma:Entity ;
+    rdfs:subClassOf dpv:DataSubject ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Data Subject"@en ;
-    skos:related dpv:DataSubject ;
     skos:definition "The subject of Data within a Pod. The User may not always be the DataSubject. There may be multiple Subjects for a single Pod."@en .
 
 plasma:PodAdmin a rdfs:Class ;
@@ -314,6 +314,7 @@ plasma:ServiceAgent a rdfs:Class ;
 # ------------ Notice Concepts ------------------ #
 
 plasma:Notice a rdfs:Class ;
+    rdfs:subClassOf dpv:Notice ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Notice"@en ;
     skos:definition "An artefact providing information about something."@en .
@@ -569,21 +570,18 @@ plasma:SchemaData a rdfs:Class ;
 plasma:Registry a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Registry"@en ;
-    skos:related interop:Registry ;
     skos:definition "An indexed record for providing collective and convenient access to Data within a Pod."@en .
 
 plasma:AccessControlRegistry a rdfs:Class ;
     rdfs:subClassOf plasma:Registry ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Access Control Registry"@en ;
-    skos:related interop::AuthorizationRegistry ;
     skos:definition "A Registry listing access control decisions and authorisations."@en .
 
 plasma:DataRegistry a rdfs:Class ;
     rdfs:subClassOf plasma:Registry ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Data Registry"@en ;
-    skos:related interop:DataRegistry ;
     skos:definition "A Registry listing data categories, resources, availability, and other relevant information."@en .
 
 plasma:DataSchemaRegistry a rdfs:Class ;
