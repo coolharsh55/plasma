@@ -41,6 +41,7 @@ plasma:App a rdfs:Class ;
 plasma:Service a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Service"@en ;
+    rdfs:subClassOf dpv-tech:Service ;
     skos:definition "A functionality that may or may not utilise or interact with Data within a Pod. Services represent an abstraction of functionality that does not necessarily have to be packaged as an App."@en ;
     skos:note "We envision service as being something that does not require the full metadata and agent-based identification and authorisation as an App. The exact mechanism for this as well as workflows for how it should be initiated and used have not been explored yet. We specify this concept to denote the possibility of having services separate from apps."@en ;
     skos:example "An Identity Verification service that checks the validity of certificates, or a Query service that retrieves contacts matching the filter"@en .
