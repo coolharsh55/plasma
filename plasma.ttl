@@ -56,7 +56,7 @@ plasma:Agent a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Agent"@en ;
     rdfs:subClassOf foaf:Agent ;
-    skos:definition "An actual or virtual entity associated with carrying out actions within or related to a Pod or its Data."@en .
+    skos:definition "A virtual entity associated with carrying out actions within or related to a Pod or its Data."@en .
 
 plasma:Policy a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
