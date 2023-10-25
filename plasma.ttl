@@ -69,13 +69,13 @@ plasma:Data a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Data"@en ;
     rdfs:subClassOf dpv:Data ;
-    skos:definition "Data stored on a Pod or associated with User, App, Service, or DataSubject of a Pod."@en .
+    skos:definition "Data stored on a Pod or associated with User, App, Service, or Data Subject of a Pod."@en .
 
 plasma:Entity a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Entity"@en ;
     rdfs:subClassOf dpv:Entity ;
-    skos:definition "A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services, Pods."@en .
+    skos:definition "A legally recognised entity. Legally recognised means the entity has some recognition as being able to enter into agreements, has an address for accountability, is responsible for obligations, rights, etc. Entities are associated with Apps, Services or Pods."@en .
 
 plasma:Provider a rdfs:Class ;
     rdfs:subClassOf plasma:Entity ;
@@ -104,7 +104,7 @@ plasma:SolidPlatform a rdfs:Class ;
 plasma:SolidSpecification a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Solid Specification"@en ;
-    skos:definition "The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Pods and its association with Services and Apps."@en .
+    skos:definition "The specification that the Pod conforms to in terms of defining the terms, behaviour, and implementation details regarding Pods and their association with Services and Apps."@en .
 
 # ------------ Policy Concepts ------------------ #
 
