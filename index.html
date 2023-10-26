@@ -7,10 +7,10 @@
   <script type="text/javascript" class="remove">
     var respecConfig = {
       title: "PLASMA",
-      subtitle: "Policy Language for Solid’s Metadata-based Access Control",
+      subtitle: "Policy Language for Solid's Metadata-based Access Control",
       shortName: "plasma",
       specStatus: "unofficial",
-      latestVersion: "https://harshp.com/plasma",
+      latestVersion: "https://w3id.org/plasma",
       publishDate: "2023-09-29",
       doJsonLd: true,
       maxToclevel: 3,
@@ -26,8 +26,8 @@
         {
           name: "Harshvardhan J. Pandit",
           url: "https://harshp.com/",
-          company: "ADAPT Centre, Trinity College Dublin",
-          companyURL: "https://tcd.ie/"
+          company: "ADAPT Centre, Dublin City University",
+          companyURL: "https://www.dcu.ie/"
         }]
     };
   </script>
@@ -256,7 +256,7 @@
         <li><code>DataLog</code>: A <code>Log</code> regarding actions on <code>Data</code>. For example, when data was added / stored in the Pod, when it was erased, accessed, or queried.</li>
         <li><code>AccessControlLog</code>: A <code>Log</code> regarding access actions on <code>Data</code>. For example, when data was permitted or denied to be accessed.</li>
         <li><code>PolicyLog</code>: A <code>Log</code> regarding <code>Policies</code> governing the <code>Data</code>. For example, a new user preference or requirement was added, or an app made a request, or a policy negotiation succefully took place and the user granted their consent.</li>
-        <li><code>IdentityLog</code>: A <code>Log</code> regarding identity provision, verification, and its use. For example, an app's identity could not be verified, or a user succeffully logged in.</li>
+        <li><code>IdentityLog</code>: A <code>Log</code> regarding identity provision, verification, and its use. For example, an app's identity could not be verified, or a user successfully logged in.</li>
         <li><code>SecurityLog</code>: A <code>Log</code> regarding security concerns and incidents. For example, data integrity has failed a check, or there was an attempt to repeatedly access data without sufficient authorisation.
         </li>
       </ul>
@@ -319,7 +319,7 @@
     <blockquote>In this example, User A issued a preference policy <code>https://example.com/preference1</code> that permits <code>oac:Read</code> access operations over its <code>oac:Age</code> data for the purpose of <code>dpv:AcademicResearch</code> if the legal basis is <code>dpv:Consent</code>.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/preference1> a oac:PreferencePolicy ;
+&lt;https://example.com/preference1> a oac:Preference ;
   odrl:profile oac: ;
   dct:description "Preference to read age data for academic research based on consent." ;
   dct:creator ex:userA ;
@@ -355,7 +355,7 @@
     <blockquote>In this example, User A issued a requirement policy <code>https://example.com/requirement1</code> that permits <code>oac:Read</code> access operations over its <code>oac:Identifier</code> data for the purpose of <code>dpv:IdentityVerification</code> if the legal basis is <code>dpv:Consent</code>.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/requirement1> a oac:RequirementPolicy ;
+&lt;https://example.com/requirement1> a oac:Requirement ;
   odrl:profile oac: ;
   dct:description "Requirement to read identifier data for identity verification based on consent." ;
   dct:creator ex:userA ;
