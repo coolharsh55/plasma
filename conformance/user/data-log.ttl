@@ -1,0 +1,56 @@
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+############
+# Data Log #
+############
+
+# Relevant activities in activitystreams: Create, Update, Delete, Move
+<https://example.com/DataLog_Create> a plasma:DataLog ;
+	dcterms:type as:Create ;
+	dcterms:issued "2023-08-03T21:38:30"^^xsd:dateTime ;
+	as:summary "Beatriz created a new resource" ;
+	as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/DataLog_Update> a plasma:DataLog ;
+	dcterms:type as:Update ;
+	dcterms:issued "2023-08-11T12:45:15"^^xsd:dateTime ;
+	as:summary "Beatriz updated a resource" ;
+	as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/DataLog_Move> a plasma:DataLog ;
+	dcterms:type as:Move ;
+	dcterms:issued "2023-11-11T12:54:30"^^xsd:dateTime ;
+	as:summary "Beatriz moved a resource from container A to container B" ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:object <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
+	as:origin <https://solidweb.me/besteves4/energyConsumption/july-2023.ttl> ;
+	as:target <https://solidweb.me/besteves4/energyConsumption/2023/july.ttl> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/DataLog_Delete> a plasma:DataLog ;
+	dcterms:type as:Delete ;
+	dcterms:issued "2023-11-12T12:57:01"^^xsd:dateTime ;
+	as:summary "Beatriz deleted a resource" ;
+	as:object <https://solidweb.me/besteves4/energyConsumption/2023/july.ttl> ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/App> a plasma:App .
+
+<https://example.com/LoggingServiceProvider> a plasma:ServiceProvider ;
+	plasma:serviceType plasma:LoggingService ;
+	dpv:hasName "Entity D" ;
+	dpv:hasAddress "Address of Entity D" ;
+	dpv:hasContact "mailto:entity_d@mail.com" .

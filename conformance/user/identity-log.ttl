@@ -1,0 +1,45 @@
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+################
+# Identity Log #
+################
+
+# Relevant activities in activitystreams:
+# Activities defined in PLASMA: Login, Verify, ChangeIdP
+<https://example.com/IdentityLog_Login> a plasma:IdentityLog ;
+	dcterms:type plasma:Login ;
+	dcterms:issued "2023-08-27T14:51:21"^^xsd:dateTime ;
+	as:summary "Beatriz successfully logged in" ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/IdentityLog_Verify> a plasma:IdentityLog ;
+	dcterms:type plasma:Verify ;
+	dcterms:issued "2023-08-27T15:25:37"^^xsd:dateTime ;
+	as:summary "App identity was verified" ;
+	dpv:hasStatus dpv:Conformant ; # dpv:NonConformant for not verified
+	as:actor <https://example.com/IdentityServiceProvider> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/IdentityLog_ChangeIdP> a plasma:IdentityLog ;
+	dcterms:type plasma:ChangeIdP ;
+	dcterms:issued "2023-09-02T15:12:43"^^xsd:dateTime ;
+	as:summary "Beatriz changed identity provider" ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:object <https://solidweb.me/besteves4/profile/card> ;
+	as:origin <https://solidweb.me/> ;
+	as:target <https://my-provider.me/> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/App> a plasma:App .
+
+<https://example.com/LoggingServiceProvider> a plasma:ServiceProvider ;
+	plasma:serviceType plasma:LoggingService ;
+	dpv:hasName "Entity F" ;
+	dpv:hasAddress "Address of Entity F" ;
+	dpv:hasContact "mailto:entity_f@mail.com" .

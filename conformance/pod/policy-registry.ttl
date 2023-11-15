@@ -1,0 +1,33 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+###################
+# Policy registry #
+###################
+
+<https://example.com/PolicyRegistry> a plasma:PolicyRegistry ;
+    dcterms:description "Registry listing policies relevant to Data, Apps, Services, and Pod"@en ;
+    dcterms:created "2023-09-04T12:16:16"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T12:39:50"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/PolicyServiceProvider> ;
+    odrl:hasPolicy <https://example.com/PodAgreement>,
+        <https://example.com/DataRequest>,
+        <https://example.com/AppAgreement> .
+
+<https://example.com/PolicyServiceProvider> a plasma:ServiceProvider ;
+    plasma:serviceType <https://example.com/PolicyManagementService> ;
+    dpv:hasName "Entity D" ;
+    dpv:hasAddress "Address of Entity D" ;
+    dpv:hasContact "mailto:entity_d@mail.com" .
+
+<https://example.com/PolicyManagementService> a plasma:PolicyManagementService ;
+    plasma:serviceProvidedByApp <https://example.com/PolicyManagementApp> .
+
+<https://example.com/PodAgreement> a plasma:PodAgreement, odrl:Agreement .
+
+<https://example.com/DataRequest> a plasma:DataRequest, odrl:Request .
+
+<https://example.com/AppAgreement> a plasma:AppAgreement, odrl:Agreement .

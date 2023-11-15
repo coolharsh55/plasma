@@ -1,0 +1,59 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX pav: <http://purl.org/pav/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX schema: <https://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#######################
+# Pod management data #
+#######################
+
+<https://example.com/PodManagementData> a plasma:PodManagementData ;
+    dcterms:description "Metadata of User A's Pod"@en ;
+    odrl:hasPolicy  <https://example.com/PodAgreement> ;
+    plasma:hasProvider <https://example.com/PodProvider_EntityA> ;
+    plasma:hasDeveloper <https://example.com/PodDeveloper_EntityB> ;
+    plasma:hasProvider <https://example.com/SolidPlatformProvider_EntityC> ;
+    plasma:hasProvider <https://example.com/InfrastructureProvider_EntityD> ;
+    plasma:implementedSolidPlatform <https://example.com/SolidPlatform_E> ;
+    plasma:implementedSolidSpecification <https://example.com/SolidSpecification_v0_10_0> .
+
+<https://example.com/PodAgreement> a plasma:PodAgreement .
+
+<https://example.com/PodProvider_EntityA> a plasma:PodProvider ;
+    dpv:hasName "Entity A" ;
+    dpv:hasAddress "Address of Entity A" ;
+    dpv:hasContact "mailto:entity_a@mail.com" .
+
+<https://example.com/PodDeveloper_EntityB> a plasma:PodDeveloper ;
+    dpv:hasName "Entity B" ;
+    dpv:hasAddress "Address of Entity B" ;
+    dpv:hasContact "mailto:entity_b@mail.com" .
+
+<https://example.com/SolidPlatformProvider_EntityC> a plasma:SolidPlatformProvider ;
+    dpv:hasName "Entity C" ;
+    dpv:hasAddress "Address of Entity C" ;
+    dpv:hasContact "mailto:entity_c@mail.com" .
+
+<https://example.com/InfrastructureProvider_EntityD> a plasma:InfrastructureProvider ;
+    dpv:hasName "Entity D" ;
+    dpv:hasAddress "Address of Entity D" ;
+    dpv:hasContact "mailto:entity_d@mail.com" .
+
+<https://example.com/SolidPlatform_E> a plasma:SolidPlatform ;
+    plasma:hasProvider <https://example.com/SolidPlatformProvider_EntityC> ;
+    dcterms:source <https://example.com/products/solid-server> ;
+    dpv:hasPolicy <https://example.com/products/solid-server/privacy-policy> ;
+    schema:codeRepository <https://example.com/code-repository/solid-server> ;
+    pav:version "0.1.0" ;
+    dcterms:license <https://dalicc.net/licenselibrary/CC-BY_v4> .
+
+<https://example.com/SolidSpecification_v0_10_0> a plasma:SolidSpecification ;
+    dcterms:conformsTo <https://solidproject.org/TR/2022/protocol-20221231> ;
+    dcterms:creator "Sarven Capadisli", "Tim Berners-Lee", "Ruben Verborgh", "Kjetil Kjernsmo" ;
+    dcterms:license <https://dalicc.net/licenselibrary/MIT> ;
+    pav:version "0.10.0" ;
+    dcterms:created "2022-12-31"^^xsd:date ;
+    schema:codeRepository <https://github.com/solid/specification> .

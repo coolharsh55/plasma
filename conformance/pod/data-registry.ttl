@@ -1,0 +1,79 @@
+PREFIX availability: <http://publications.europa.eu/resource/authority/planned-availability/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcatap: <http://data.europa.eu/r5r/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dpv-pd: <https://w3id.org/dpv/dpv-pd#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#################
+# Data registry #
+#################
+
+<https://example.com/DataRegistry> a plasma:DataRegistry, dcat:Catalog ; # mandatory in DCAT-AP 2.1.1
+    dcterms:title "Data registry listing available data categories, resources and other relevant information"@en ; # mandatory in DCAT-AP 2.1.1
+    dcterms:description "Data registry listing available data categories, resources and other relevant information"@en ; # mandatory in DCAT-AP 2.1.1
+    dcterms:issued "2023-09-05T21:46:28"^^xsd:dateTime ; # DCAT-AP 2.1.1 recommends dcterms:issued and not dcterms:created
+    dcterms:modified "2023-09-06T13:33:58"^^xsd:dateTime ; # recommended in DCAT-AP 2.1.1
+    dcterms:publisher <https://example.com/DataManagementServiceProvider> ; # mandatory in DCAT-AP 2.1.1
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ; # recommended in DCAT-AP 2.1.1
+    dcat:themeTaxonomy dpv:Data ; # recommended in DCAT-AP 2.1.1
+    dcat:catalog <https://example.com/HealthDataRegistry>, <https://example.com/FinancialDataRegistry> . # optional in DCAT-AP 2.1.1
+
+<https://example.com/DataManagementServiceProvider> a plasma:ServiceProvider, foaf:Agent ; # mandatory in DCAT-AP 2.1.1
+    plasma:serviceType plasma:DataManagementService ;
+    dpv:hasName "Entity A" ;
+    foaf:name "Entity A" ; # mandatory in DCAT-AP 2.1.1
+    dpv:hasAddress "Address of Entity A" ;
+    dpv:hasContact "mailto:entity_a@mail.com" .
+
+<https://example.com/HealthDataRegistry> a dcat:Catalog ;
+    dcterms:isPartOf <https://example.com/DataRegistry> ; # optional in DCAT-AP 2.1.1
+    dcterms:title "Data registry listing available resources with health data"@en ;
+    dcterms:description "Data registry listing available resources with health data"@en ;
+    dcterms:issued "2023-09-06T13:33:57"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T16:29:40"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/DataManagementServiceProvider> ;
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ;
+    dcat:themeTaxonomy dpv-pd:MedicalHealth ;
+    dcat:dataset <https://example.com/EHR-2021>, <https://example.com/EHR-2022> . # recommended in DCAT-AP 2.1.1 
+
+<https://example.com/EHR-2022> a dcat:Dataset ; # mandatory in DCAT-AP 2.1.1
+    dcterms:description "Electronic health records from year 2022"@en ; # mandatory in DCAT-AP 2.1.1
+    dcterms:title "Electronic health records 2022"@en ; # mandatory in DCAT-AP 2.1.1
+    dcterms:spatial <https://sws.geonames.org/2510769/> ; # recommended in DCAT-AP 2.1.1
+    dcterms:temporal <https://www.wikidata.org/wiki/Q49625> ; # recommended in DCAT-AP 2.1.1
+    dcterms:source <https://example.com/Hospital> ; # optional in DCAT-AP 2.1.1
+    dcat:contactPoint <https://example.com/Hospital> ; # recommended in DCAT-AP 2.1.1
+    dcat:keyword "ehr"@en ; # recommended in DCAT-AP 2.1.1
+    dcat:theme dpv-pd:HealthRecord ; # recommended in DCAT-AP 2.1.1
+    dpv:hasPersonalData dpv-pd:HealthRecord ;
+    dcterms:conformsTo <https://example.com/EHR-schema> ;
+    dcat:landingPage <https://example.com/EHR-2022> ; # optional in DCAT-AP 2.1.1
+    dcterms:issued "2023-09-29T22:04:54"^^xsd:dateTime ; # optional in DCAT-AP 2.1.1
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ; # optional in DCAT-AP 2.1.1
+    dcat:distribution <https://example.com/EHR-2022-ttl> . # recommended in DCAT-AP 2.1.1
+
+<https://example.com/EHR-schema> a plasma:SchemaData .
+
+<https://example.com/Hospital> a plasma:DataProvider, dpv:Organisation ; # mandatory in DCAT-AP 2.1.1
+    dpv:hasName "Hospital" ;
+    dpv:hasAddress "Address of Hospital" ;
+    dpv:hasContact "mailto:entity_b@mail.com" .
+
+<https://example.com/EHR-2022-ttl> a dcat:Distribution ; # recommended in DCAT-AP 2.1.1
+    dcat:accessURL <https://example.com/EHR-2022.ttl> ; # mandatory in DCAT-AP 2.1.1
+    dcatap:availability availability:STABLE ; # recommended in DCAT-AP 2.1.1
+    dcterms:title "Turtle distribution of electronic health records from year 2022"@en ; # optional in DCAT-AP 2.1.1
+    dcterms:description "Turtle distribution of electronic health records from year 2022"@en ; # recommended in DCAT-AP 2.1.1
+    dcat:byteSize "698039"^^xsd:decimal ; # optional in DCAT-AP 2.1.1
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/turtle> ; # optional in DCAT-AP 2.1.1
+    dcterms:issued "2023-09-29T22:04:54"^^xsd:dateTime ; # optional in DCAT-AP 2.1.1
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ; # optional in DCAT-AP 2.1.1
+    odrl:hasPolicy <https://example.com/RequirementPolicy-EHR> . # optional in DCAT-AP 2.1.1
+
+<https://example.com/RequirementPolicy-EHR> a oac:Requirement, plasma:UserRequirement .

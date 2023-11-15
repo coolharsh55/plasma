@@ -1,0 +1,41 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+################
+# App manifest #
+################
+
+<https://example.com/Contacts> a plasma:App ;
+    plasma:hasAppManifest <https://example.com/Contacts/Manifest> .
+
+# W3C Web Application Manifest specification is a JSON-based spec
+# Support for other properties specified in the spec, e.g., icons, display, orientation, 
+# background color, ..., needs to be researched
+<https://example.com/Contacts/Manifest> a plasma:AppManifest ;
+    # dcterms:conformsTo <https://www.w3.org/TR/appmanifest/> ;
+    dcterms:issued "2023-10-23T22:43:58"^^xsd:dateTime ;
+    dcterms:title "Contacts" ;
+    dcterms:description "App to manage contacts" ;
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ;
+    plasma:hasProvider <https://example.com/AppProvider_AppStore> ;
+    plasma:hasDeveloper <https://example.com/AppDeveloper_EntityB> ;
+    odrl:hasPolicy <https://example.com/Contacts/DataRequest> ;
+    dpv:hasPolicy <https://example.com/Contacts/PrivacyPolicy> . # can redirect to an external link or triples (using DPV) that can be stored in the Pod
+
+<https://example.com/AppProvider_AppStore> a plasma:AppProvider ;
+    dpv:hasName "App Store" ;
+    dpv:hasAddress "Address of App Store" ;
+    dpv:hasContact "mailto:app_store@mail.com" ;
+    foaf:page <https://example.com/AppStore> ;
+    dpv:hasPolicy <https://example.com/AppStore/PrivacyPolicy> .
+
+<https://example.com/AppDeveloper_EntityB> a plasma:AppDeveloper ;
+    dpv:hasName "Entity B" ;
+    dpv:hasAddress "Address of Entity B" ;
+    dpv:hasContact "mailto:entity_b@mail.com" .
+
+<https://example.com/Contacts/DataRequest> a plasma:DataRequest .

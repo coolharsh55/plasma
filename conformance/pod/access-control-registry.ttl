@@ -1,0 +1,59 @@
+PREFIX acl: <http://www.w3.org/ns/auth/acl#>
+PREFIX acp: <http://www.w3.org/ns/solid/acp#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+###########################
+# Access control registry #
+###########################
+
+<https://example.com/AccessControlRegistry> a plasma:AccessControlRegistry ;
+    dcterms:description "Registry listing access control decisions and authorisations of User A's Pod"@en ;
+    dcterms:created "2023-09-04T15:22:38"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T11:19:55"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/AccessControlServiceProvider> ;
+    plasma:hasAuthorisation <https://example.com/PublicReadProfile>,
+        <https://example.com/PublicReadProfileIssuer>,
+        <https://example.com/ReadWriteResourceX> .
+
+<https://example.com/AccessControlServiceProvider> a plasma:ServiceProvider ;
+    plasma:serviceType plasma:AccessControlService ;
+    dpv:hasName "Entity D" ;
+    dpv:hasAddress "Address of Entity D" ;
+    dpv:hasContact "mailto:entity_d@mail.com" .
+
+<https://example.com/PublicReadProfile> a acp:AccessGrant ;
+    dcterms:issued "2023-09-05T11:03:14"^^xsd:dateTime ;
+    dcterms:conformsTo <https://solidproject.org/TR/acp> ;
+    dcterms:publisher <https://example.com/AccessControlServiceProvider> ;
+    acp:grant acl:Read ;
+    acp:context [
+        acp:agent acp:PublicAgent ;
+        acp:target <https://solidweb.me/besteves4/profile/card> ;
+        acp:client acp:PublicClient ] .
+
+<https://example.com/PublicReadProfileIssuer> a acp:AccessGrant ;
+    dcterms:issued "2023-09-07T11:13:27"^^xsd:dateTime ;
+    dcterms:conformsTo <https://solidproject.org/TR/acp> ;
+    dcterms:publisher <https://example.com/AccessControlServiceProvider> ;
+    dcterms:replaces <https://example.com/PublicReadProfile> ;
+    acp:grant acl:Read ;
+    acp:context [
+        acp:agent acp:PublicAgent ;
+        acp:target <https://solidweb.me/besteves4/profile/card> ;
+        acp:client acp:PublicClient ;
+        acp:issuer <https://solidweb.me/> ] .
+
+<https://example.com/ReadWriteResourceX> a acl:Authorization ;
+    dcterms:issued "2023-10-07T11:19:54"^^xsd:dateTime ;
+    dcterms:conformsTo <https://solidproject.org/TR/wac> ;
+    dcterms:publisher <https://solidweb.me/besteves4/profile/card#me> ;
+    dcterms:references <https://example.com/ReadWriteResourceX-agreement> ; # authorisation is derived from some odrl:Policy
+    acl:accessTo <https://solidweb.me/besteves4/ResourceX> ;
+    acl:mode acl:Read, acl:Write ;
+    acl:agent <https://solidweb.me/arya/profile/card#me> .
+
+<https://example.com/ReadWriteResourceX-agreement> a odrl:Agreement, plasma:UserConsent .

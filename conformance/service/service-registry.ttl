@@ -1,0 +1,77 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dpv-pd: <https://w3id.org/dpv/dpv-pd#>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <https://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+####################
+# Service registry #
+####################
+
+<https://example.com/ServiceRegistry> a plasma:ServiceRegistry ;
+    dcterms:description "Registry listing services and their relevant policies, agents, and other relevant information"@en ;
+    dcterms:created "2023-09-31T11:08:10"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T11:24:40"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/ServiceManagementProvider> ;
+    plasma:hasService <https://example.com/DataCleaner> .
+
+<https://example.com/ServiceManagementProvider> a plasma:ServiceProvider ;
+    plasma:serviceType plasma:ServiceManagement ;
+    dpv:hasName "Entity D" ;
+    dpv:hasAddress "Address of Entity D" ;
+    dpv:hasContact "mailto:entity_d@mail.com" .
+
+<https://example.com/DataCleaner> a plasma:Service ;
+    plasma:hasServiceManifest <https://example.com/DataCleaner/Manifest> ;
+    odrl:hasPolicy <https://example.com/ServiceAgreement> ;
+    plasma:hasServiceMetadata <https://example.com/DataCleaner_Metadata> ;
+    plasma:hasServicePersistentData <https://example.com/DataCleaner_PersistentData> ;
+    plasma:hasServiceTemporaryData <https://example.com/DataCleaner_TemporaryData> ;
+    plasma:hasAgent <https://example.com/ServiceAgent> .
+
+<https://example.com/DataCleaner/Manifest> a plasma:ServiceManifest ;
+    dcterms:issued "2023-10-23T22:42:29"^^xsd:dateTime ;
+    dcterms:title "Data Cleaner" ;
+    dcterms:description "Service that cleans app and service temporary data that is no longer needed" ;
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ;
+    plasma:hasDeveloper <https://example.com/ServiceDeveloper_EntityA> ;
+    odrl:hasPolicy <https://example.com/DataCleaner/DataRequest> ;
+    dpv:hasPolicy <https://example.com/DataCleaner/PrivacyPolicy> .
+
+
+<https://example.com/ServiceDeveloper_EntityA> a plasma:ServiceDeveloper ;
+    plasma:serviceType plasma:DataManagementService ;
+    dpv:hasName "Entity A" ;
+    dpv:hasAddress "Address of Entity A" ;
+    dpv:hasContact "mailto:entity_a@mail.com" .
+
+<https://example.com/ServiceAgreement> a plasma:ServiceAgreement .
+
+# Research what needs to be provided to describe services functionalities
+<https://example.com/DataCleaner_Metadata> a plasma:ServiceMetadata ;
+    dcterms:description "Service metadata"@en ;
+    plasma:hasDeveloper <https://example.com/ServiceDeveloper_EntityA> .
+
+<https://example.com/DataCleaner_PersistentData> a plasma:ServicePersistentData ;
+    dcterms:description "Query to look for temporary data to delete." ;
+    schema:query """SELECT ?delete
+        WHERE { ?service a plasma:Service ; plasma:hasServiceTemporaryData ?delete . ?delete dcterms:valid ?date .
+        FILTER ( now() > ?date ) }"""@en .
+
+<https://example.com/DataCleaner_TemporaryData> a plasma:ServiceTemporaryData ;
+    dcterms:description "Some temporary data." ;
+    rdf:value "Temporary data" ;
+    dcterms:valid "2023-11-01T15:18:42"^^xsd:dateTime .
+
+<https://example.com/ServiceAgent> a plasma:ServiceAgent ;
+    dcterms:description "Agent that assists the service with frequent queries." ;
+    plasma:hasProvider <https://example.com/Provider_ServiceAgent> .
+
+<https://example.com/Provider_ServiceAgent> a plasma:Provider ; # should we have agent provider/developer as concepts?
+    dpv:hasName "Entity X" ;
+    dpv:hasAddress "Address of Entity X" ;
+    dpv:hasContact "mailto:entity_x@mail.com" .

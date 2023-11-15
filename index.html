@@ -230,6 +230,7 @@
       <ul>
         <li><code>IdentityService</code>: A <code>Service</code> providing identity credentials and identifiers.</li>
         <li><code>LoggingService</code>: A <code>Service</code> providing logging mechanisms and functionalities.</li>
+        <li><code>AccessControlService</code>: A <code>Service</code> providing access control management and associated functionalities.</li>
         <li><code>PolicyManagementService</code>: A <code>Service</code> providing policy management and resolution functionalities.</li>
         <li><code>IdentityManagementService</code>: A <code>Service</code> providing identity management functionalities.</li>
         <li><code>DataManagementService</code>: A <code>Service</code> providing data management and associated functionalities.</li>
@@ -291,7 +292,7 @@
         <ul>
           <li><code>AccessControlRegistry</code>: A <code>Registry</code> listing access control decisions and authorisations.</li>
           <li><code>DataRegistry</code>: A <code>Registry</code> listing data categories, resources, availability, and other relevant information.</li>
-          <li><code>DataSchemaRegistry</code>: A <code>Registry</code> listing recognised or supported schemas for <code>Data</code>, <code>Apps</code>, or <code>Services</code>.</li>
+          <li><code>DataSchemaRegistry</code>: A <code>Registry</code> listing recognised or supported <code>SchemaData</code> for <code>Pods</code>, <code>Apps</code>, or <code>Services</code>.</li>
           <li><code>PolicyRegistry</code>: A <code>Registry</code> listing policies relevant to <code>Data</code>, <code>Apps</code>, <code>Services</code>, and <code>Pod</code>. For example, user preferences, consent decisions, pending requests.</li>
           <li><code>AppRegistry</code>: A <code>Registry</code> listing <code>Apps</code> associated with the <code>Pod</code>. For example, a contact book app along with its relevant metadata such as <code>Provider</code>, <code>Developer</code>, <code>Policies</code>.</li>
           <li><code>ServiceRegistry</code>: A <code>Registry</code> listing <code>Services</code> associated with the <code>Pod</code>. For example, a query service that can retrieve data along with its relevant metadata such as <code>Provider</code>, <code>Developer</code>, <code>Policies</code>.</li>
@@ -319,7 +320,7 @@
     <blockquote>In this example, User A issued a preference policy <code>https://example.com/preference1</code> that permits <code>oac:Read</code> access operations over its <code>oac:Age</code> data for the purpose of <code>dpv:AcademicResearch</code> if the legal basis is <code>dpv:Consent</code>.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/preference1> a oac:Preference ;
+&lt;https://example.com/preference1> a oac:Preference, plasma:UserPreference ;
   odrl:profile oac: ;
   dct:description "Preference to read age data for academic research based on consent." ;
   dct:creator ex:userA ;
@@ -355,7 +356,7 @@
     <blockquote>In this example, User A issued a requirement policy <code>https://example.com/requirement1</code> that permits <code>oac:Read</code> access operations over its <code>oac:Identifier</code> data for the purpose of <code>dpv:IdentityVerification</code> if the legal basis is <code>dpv:Consent</code>.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/requirement1> a oac:Requirement ;
+&lt;https://example.com/requirement1> a oac:Requirement, plasma:UserRequirement ;
   odrl:profile oac: ;
   dct:description "Requirement to read identifier data for identity verification based on consent." ;
   dct:creator ex:userA ;
@@ -391,7 +392,7 @@
     <blockquote>In this example, User A issued an <code>odrl:Offer</code> with the identifier <code>https://example.com/offer1</code>, based on the requirement <code>https://example.com/requirement1</code> and preference <code>https://example.com/preference1</code> policies, as is indicated by the <code>dct:source</code> property. The permission associated with the requirement policy contains the property <code>dpv:hasContext</code> associated with the term <code>dpv:Required</code> to indicate that said permission is a requirement, while the term <code>dpv:Optional</code> is used to identify the rules related with a preference policy.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/offer1> a odrl:Offer ;
+&lt;https://example.com/offer1> a odrl:Offer, plasma:UserOffer ;
   odrl:profile oac: ;
   dct:description "Offer to read identifier data for identity verification and age data for academic research based on consent." ;
   dct:creator ex:userA ;
@@ -450,7 +451,7 @@
     <blockquote>In this example, User B issued an <code>odrl:Request</code> with the identifier <code>https://example.com/request1</code> to <code>oac:Use</code> <code>oac:Age</code> data for the purpose of conducting an academic research project X.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/request1> a odrl:Request;
+&lt;https://example.com/request1> a odrl:Request, plasma:DataRequest ;
   odrl:profile oac: ;
   dct:description "Request to read age data for academic research." ;
   dct:creator ex:userB ;
@@ -480,7 +481,7 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
     <blockquote>In this example, User A and B reach an agreement to allow <code>oac:Read</code> access operations over User A's <code>Age</code> data for the purpose of academic research in project X. This <code>odrl:Agreement</code> is the result of the matching of <code>https://example.com/offer1</code> and <code>https://example.com/request1</code>, as indicated by the <code>dct:references</code> property. The legal basis of the agreement is consent, as is specified in the policy with the <code>dpv:hasLegalBasis dpv:Consent</code> terms, and User A and User B are registered as the data subject and data controller in question, respectively, using the <code>dpv:hasDataSubject</code> and <code>dpv:hasDataController</code> terms.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/agreement1> a odrl:Agreement ;
+&lt;https://example.com/agreement1> a odrl:Agreement, plasma:UserConsent ;
   odrl:profile oac: ;
   dct:description "Agreement to read age data for academic research based on consent." ;
   dct:creator ex:userA ;
@@ -510,7 +511,7 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
     <blockquote>In this example, User A and B reach an agreement to allow <code>oac:Read</code> access operations over User A's <code>Contact</code> data for the purpose of academic research project X. This <code>odrl:Agreement</code> is the result of the matching of <code>https://example.com/offer2</code> and <code>https://example.com/request2</code>, as indicated by the <code>dct:references</code> property. The legal basis of the agreement is a contract, as is specified in the policy with the <code>dpv:hasLegalBasis dpv:Contract</code> terms, and User A and User B are registered as the data subject and data controller in question, respectively, using the <code>dpv:hasDataSubject</code> and <code>dpv:hasDataController</code> terms.</blockquote>
     <div class="example">
       <pre>
-&lt;https://example.com/agreement2> a odrl:Agreement ;
+&lt;https://example.com/agreement2> a odrl:Agreement, plasma:DataAgreement ;
   odrl:profile oac: ;
   dct:description "Agreement to read age data for academic research based on a contract." ;
   dct:creator ex:userA ;
@@ -549,13 +550,13 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
           <li>Shape for <code>PolicyRegistry</code></li>
           <li>Shape for <code>DataRegistry</code></li>
           <li>Shape for <code>DataSchemaRegistry</code></li>
+          <li>Shape for <code>UserRegistry</code></li>
         </ul>
       </div>
       <ul>
-        <li>A Pod MUST provide or declare <code>PodManagementData</code> which includes metadata about the Pod, such as <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers, as well as the specific <code>SolidPlatform</code> and <code>SolidSpecification</code> implemented by the <code>Pod</code>.</li>
-        <li>A Pod MUST implement or provide equivalent functionality to support the different registries and records/logs specified in this document, namely the <code>AccessControlRegistry</code> and <code>PolicyRegistry</code>, <code>DataRegistry</code> and <code>DataSchemaRegistry</code>.</li>
-        <li>A Pod MUST utilised well-defined shapes for data stored in authorisation and record-keeping related registries, such as <code>AccessControlRegistry</code>.</li>
-        <li>A Pod MAY have multiple users with varying degrees of control (shared Pods can be used to group data from private groups such as families or friends or within organisational environments such as departments or teams in a company). A record of the different users and their level of access MUST be kept in the <code>UserRegistry</code>.</li>
+        <li>A Pod MUST provide or declare <code>PodManagementData</code> which includes metadata about the Pod, such as <code>InfrastructureProvider</code>, <code>PodProvider</code> and <code>SolidPlatformProvider</code> and of its developers in case they differ from the providers, as well as the specific <code>SolidPlatform</code> and <code>SolidSpecification</code> implemented in the Pod and possibly a <code>PodAgreement</code> between the user and the entity having responsibility for the Pod.<br><small>example: <a href="./conformance/pod/pod-management-data.ttl" target="_blank">pod-management-data</a></small></li>
+        <li>A Pod MUST implement or provide equivalent functionality to support the different registries and records/logs specified in this document, namely the <code>AccessControlRegistry</code> and <code>PolicyRegistry</code>, <code>DataRegistry</code> and <code>DataSchemaRegistry</code>.<br><small>examples: <a href="./conformance/pod/access-control-registry.ttl" target="_blank">access-control-registry</a>; <a href="./conformance/pod/policy-registry.ttl" target="_blank">policy-registry</a>; <a href="./conformance/pod/data-registry.ttl" target="_blank">data-registry</a>; <a href="./conformance/pod/data-schema-registry.ttl" target="_blank">data-schema-registry</a></small></li>
+        <li>A Pod MAY have multiple users with varying degrees of control (shared Pods can be used to group data from private groups such as families or friends or within organisational environments such as departments or teams in a company). A record of the different users and their level of access MUST be kept in the <code>UserRegistry</code>.<br><small>example: <a href="./conformance/user/user-registry.ttl" target="_blank">user-registry</a></small></li>
         <li>Pod discovery methods MAY be available for users wishing to make their data publicly available.</li>
       </ul>
     </section>
@@ -563,75 +564,69 @@ ex:AcademicResearchProjectX a dpv:AcademicResearch ;
     <section id="conformance-app">
       <h3>App Conformance</h3>
       <p>For an App to be conformant with this specification, the following conditions should be satisfied:</p>
+      <div class="issue" title="Shapes for app metadata need to be developed">
+        <p>The requirements for app conformance necessitate shapes or forms to be developed for specifying information in a well-defined / commonly-agreed manner. This includes:</p>
+        <ul>
+          <li>Shape for <code>AppManifest</code></li>
+          <li>Shape for <code>AppRegistry</code></li>
+        </ul>
+      </div>
       <ul>
-        <li>All <code>Apps</code> SHOULD have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification</a>
+        <li>All <code>Apps</code> SHOULD have an <code>AppManifest</code> in conformance with <a href="https://www.w3.org/TR/appmanifest/" target="_blank">W3C Web Application Manifest specification.</a>
           <div class="issue" data-number="1">
             <p>The W3C App Manifest specification is not sufficient to provide the necessary information as required for legal accountability. Missing items include the app's providers and developer's legal identities, links to privacy notices and policies, etc.</p>
           </div>
         </li>
-        <li>Shapes SHOULD be used to check conformance with mandatory manifest requirements.</li>
-        <div class="issue">Shape for <code>AppManifest</code> needs to be developed</div>
-        <li>App manifests of relevant apps MUST be stored in the <code>AppRegistry</code>.</li>
-        <div class="issue">Shape for <code>AppRegistry</code> needs to be developed</div>
         <li>App manifests MUST include infomation regarding the <code>AppDeveloper</code> and/or <code>AppProvider</code>.</li>
         <li><code>AppManifest</code> SHOULD state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links. The <code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example of a data request policy available in <a href="#data-request">Section 3.4</a>.</li>
         <li><code>AppManifest</code> SHOULD link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
-        <li><code>Apps</code> MAY have multiple <code>AppAgents</code>, which SHOULD be registered in the <code>AppRegistry</code>.</li>
+        <li>Shapes SHOULD be used to check conformance with mandatory manifest requirements.<br><small>example: <a href="./conformance/app/app-manifest.ttl" target="_blank">app-manifest</a></small></li>
+        <li>App manifests of relevant apps MUST be stored in the <code>AppRegistry</code>.</li>
+        <li><code>Apps</code> MAY have multiple <code>AppAgents</code>, which SHOULD be registered in the <code>AppRegistry</code>.<br><small>example: <a href="./conformance/app/app-registry.ttl" target="_blank">app-registry</a></small></li>
       </ul>
-
-      <div class="example">
-        <pre>
-ex:app a :App ;
-  :hasManifest ex:app-manifest .
-
-ex:app-manifest a :AppManifest ;
-  dc:language "en" ;
-  dc:title "Super Racer 3000" ;
-  dc:description "A racer game app." ;
-        …
-  odrl:hasPolicy ex:DataRequest ;
-  dpv:hasPolicy ex:appPrivacyPolicy .
-        </pre>
-      </div>
-
     </section>
 
     <section id="conformance-service">
       <h3>Service Conformance</h3>
     </section>
       <p>For a Service to be conformant with this specification, the following conditions should be satisfied:</p>
+      <div class="issue" title="Shapes for service metadata need to be developed">
+        <p>The requirements for service conformance necessitate shapes or forms to be developed for specifying information in a well-defined / commonly-agreed manner. This includes:</p>
+        <ul>
+          <li>Shape for <code>ServiceManifest</code></li>
+          <li>Shape for <code>ServiceRegistry</code></li>
+        </ul>
+      </div>
       <ul>
         <li>All <code>Services</code> SHOULD have a <code>ServiceManifest</code>.</li>
-        <div class="issue">A Service Manifest specification should be developed to provide the necessary information as required for legal accountability, including items such as the service providers and developer's legal identities, links to privacy notices and policies, etc.</p>
-        </div>
-        <li>Shapes SHOULD be used to check conformance with mandatory manifest requirements.</li>
-        <div class="issue">Shape for <code>ServiceManifest</code> needs to be developed</div>
-        <li>Service manifests of relevant services MUST be stored in the <code>ServiceRegistry</code>.</li>
-        <div class="issue">Shape for <code>ServiceRegistry</code> needs to be developed</div>
+        <div class="issue">A Service Manifest specification should be developed to provide the necessary information as required for legal accountability, including items such as the service providers and developer's legal identities, links to privacy notices and policies, etc.</p></div>
         <li>Service manifests MUST include infomation regarding the <code>ServiceDeveloper</code> and/or <code>ServiceProvider</code>.</li>
         <li><code>ServiceManifest</code> SHOULD state the <code>DataRequest</code> using <code>odrl:hasPolicy</code> either through internal triples or external links. The <code>DataRequest</code> should be checked for compliance to conformance with the ODRL profile for access control, e.g. example of a data request policy available in <a href="#data-request">Section 3.4</a>.</li>
-        <li><code>ServiceManifest</code> SHOULD link the privacy policy of the app using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
-        <li><code>Services</code> MAY have multiple <code>ServiceAgents</code>, which SHOULD be registered in the <code>ServiceRegistry</code>.</li>
+        <li><code>ServiceManifest</code> SHOULD link the privacy policy of the service using <code>dpv:hasPolicy</code> either through internal triples or external links.</li>
+        <li>Shapes SHOULD be used to check conformance with mandatory manifest requirements.<br><small>example: <a href="./conformance/service/service-manifest.ttl" target="_blank">service-manifest</a></small></li>
+        <li>Service manifests of relevant services MUST be stored in the <code>ServiceRegistry</code>.</li>
+        <li><code>Services</code> MAY have multiple <code>ServiceAgents</code>, which SHOULD be registered in the <code>ServiceRegistry</code>.<br><small>example: <a href="./conformance/service/service-registry.ttl" target="_blank">service-registry</a></small></li>
       </ul>
 
     <section id="conformance-user">
       <h3>User Conformance</h3>
       <p>For a User to be conformant with this specification, the following conditions should be satisfied:</p>
-      <ul>
-        <li>Impactful interactions of a <code>User</code>, such as logins, changing identity providers, changing data permissions or creating/editing policies within a <code>Pod</code> MUST be recorded using a well-defined shape.</li>
-        <div class="issue">
-          <ul>
+      <div class="issue" title="Shapes for user metadata need to be developed">
+        <p>The requirements for user conformance necessitate shapes or forms to be developed for specifying information in a well-defined / commonly-agreed manner. This includes:</p>
+        <ul>
             <li>Shape for <code>IdentityLog</code></li>
             <li>Shape for <code>DataLog</code></li>
             <li>Shape for <code>AccessControlLog</code></li>
             <li>Shape for <code>PolicyLog</code></li>
             <li>Shape for <code>SecurityLog</code></li>
-          </ul>
-        </div>
+            <li>Shape for <code>UserRegistry</code></li>
+        </ul>
+      </div>
+      <ul>
+        <li>Impactful interactions of a <code>User</code>, such as logins, changing identity providers, changing data permissions or creating/editing policies within a <code>Pod</code> MUST be recorded using a well-defined shape.<br><small>examples: <a href="./conformance/user/data-log.ttl" target="_blank">data-log</a>; <a href="./conformance/user/policy-log.ttl" target="_blank">policy-log</a>; <a href="./conformance/user/identity-log.ttl" target="_blank">identity-log</a>; <a href="./conformance/user/access-control-log.ttl" target="_blank">access-control-log</a></small></li>
         <li>A <code>UserRegistry</code> MUST contain information regarding the <code>DataSubjects</code> storing data within a Pod, the <code>PodAdmin</code> and all other users, e.g., <code>ReadUser</code>, <code>WriteUser</code> or <code>AdminUser</code>, that might have access to the <code>Data</code>.</li>
-        <div class="issue">Shape for <code>UserRegistry</code></div>
         <li><code>Users</code> MAY be directly associated with a <code>DataRequest</code> so that they can make requests for data without using an application or service. These <code>DataRequest</code>s should be checked for compliance to conformance with the ODRL profile for access control, e.g. example of a data request policy available in <a href="#data-request">Section 3.4</a>.</li>
-        <li><code>Users</code> MAY have multiple <code>UserAgents</code>, which SHOULD be registered in the <code>UserRegistry</code>.</li>
+        <li><code>Users</code> MAY have multiple <code>UserAgents</code>, which SHOULD be registered in the <code>UserRegistry</code>.<br><small>example: <a href="./conformance/user/user-registry.ttl" target="_blank">user-registry</a></small></li>
       </ul>
 
     </section>
@@ -639,10 +634,12 @@ ex:app-manifest a :AppManifest ;
     <section id="conformance-agent">
       <h3>Agent Conformance</h3>
       <p>For an Agent to be conformant with this specification, the following conditions should be satisfied:</p>
-      <div class="issue">Shape for the records of activity of agents.</div>
+      <div class="issue" title="Shape of records of activity of agents" data-number="3">
+        <p>Is it enough to associate <code>Log</code>s, e.g., <code>AppLog</code>s, <code>ServiceLog</code>s, <code>DataLog</code>s, etc., with the agents that generated them (in case there is an agent acting on behalf of <i>something</i>), or should it be defined one or more shapes, depending on the type of agent, for an <code>AgentLog</code>?</p>
+      </div>
       <ul>
         <li><code>Agents</code> activity MUST be in accordance with the manifest of the entity for which they are acting on behalf of.</li>
-        <li>A record of the usage of an <code>AppAgent</code>, <code>ServiceAgent</code> or <code>UserAgent</code> MUST be kept in the <code>AppRegistry</code>, <code>ServiceRegistry</code> or <code>UserRegistry</code>, respectively, including information regarding its providers/developers for accountability.</li>
+        <li>A record of the usage of an <code>AppAgent</code>, <code>ServiceAgent</code> or <code>UserAgent</code> MUST be kept in the <code>AppRegistry</code>, <code>ServiceRegistry</code> or <code>UserRegistry</code>, respectively, including information regarding its providers/developers for accountability.<br><small>examples: <a href="./conformance/app/app-registry.ttl" target="_blank">app-registry</a>; <a href="./conformance/service/service-registry.ttl" target="_blank">service-registry</a>; <a href="./conformance/user/user-registry.ttl" target="_blank">user-registry</a></small></li>
       </ul>
 
     </section>

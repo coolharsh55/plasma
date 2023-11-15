@@ -1,0 +1,61 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX sh:   <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+########################
+# Data schema registry #
+########################
+
+<https://example.com/DataSchemaRegistry> a plasma:DataSchemaRegistry ;
+    dcterms:description "Registry listing recognised or supported schemas for Pods, apps or services of User A's Pod"@en ;
+    dcterms:created "2023-09-10T11:51:17"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T12:39:50"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/DataManagementServiceProvider> ;
+    plasma:hasSchema <https://example.com/EHR-schema>,
+        <https://example.com/img-format>,
+        <https://example.com/entity-shape> .
+
+<https://example.com/DataManagementServiceProvider> a plasma:ServiceProvider ;
+    plasma:serviceType plasma:DataManagementService ;
+    dpv:hasName "Entity A" ;
+    dpv:hasAddress "Address of Entity A" ;
+    dpv:hasContact "mailto:entity_a@mail.com" .
+
+<https://example.com/EHR-schema> a plasma:SchemaData ;
+    dcterms:conformsTo <http://www.w3.org/TR/turtle/> ;
+    plasma:supportedBy <https://example.com/health-service> .
+
+<https://example.com/health-service> a plasma:Service .
+
+<https://example.com/img-format> a plasma:SchemaData ;
+    dcterms:format <https://www.iana.org/assignments/media-types/image/png>,
+        <https://www.iana.org/assignments/media-types/image/svg+xml> ;
+    plasma:supportedBy <https://example.com/social-app> .
+
+<https://example.com/social-app> a plasma:App .
+
+<https://example.com/entity-shape> a plasma:SchemaData, sh:NodeShape ;
+    plasma:supportedBy <https://podprovider.com/beatriz> ;
+    sh:name "PLASMA entity shape"@en ;
+    sh:description "Minimum data that PLASMA entities should provide to be identified."@en ;
+    sh:targetClass plasma:Entity ;
+    sh:property [
+        sh:path dpv:hasName ;
+		sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path dpv:hasAddress ;
+		sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path dpv:hasContact ;
+		sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .

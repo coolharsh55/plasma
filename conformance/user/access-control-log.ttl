@@ -1,0 +1,37 @@
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+######################
+# Access Control Log #
+######################
+
+# Relevant activities in activitystreams: Accept, Reject
+# Activities defined in PLASMA:
+<https://example.com/AccessControlLog_Reject> a plasma:AccessControlLog ;
+	dcterms:type as:Reject ;
+	dcterms:issued "2023-11-12T15:34:04"^^xsd:dateTime ;
+	as:summary "Access to data rejected" ;
+	as:object <https://solidweb.me/besteves4/health/ehr> ;
+	as:actor <https://solidweb.me/arya/profile/card#me> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/AccessControlLog_Accept> a plasma:AccessControlLog ;
+	dcterms:type as:Accept ;
+	dcterms:issued "2023-11-12T15:43:09"^^xsd:dateTime ;
+	as:summary "Access to data accepted" ;
+	as:object <https://solidweb.me/besteves4/contacts/> ;
+	as:actor <https://solidweb.me/arya/profile/card#me> ;
+	as:generator <https://example.com/App> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/App> a plasma:App .
+
+<https://example.com/LoggingServiceProvider> a plasma:ServiceProvider ;
+	plasma:serviceType plasma:LoggingService ;
+	dpv:hasName "Entity G" ;
+	dpv:hasAddress "Address of Entity G" ;
+	dpv:hasContact "mailto:entity_g@mail.com" .

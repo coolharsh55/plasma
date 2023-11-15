@@ -1,0 +1,70 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dpv-pd: <https://w3id.org/dpv/dpv-pd#>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+################
+# App registry #
+################
+
+<https://example.com/AppRegistry> a plasma:AppRegistry ;
+    dcterms:description "Registry listing apps and their relevant policies, agents, and other relevant information"@en ;
+    dcterms:created "2023-09-30T11:33:35"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T11:31:40"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/AppManagementServiceProvider> ;
+    plasma:hasApp <https://example.com/Contacts> .
+
+<https://example.com/AppManagementServiceProvider> a plasma:ServiceProvider ;
+    plasma:serviceType plasma:AppManagementService ;
+    dpv:hasName "Entity D" ;
+    dpv:hasAddress "Address of Entity D" ;
+    dpv:hasContact "mailto:entity_d@mail.com" .
+
+<https://example.com/Contacts> a plasma:App ;
+    plasma:hasAppManifest <https://example.com/Contacts/Manifest> ;
+    odrl:hasPolicy <https://example.com/AppAgreement> ;
+    plasma:hasAppMetadata <https://example.com/Contacts_Metadata> ;
+    plasma:hasAppPersistentData <https://example.com/Contacts_PersistentData> ;
+    plasma:hasAppTemporaryData <https://example.com/Contacts_TemporaryData> ;
+    plasma:hasAgent <https://example.com/AppAgent> .
+
+<https://example.com/Contacts/Manifest> a plasma:AppManifest ;
+    dcterms:issued "2023-10-23T22:43:57"^^xsd:dateTime ;
+    dcterms:title "Contacts" ;
+    dcterms:description "App to manage contacts" ;
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ;
+    plasma:hasProvider <https://example.com/AppProvider_AppStore> ;
+    plasma:hasDeveloper <https://example.com/AppDeveloper_EntityB> ;
+    odrl:hasPolicy <https://example.com/Contacts/DataRequest> ;
+    dpv:hasPolicy <https://example.com/Contacts/PrivacyPolicy> .
+
+<https://example.com/AppAgreement> a plasma:AppAgreement .
+
+# Look in app stores the type of data that is provided to describe apps functionalities
+# app type, e.g. health, news, game, ...
+<https://example.com/Contacts_Metadata> a plasma:AppMetadata ;
+    dcterms:description "App metadata"@en ;
+    plasma:hasProvider <https://example.com/AppProvider_AppStore> ;
+    plasma:hasDeveloper <https://example.com/AppDeveloper_EntityB> .
+
+<https://example.com/Contacts_PersistentData> a plasma:AppPersistentData ;
+    dcterms:type dpv-pd:TelephoneNumber ;
+    rdf:value "(+34)691485135" .
+
+<https://example.com/Contacts_TemporaryData> a plasma:AppTemporaryData ;
+    dcterms:type dpv-pd:TelephoneNumber ;
+    rdf:value "(+34)691998745" ;
+    dcterms:valid "2023-10-01T14:50:21"^^xsd:dateTime .
+
+<https://example.com/AppAgent> a plasma:AppAgent ;
+    dcterms:description "Agent that assists the app with frequent queries." ;
+    plasma:hasProvider <https://example.com/Provider_AppAgent> .
+
+<https://example.com/Provider_AppAgent> a plasma:Provider ; # should we have agent provider/developer as concepts?
+    dpv:hasName "Entity X" ;
+    dpv:hasAddress "Address of Entity X" ;
+    dpv:hasContact "mailto:entity_x@mail.com" .

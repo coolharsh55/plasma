@@ -1,18 +1,20 @@
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix owl: <http://www.w3.org/2002/07/owl#>
-prefix dcterms: <http://purl.org/dc/terms/>
-prefix vann: <http://purl.org/vocab/vann/>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix skos: <http://www.w3.org/2004/02/skos/core#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix dpv: <https://w3id.org/dpv#>
-prefix dpv-tech: <https://w3id.org/dpv/dpv-tech#>
-prefix odrl: <http://www.w3.org/ns/odrl/2/>
-prefix oac: <https://w3id.org/oac#>
-prefix acp: <http://www.w3.org/ns/solid/acp#>
+PREFIX acl: <http://www.w3.org/ns/auth/acl#>
+PREFIX acp: <http://www.w3.org/ns/solid/acp#>
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX dpv-tech: <https://w3id.org/dpv/dpv-tech#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vann: <http://purl.org/vocab/vann/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-prefix plasma: <https://w3id.org/plasma#>
+PREFIX plasma: <https://w3id.org/plasma#>
 
 # ------------ Ontology Metadata ------------------ #
 
@@ -387,6 +389,12 @@ plasma:LoggingService a rdfs:Class ;
     rdfs:label "Logging Service"@en ;
     skos:definition "A Service providing logging mechanisms and functionalities."@en .
 
+plasma:AccessControlService a rdfs:Class ;
+    rdfs:subClassOf plasma:Service ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Access Control Service"@en ;
+    skos:definition "A Service providing access control management and associated functionalities."@en .
+
 plasma:PolicyManagementService a rdfs:Class ;
     rdfs:subClassOf plasma:Service ;
     rdfs:isDefinedBy plasma: ;
@@ -596,7 +604,7 @@ plasma:DataSchemaRegistry a rdfs:Class ;
     rdfs:subClassOf plasma:Registry ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "Data Schema Registry"@en ;
-    skos:definition "A Registry listing recognised or supported schemas for Data, Apps, or Services."@en .
+    skos:definition "A Registry listing recognised or supported SchemaData for Pods, Apps, or Services."@en .
 
 plasma:PolicyRegistry a rdfs:Class ;
     rdfs:subClassOf plasma:Registry ;
@@ -621,3 +629,183 @@ plasma:UserRegistry a rdfs:Class ;
     rdfs:isDefinedBy plasma: ;
     rdfs:label "User Registry"@en ;
     skos:definition "A Registry listing Users associated with the Pod and their relevant Policies, Agents, and other relevant information."@en .
+
+# ------------ Activity types ------------------ #
+
+plasma:Request a owl:Class ;
+    rdfs:subClassOf as:Activity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Request"@en ;
+    skos:definition "To request some data."@en .
+
+plasma:Login a owl:Class ;
+    rdfs:subClassOf as:Activity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Login"@en ;
+    skos:definition "To successfully login."@en .
+
+plasma:Verify a owl:Class ;
+    rdfs:subClassOf as:Activity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Verify"@en ;
+    skos:definition "To verify something."@en .
+
+plasma:ChangeIdP a owl:Class ;
+    rdfs:subClassOf as:Activity ;
+    rdfs:isDefinedBy plasma: ;
+    rdfs:label "Change identity provider"@en ;
+    skos:definition "To change identity provider."@en .
+
+# ------------ Properties ------------------ #
+
+plasma:hasProvider a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has provider"@en ;
+	skos:definition "Indicates association with the provider of a Pod, Solid platform or infrastructure, identity, app, service or data."@en ;
+	rdfs:range plasma:Provider .
+
+plasma:hasDeveloper a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has developer"@en ;
+	skos:definition "Indicates association with the developer of a Pod, Solid platform, identity, app or service."@en ;
+    rdfs:range plasma:Developer .
+
+plasma:implementedSolidPlatform a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Implemented using Solid platform"@en ;
+	skos:definition "Indicates the Solid platform that is installed or used within a Pod."@en ;
+	rdfs:domain plasma:PodManagementData ;
+	rdfs:range plasma:SolidPlatform .
+
+plasma:implementedSolidSpecification a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Implemented using Solid specification"@en ;
+	skos:definition "Indicates the Solid specification that the Pod conforms to."@en ;
+	rdfs:domain plasma:PodManagementData ;
+	rdfs:range plasma:SolidSpecification .
+
+plasma:serviceType a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Service type"@en ;
+	skos:definition "Indicates the type of service provided/developed by a service provider/developer."@en ;
+	rdfs:domain plasma:ServiceProvider, plasma:ServiceDeveloper ;
+	rdfs:range plasma:Service .
+
+plasma:serviceProvidedByApp a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Service provided by App"@en ;
+	skos:definition "Indicates an app that uses a particular service to provide a certain functionality."@en ;
+	rdfs:domain plasma:Service ;
+	rdfs:range plasma:App .
+
+plasma:hasAuthorisation a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has authorisation"@en ;
+	skos:definition "Indicates an access control authorisation."@en ;
+	rdfs:domain plasma:AccessControlRegistry ;
+	rdfs:range acl:Authorization , acp:AccessGrant .
+
+plasma:hasSchema a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has schema"@en ;
+	skos:definition "Indicates a schema, format or shape for data."@en ;
+	rdfs:domain plasma:DataSchemaRegistry ;
+	rdfs:range plasma:SchemaData .
+
+plasma:supportedBy a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Supported by"@en ;
+	skos:definition "Indicates an app, service or Pod that supports a particular schema, format or shape for data."@en ;
+	rdfs:domain plasma:SchemaData ;
+	rdfs:range plasma:App, plasma:Service, plasma:Pod .
+
+plasma:hasUser a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has user"@en ;
+	skos:definition "Indicates association with a user."@en ;
+	rdfs:domain plasma:UserRegistry ;
+	rdfs:range plasma:User .
+
+plasma:hasPolicy a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has user"@en ;
+	skos:definition "Indicates association of an entity with a policy."@en ;
+	rdfs:domain plasma:Entity ;
+	rdfs:range plasma:Policy .
+
+plasma:hasAgent a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has agent"@en ;
+	skos:definition "Indicates association of an user, app or service with an agent acting on its behalf."@en ;
+	rdfs:domain plasma:User, plasma:App, plasma:Service ;
+	rdfs:range plasma:Agent .
+
+plasma:hasAppManifest a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has application manifest"@en ;
+	skos:definition "Indicates association of an app with an app manifest."@en ;
+	rdfs:domain plasma:App ;
+	rdfs:range plasma:AppManifest .
+
+plasma:hasApp a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has app"@en ;
+	skos:definition "Indicates association with an app."@en ;
+	rdfs:domain plasma:AppRegistry ;
+	rdfs:range plasma:App .
+
+plasma:hasAppMetadata a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has app metadata"@en ;
+	skos:definition "Indicates association with app metadata."@en ;
+	rdfs:domain plasma:App ;
+	rdfs:range plasma:AppMetadata .
+
+plasma:hasAppPersistentData a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has app persistent data"@en ;
+	skos:definition "Indicates association with app data that is persistently stored in the Pod."@en ;
+	rdfs:domain plasma:App ;
+	rdfs:range plasma:AppPersistentData .
+
+plasma:hasAppTemporaryData a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has app temporary data"@en ;
+	skos:definition "Indicates association with app data that is temporarily stored in the Pod."@en ;
+	rdfs:domain plasma:App ;
+	rdfs:range plasma:AppTemporaryData .
+
+plasma:hasServiceManifest a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has service manifest"@en ;
+	skos:definition "Indicates association of a service with a service manifest."@en ;
+	rdfs:domain plasma:Service ;
+	rdfs:range plasma:ServiceManifest .
+
+plasma:hasService a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has service"@en ;
+	skos:definition "Indicates association with a service."@en ;
+	rdfs:domain plasma:ServiceRegistry ;
+	rdfs:range plasma:Service .
+
+plasma:hasServiceMetadata a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has service metadata"@en ;
+	skos:definition "Indicates association with service metadata."@en ;
+	rdfs:domain plasma:Service ;
+	rdfs:range plasma:ServiceMetadata .
+
+plasma:hasServicePersistentData a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has service persistent data"@en ;
+	skos:definition "Indicates association with service data that is persistently stored in the Pod."@en ;
+	rdfs:domain plasma:Service ;
+	rdfs:range plasma:ServicePersistentData .
+
+plasma:hasServiceTemporaryData a rdf:Property ;
+	rdfs:isDefinedBy plasma: ;
+	rdfs:label "Has service temporary data"@en ;
+	skos:definition "Indicates association with service data that is temporarily stored in the Pod."@en ;
+	rdfs:domain plasma:App ;
+	rdfs:range plasma:ServiceTemporaryData .

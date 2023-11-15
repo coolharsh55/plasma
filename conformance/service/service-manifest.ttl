@@ -1,0 +1,53 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+####################
+# Service manifest #
+####################
+
+<https://example.com/DataCleaner> a plasma:Service ;
+    plasma:hasServiceManifest <https://example.com/DataCleaner/Manifest> .
+
+<https://example.com/DataCleaner/Manifest> a plasma:ServiceManifest ;
+    dcterms:issued "2023-10-23T22:42:29"^^xsd:dateTime ;
+    dcterms:title "Data Cleaner" ;
+    dcterms:description "Service that cleans app and service temporary data that is no longer needed" ;
+    dcterms:language <http://id.loc.gov/vocabulary/iso639-1/en> ;
+    plasma:hasDeveloper <https://example.com/ServiceDeveloper_EntityA> ;
+    odrl:hasPolicy <https://example.com/DataCleaner/DataRequest> ;
+    dpv:hasPolicy <https://example.com/DataCleaner/PrivacyPolicy> . # can redirect to an external link or triples (using DPV) that can be stored in the Pod
+
+
+<https://example.com/ServiceDeveloper_EntityA> a plasma:ServiceDeveloper ;
+    plasma:serviceType plasma:DataManagementService ;
+    dpv:hasName "Entity A" ;
+    dpv:hasAddress "Address of Entity A" ;
+    dpv:hasContact "mailto:entity_a@mail.com" .
+
+<https://example.com/DataCleaner/DataRequest> a plasma:DataRequest, odrl:Request ;
+    odrl:profile oac: ;
+    odrl:uid <https://example.com/DataCleaner/DataRequest> ;
+    dcterms:description "Request to erase temporary data from the Pod." ;
+    dcterms:creator <https://example.com/ServiceDeveloper_EntityA> ;
+    dcterms:issued "2023-10-24T22:13:14"^^xsd:dateTime ;
+    odrl:permission [
+        odrl:assignee <https://example.com/ServiceDeveloper_EntityA> ;
+        odrl:action oac:Erase ;
+        odrl:target plasma:AppPersistentData, plasma:ServiceTemporaryData ;
+        odrl:constraint <https://example.com/Constraint_Purpose_CleanTemporaryData>
+    ] .
+
+<https://example.com/Constraint_Purpose_CleanTemporaryData> a odrl:Constraint ;
+    dcterms:title "Purpose for access is to clean temporary data that is no longer needed." ;
+    odrl:leftOperand oac:Purpose ;
+    odrl:operator odrl:eq ;
+    odrl:rightOperand <https://example.com/CleanTemporaryData> .
+
+<https://example.com/CleanTemporaryData> a dpv:Purpose ;
+    rdfs:subClassOf dpv:ServiceProvision ;
+    rdfs:label "Cleans temporary data that is no longer needed." .

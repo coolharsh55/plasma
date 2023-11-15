@@ -1,0 +1,46 @@
+PREFIX as: <https://www.w3.org/ns/activitystreams#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+##############
+# Policy Log #
+##############
+
+# Relevant activities in activitystreams: Create, Update, Delete, Move, Accept, Reject
+# Activities defined in PLASMA: Request
+<https://example.com/PolicyLog_Create> a plasma:PolicyLog ;
+	dcterms:type as:Create ;
+	dcterms:issued "2023-09-03T13:12:02"^^xsd:dateTime ;
+	as:summary "Beatriz created a new policy" ;
+	as:object <https://solidweb.me/besteves4/policies/contact-preferences> ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:generator <https://example.com/PolicyManager> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/PolicyLog_Request> a plasma:PolicyLog ;
+	dcterms:type plasma:Request ;
+	dcterms:issued "2023-09-27T14:30:05"^^xsd:dateTime ;
+	as:summary "Arya requested some data" ;
+	as:object <https://solidweb.me/arya/requests/contacts> ;
+	as:actor <https://solidweb.me/arya/profile/card#me> ;
+	as:generator <https://example.com/PolicyManager> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/PolicyLog_Accept> a plasma:PolicyLog ;
+	dcterms:type as:Accept ;
+	dcterms:issued "2023-09-27T14:43:10"^^xsd:dateTime ;
+	as:summary "Beatriz accepted a data request" ;
+	as:object <https://solidweb.me/besteves4/agreements/agreement-contacts> ;
+	as:actor <https://solidweb.me/besteves4/profile/card#me> ;
+	as:generator <https://example.com/PolicyManager> ;
+	dcterms:publisher <https://example.com/LoggingServiceProvider> .
+
+<https://example.com/PolicyManager> a plasma:App .
+
+<https://example.com/LoggingServiceProvider> a plasma:ServiceProvider ;
+	plasma:serviceType plasma:LoggingService ;
+	dpv:hasName "Entity E" ;
+	dpv:hasAddress "Address of Entity E" ;
+	dpv:hasContact "mailto:entity_e@mail.com" .

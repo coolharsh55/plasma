@@ -1,0 +1,82 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dpv: <https://w3id.org/dpv#>
+PREFIX oac: <https://w3id.org/oac#>
+PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+PREFIX plasma: <https://w3id.org/plasma#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+#################
+# User registry #
+#################
+
+<https://example.com/UserRegistry> a plasma:UserRegistry ;
+    dcterms:description "Registry listing users and their relevant policies, agents, and other relevant information of User A's Pod"@en ;
+    dcterms:created "2023-09-30T11:33:35"^^xsd:dateTime ;
+    dcterms:modified "2023-10-07T12:39:50"^^xsd:dateTime ;
+    dcterms:publisher <https://example.com/UserManagementServiceProvider> ;
+    dpv:hasDataSubject <https://example.com/DataSubject> ;
+    plasma:hasUser <https://example.com/DataSubject>,
+        <https://example.com/ReadUserA>,
+        <https://example.com/ReadUserB>,
+        <https://example.com/AdminUser> .
+
+<https://example.com/UserManagementServiceProvider> a plasma:ServiceProvider ;
+    dpv:hasName "Entity A" ;
+    dpv:hasAddress "Address of Entity A" ;
+    dpv:hasContact "mailto:entity_a@mail.com" .
+
+<https://example.com/DataSubject> a plasma:DataSubject, plasma:PodAdmin ;
+    dpv:hasName "Data Subject" ;
+    dpv:hasAddress "Address of Data Subject" ;
+    dpv:hasContact "mailto:data_subject@mail.com" ;
+    plasma:hasAgent <https://example.com/UserAgent> .
+
+<https://example.com/UserAgent> a plasma:UserAgent ;
+    dcterms:description "Agent that assists the user with matching data requests with user preferences and requirements." ;
+    plasma:hasProvider <https://example.com/Provider_UserAgent> .
+
+<https://example.com/Provider_UserAgent> a plasma:Provider ; # should we have agent provider/developer as concepts?
+    dpv:hasName "Entity X" ;
+    dpv:hasAddress "Address of Entity X" ;
+    dpv:hasContact "mailto:entity_x@mail.com" .
+
+<https://example.com/ReadUserA> a plasma:ReadUser ;
+    dpv:hasName "User A" ;
+    dpv:hasAddress "Address of User A" ;
+    dpv:hasContact "mailto:user_a@mail.com" ;
+    plasma:hasPolicy <https://example.com/UserA_DataRequest> . # connect user with a specific data request
+
+<https://example.com/UserA_DataRequest> a plasma:DataRequest .
+
+<https://example.com/ReadUserB> a plasma:ReadUser ;
+    dpv:hasName "User B" ;
+    dpv:hasAddress "Address of User B" ;
+    dpv:hasContact "mailto:user_b@mail.com" ;
+    plasma:hasPolicy <https://example.com/UserB_DataRequest> ;
+    plasma:hasPolicy <https://example.com/UserB_Consent> . # agreement reached for requested data
+
+<https://example.com/UserB_Consent> a odrl:Agreement, plasma:UserConsent ;
+    odrl:profile oac: ;
+    dcterms:description "Agreement to read age data for academic research based on consent." ;
+    dcterms:creator <https://example.com/DataSubject> ;
+    dcterms:issued "2022-11-08T18:13:37"^^xsd:dateTime ;
+    odrl:uid <https://example.com/UserB_Consent> ;
+    dcterms:references <https://example.com/DataSubject_Preference>, <https://example.com/UserB_DataRequest> ;
+    dpv:hasDataSubject <https://example.com/DataSubject> ;
+    dpv:hasDataController <https://example.com/ReadUserB> ;
+    dpv:hasLegalBasis dpv:Consent ;
+    odrl:permission [
+        odrl:assigner <https://example.com/DataSubject> ;
+        odrl:assignee <https://example.com/ReadUserB> ;
+        odrl:action oac:Read ;
+        odrl:target oac:Age ;
+        odrl:constraint [
+            dcterms:title "Purpose for access is to conduct research in the academic project X." ;
+            odrl:leftOperand oac:Purpose ;
+            odrl:operator odrl:eq ;
+            odrl:rightOperand <https://example.com/Purpose_AcademicResearchProjectX> ] ] .
+
+<https://example.com/AdminUser> a plasma:AdminUser ;
+    dpv:hasName "Admin User" ;
+    dpv:hasAddress "Address of Admin User" ;
+    dpv:hasContact "mailto:admin_user@mail.com" .
