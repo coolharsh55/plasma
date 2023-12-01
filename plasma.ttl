@@ -18,7 +18,7 @@ PREFIX plasma: <https://w3id.org/plasma#>
 
 # ------------ Ontology Metadata ------------------ #
 
-plasma: a owl:Ontology ;
+<https://w3id.org/plasma> a owl:Ontology ;
 	dcterms:title "Policy Language for Solid's Metadata-based Access Control"@en ;
 	vann:preferredNamespacePrefix "plasma" ;
     vann:preferredNamespaceUri "https://w3id.org/plasma#" ;
