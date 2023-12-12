@@ -38,7 +38,7 @@ PREFIX plasma: <https://w3id.org/plasma#>
     dcterms:bibliographicCitation "Cite this vocabulary as: Esteves, B., & Pandit, H. J. (2023). Policy Language for Solid's Metadata-based Access Control 0.1. https://doi.org/10.5281/zenodo.10259727"@en ;
     bibo:doi "10.5281/zenodo.10259727"@en ;
 	foaf:logo <https://harshp.com/plasma/img/base.png> ;
-	sw:status "stable"@en ;
+	sw:term_status "stable"@en ;
     dcterms:source <https://w3id.org/oac>, <https://w3id.org/dpv>, <http://www.w3.org/ns/solid/acp#> ;
     dcterms:license <https://dalicc.net/licenselibrary/CC-BY-4.0> .
 
