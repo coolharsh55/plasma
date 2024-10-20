@@ -4,7 +4,9 @@
 PLASMA proposes a "policy language" that wraps Solid's existing access control
 mechanisms, and enables data and legal governance within the Solid ecosystem.
 
-> **NOTE:** This is work-in-progress, and is incomplete.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10259728.svg)](https://doi.org/10.5281/zenodo.10259728)
+
+Cite this work: Esteves, Beatriz, and Harshvardhan J. Pandit. "Using Patterns to Manage Governance of Solid Apps." (2023). https://ceur-ws.org/Vol-3636/paper5.pdf 
 
 ## Goals
 
